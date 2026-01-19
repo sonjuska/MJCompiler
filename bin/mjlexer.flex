@@ -15,6 +15,9 @@ import java_cup.runtime.Symbol;
 	private Symbol new_symbol(int type, Object value) {
 		return new Symbol(type, yyline+1, yycolumn+1, value);
 	}
+	private int charErrStartLine;
+	private int charErrStartCol;
+	private StringBuilder charErrBuf = new StringBuilder();
 
 %}
 
@@ -23,6 +26,7 @@ import java_cup.runtime.Symbol;
 %column
 
 %xstate COMMENT
+%xstate CHARERR
 
 CHAR_ESC_N  = \\n
 CHAR_ESC_R  = \\r
@@ -70,9 +74,15 @@ CHARCONST = \'({PLAIN_CHAR}|{CHAR_ESC_N}|{CHAR_ESC_R}|{CHAR_ESC_T}|{CHAR_ESC_0}|
 "case"    	{ return new_symbol(sym.CASE, yytext()); }
 
 <YYINITIAL> "//" 		{ yybegin(COMMENT); }
-<COMMENT> . { /* skip */ }
+
+<COMMENT> . 			{ /* skip */ }
 <COMMENT> "\r\n" 		{ yybegin(YYINITIAL); }
 <COMMENT> "\n"			{ yybegin(YYINITIAL); }
+<COMMENT> "\r" 			{ yybegin(YYINITIAL); }
+<COMMENT> <<EOF>> {
+    yybegin(YYINITIAL);
+    return new_symbol(sym.EOF);
+}
 
 <YYINITIAL> "==" 		{ return new_symbol(sym.EQEQ, yytext()); }
 <YYINITIAL> "!=" 		{ return new_symbol(sym.NEQ, yytext()); }
@@ -106,17 +116,42 @@ CHARCONST = \'({PLAIN_CHAR}|{CHAR_ESC_N}|{CHAR_ESC_R}|{CHAR_ESC_T}|{CHAR_ESC_0}|
 "true"  { return new_symbol(sym.BOOLCONST, Boolean.TRUE); }                    //boolConst true
 "false" { return new_symbol(sym.BOOLCONST, Boolean.FALSE); }                   //boolConst false
 
-//char has more than one character between ' '
-\'{CHAR_ELEM}{CHAR_ELEM}+\' {
-    System.out.println("[LEX ERROR]	" + yytext() + " u liniji " + (yyline+1) + ", kolona " + (yycolumn+1));
-}
 
 {CHARCONST} { return new_symbol(sym.CHARCONST, yytext()); }                    //charConst
 
-// char doesn't end with ' 
-\'[^\'\r\n;]* {
-    System.out.println("[LEX ERROR]	"+ yytext() + " u liniji " +
-        (yyline+1) + ", kolona " + (yycolumn+1));
+\' {
+    charErrStartLine = yyline + 1;
+    charErrStartCol  = yycolumn + 1;
+    charErrBuf.setLength(0);
+    charErrBuf.append(yytext()); // "'"
+    yybegin(CHARERR);
+}
+
+<CHARERR> "//" {
+    //ending charerr before the comment
+    System.out.println("[LEX ERROR]\t" + charErrBuf.toString() + " u liniji " + charErrStartLine + ", kolona " + charErrStartCol);
+    yybegin(COMMENT);
+}
+
+<CHARERR> "\r\n" | "\n" | "\r" {
+    System.out.println("[LEX ERROR]\t" + charErrBuf.toString() + " u liniji " + charErrStartLine + ", kolona " + charErrStartCol);
+    yybegin(YYINITIAL);
+}
+
+<CHARERR> \' {
+    charErrBuf.append(yytext()); 
+    System.out.println("[LEX ERROR]\t" + charErrBuf.toString() + " u liniji " + charErrStartLine + ", kolona " + charErrStartCol);
+    yybegin(YYINITIAL);
+}
+
+<CHARERR> <<EOF>> {
+    System.out.println("[LEX ERROR]\t" + charErrBuf.toString() + " u liniji " + charErrStartLine + ", kolona " + charErrStartCol);
+    yybegin(YYINITIAL);
+    return new_symbol(sym.EOF);
+}
+
+<CHARERR> [^\n\r] {
+    charErrBuf.append(yytext());
 }
 
 
