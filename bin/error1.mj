@@ -1,0 +1,13 @@
+program BadLexer
+{
+    int x;
+    x = 5 @ 3;
+    char c, a;
+    c = 'ab';
+    a = 'v bf;
+    
+    //komentar
+    
+    posleKom = true;
+    
+}

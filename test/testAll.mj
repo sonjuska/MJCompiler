@@ -1,0 +1,75 @@
+program LexerAll
+{
+    // 1) Beline: razmaci, tab, novi red
+	int x, y;
+	char ch;
+	bool flag;
+
+    // 2) numConst
+    x = 12345;
+    y = 0;
+
+    // 3) boolConst
+    flag = true;
+    flag = false;
+
+    // 4) charConst (ispravni)
+    ch = 'a';
+    ch = 'Z';
+    ch = ' ';
+    ch = '\n';
+    ch = '\t';
+    ch = '\r';
+    ch = '\0';
+    ch = '\\';
+    ch = '\'';
+
+    // 5) Kljucne reci (sve iz liste)
+    if (x >= 10 && y <= 20 || x != y) {
+        print(x, 5);
+    } else {
+        read(x);
+        break;
+        continue;
+        return;
+    }
+
+    switch (x) {
+        case 1: print(1); break;
+        case 2: print(2); break;
+    }
+
+    for (x = 0; x < 10; x++) {
+        print(x);
+    }
+
+    // 6) Operatori + separatori (svi)
+    x = x + y - 3 * 2 / 1 % 2;
+    x++;
+    x--;
+
+    // 7) Designator oblici: . i [] i length
+    obj.field = 1;
+    arr[0] = 2;
+    x = arr.length;
+
+    // ==========================================
+    // 8) LEKSIČKE GREŠKE (ocekuje se ERR output)
+    // ==========================================
+
+    x = 5 @ 3;          // nedozvoljen znak @
+
+    ch = 'ab';          // charConst sa vise od jednog karaktera
+
+    ch = '\x';          // neispravan escape (nije u dozvoljenim)
+
+    ch = 'v bf;         // nezatvoren char literal (nema zavrsnog ')
+
+    // komentar do kraja linije treba da se preskoci:
+    // @@@ 'ab' '\x'  (sve ovo je u komentaru i ne sme da pravi greske)
+
+    enum E { A = 1, B, C = 3 }   // enum keyword + zarezi + = + brojevi
+    class C extends T { }        // class + extends + {}
+    abstract class AC extends T { }  // abstract + class + extends
+
+}
