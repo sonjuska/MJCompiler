@@ -159,10 +159,3 @@ CHARCONST = \'({PLAIN_CHAR}|{CHAR_ESC_N}|{CHAR_ESC_R}|{CHAR_ESC_T}|{CHAR_ESC_0}|
 
 
 . { System.out.println("[LEX ERROR]	" +yytext()+ " u liniji " + (yyline+1) + ", kolona " + (yycolumn+1)); }
-
-
-
-
-
-
-

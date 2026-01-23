@@ -72,29 +72,229 @@ terminal PLUS, MINUS, MUL, DIV, MOD,
 //separators / punctuation
 terminal SEMI, COMMA, DOT,
          LPAREN, RPAREN, LBRACKET, RBRACKET, LBRACE, RBRACE;
+//boolean
+terminal BOOLCONST;
 
 //valued terminals (Symbol.value)
 terminal String   IDENT;
 terminal Integer  NUMCONST;
 terminal String   CHARCONST;   //it's yytext() in lexer, so String here
-terminal Boolean  BOOLCONST;
 
 //special
-terminal EOF;
+//terminal EOF;
 
 //NONTERMINALS ----------------------------------------------
 
-nonterminal Program, ConstDecl, VarDecl, EnumDecl, ClassDecl,
-			AbstractClassDecl, AbstractMethodDecl, MethodDecl,
-			FormPars, Type, Statement, DesignatorStatement, ActPars,
-			Condition, CondTerm, CondFact, Expr, Term, Factor,
-			Designator, Assignop, Relop, Addop, Mulop
+nonterminal Program, GlobalDeclList, GlobalDecl, MethodDeclList,
+			ConstDecl, ConstDeclList, ConstItem, VarDecl,
+			VarDeclList, BracketsOpt, EnumDecl, EnumDeclList,
+			NumConstOpt, ClassDecl, ExtendsOpt, VarDeclMultiple,
+			MethodDeclMultipleOpt, MethodDeclMultiple, AbstractClassDecl,
+			MOrAMDeclMultipleOpt, AbstractMethodDecl, ReturnType,
+			FormParsOpt, MethodDecl, StatementMultiple, FormPars,
+			FormParsList, Type, Statement, ElseStatementOpt, ExprOpt,
+			CommaNumConstOpt, CaseMultiple, DesignatorStatementOpt,
+			ConditionOpt, DesignatorStatement, DesignatorStatementRest,
+			ActParsOpt, ActPars, ExprList, Condition, OrCondTermMultiple,
+			CondTerm, AndCondFactMultiple, CondFact, CondFactRest, Expr,
+			SimpleExpr, MinusOpt, ExprRest, Term, TermRest, Factor,
+			FactorRest, Designator, DesignatorRestMultiple, IdentLength,
+			Assignop, Relop, Addop, Mulop;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, MethodTypeName; 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList; 
+//nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, MethodTypeName; 
+//nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList; 
+
+//start with Program ;
+precedence left ELSE ;
 
 //GRAMMAR
 
-Program ::= 
+Program ::= (ProgramDecl) PROGRAM IDENT GlobalDeclList LBRACE MethodDeclList RBRACE ;
 
+GlobalDeclList ::= (GlobalDeclListYes) GlobalDecl GlobalDeclList
+                 | (GlobalDeclListEmpty) /* empty */ ;
+
+GlobalDecl ::= (GlobalDeclConst) ConstDecl
+             | (GlobalDeclVar) VarDecl
+             | (GlobalDeclClass) ClassDecl
+             | (GlobalDeclEnum) EnumDecl
+             | (GlobalDeclAbstractClass) AbstractClassDecl ;
+
+MethodDeclList ::= (MethodDeclListYes) MethodDecl MethodDeclList
+                 | (MethodDeclListEmpty) /* empty */ ;
+
+ConstDecl ::= (ConstDecl) CONST Type IDENT ASSIGN ConstItem ConstDeclList SEMI;
+
+ConstDeclList ::= (ConstDeclListYes) COMMA IDENT ASSIGN ConstItem ConstDeclList
+                | (ConstDeclListEmpty) /* empty */ ;
+
+ConstItem ::= (ConstItemNum) NUMCONST
+            | (ConstItemChar) CHARCONST
+            | (ConstItemBool) BOOLCONST ;
+
+VarDecl ::= (VarDecl) Type IDENT BracketsOpt VarDeclList SEMI ;
+
+VarDeclList ::= (VarDeclListYes) COMMA IDENT BracketsOpt VarDeclList
+              | (VarDeclListEmpty) /* empty */ ;
+
+BracketsOpt ::= (BracketsOptYes) LBRACKET RBRACKET
+              | (BracketsOptEmpty) /* empty */ ;
+
+EnumDecl ::= (EnumDecl) ENUM IDENT LBRACE IDENT NumConstOpt EnumDeclList RBRACE ;
+
+EnumDeclList ::= (EnumDeclListYes) COMMA IDENT NumConstOpt EnumDeclList
+               | (EnumDeclListEmpty) /* empty */ ;
+
+NumConstOpt ::= (NumConstOptAssign) ASSIGN NUMCONST
+              | (NumConstOptEmpty) /* empty */ ;
+
+ClassDecl ::= (ClassDecl) CLASS IDENT ExtendsOpt LBRACE VarDeclMultiple MethodDeclMultipleOpt RBRACE ;
+
+ExtendsOpt ::= (ExtendsOptYes) EXTENDS Type
+             | (ExtendsOptEmpty) /* empty */ ;
+
+VarDeclMultiple ::= (VarDeclMultipleYes) VarDecl VarDeclMultiple
+                  | (VarDeclMultipleEmpty) /* empty */ ;
+
+MethodDeclMultipleOpt ::= (MethodDeclMultipleOptYes) LBRACE MethodDeclMultiple RBRACE
+                        | (MethodDeclMultipleOptEmpty) /* empty */ ;
+
+MethodDeclMultiple ::= (MethodDeclMultipleYes) MethodDecl MethodDeclMultiple
+                     | (MethodDeclMultipleEmpty) /* empty */ ;
+
+AbstractClassDecl ::= (AbstractClassDecl) ABSTRACT CLASS IDENT ExtendsOpt LBRACE MOrAMDeclMultipleOpt RBRACE;
+
+MOrAMDeclMultipleOpt ::= (MOrAMDeclMultipleOptMethod) MethodDecl MOrAMDeclMultipleOpt
+                       | (MOrAMDeclMultipleOptAbstract) AbstractMethodDecl SEMI MOrAMDeclMultipleOpt
+                       | (MOrAMDeclMultipleOptEmpty) /* empty */ ;
+
+AbstractMethodDecl ::= (AbstractMethodDecl) ABSTRACT ReturnType IDENT LPAREN FormParsOpt RPAREN ;
+
+ReturnType ::= (ReturnTypeType) Type
+             | (ReturnTypeVoid) VOID ;
+
+FormParsOpt ::= (FormParsOptYes) FormPars
+              | (FormParsOptEmpty) /* empty */ ;
+
+MethodDecl ::= (MethodDecl) ReturnType IDENT LPAREN FormParsOpt RPAREN VarDeclMultiple LBRACE StatementMultiple RBRACE ;
+
+StatementMultiple ::= (StatementMultipleYes) Statement StatementMultiple
+                    | (StatementMultipleEmpty) /* empty */ ;
+
+FormPars ::= (FormPars) Type IDENT BracketsOpt FormParsList;
+
+FormParsList ::= (FormParsListYes) COMMA Type IDENT BracketsOpt FormParsList
+               | (FormParsListEmpty) /* empty */ ;
+
+Type ::= (TypeIdent) IDENT ;
+
+Statement ::= (StmtDesignator) DesignatorStatement SEMI
+            | (StmtIf) IF LPAREN Condition RPAREN Statement ElseStatementOpt
+            | (StmtBreak) BREAK SEMI
+            | (StmtContinue) CONTINUE SEMI
+            | (StmtReturn) RETURN ExprOpt SEMI
+            | (StmtRead) READ LPAREN Designator RPAREN SEMI
+            | (StmtPrint) PRINT LPAREN Expr CommaNumConstOpt RPAREN SEMI
+            | (StmtSwitch) SWITCH LPAREN Expr RPAREN LBRACE CaseMultiple RBRACE
+            | (StmtFor) FOR LPAREN DesignatorStatementOpt SEMI ConditionOpt SEMI DesignatorStatementOpt RPAREN Statement
+            | (StmtBlock) LBRACE StatementMultiple RBRACE ;
+
+ElseStatementOpt ::= (ElseStatementOptYes) ELSE Statement
+                   | (ElseStatementOptEmpty) /* empty */ ;
+
+ExprOpt ::= (ExprOptYes) Expr
+          | (ExprOptEmpty) /* empty */ ;
+
+CommaNumConstOpt ::= (CommaNumConstOptYes) COMMA NUMCONST
+                   | (CommaNumConstOptEmpty) /* empty */ ;
+
+CaseMultiple ::= (CaseMultipleYes) CASE NUMCONST COLON StatementMultiple CaseMultiple
+               | (CaseMultipleEmpty) /* empty */ ;
+
+DesignatorStatementOpt ::= (DesignatorStatementOptYes) DesignatorStatement
+                         | (DesignatorStatementOptEmpty) /* empty */ ;
+
+ConditionOpt ::= (ConditionOptYes) Condition
+               | (ConditionOptEmpty) /* empty */ ;
+
+DesignatorStatement ::= (DesignatorStatement) Designator DesignatorStatementRest ;
+
+DesignatorStatementRest ::= (DesignatorStmtAssign) Assignop Expr
+                          | (DesignatorStmtCall) LPAREN ActParsOpt RPAREN
+                          | (DesignatorStmtInc) INC
+                          | (DesignatorStmtDec) DEC ;
+
+ActParsOpt ::= (ActParsOptYes) ActPars
+             | (ActParsOptEmpty) /* empty */ ;
+
+ActPars ::= (ActPars) Expr ExprList ;
+
+ExprList ::= (ExprListYes) COMMA Expr ExprList
+           | (ExprListEmpty) /* empty */ ;
+
+Condition ::= (Condition) CondTerm OrCondTermMultiple ;
+
+OrCondTermMultiple ::= (OrCondTermMultipleYes) OROR CondTerm OrCondTermMultiple
+                     | (OrCondTermMultipleEmpty) /* empty */ ;
+
+CondTerm ::= (CondTerm) CondFact AndCondFactMultiple ;
+
+AndCondFactMultiple ::= (AndCondFactMultipleYes) ANDAND CondFact AndCondFactMultiple
+                      | (AndCondFactMultipleEmpty) /* empty */ ;
+
+CondFact ::= (CondFact) SimpleExpr CondFactRest ;
+
+CondFactRest ::= (CondFactRestRel) Relop SimpleExpr
+               | (CondFactRestEmpty) /* empty */ ;
+
+Expr ::= (ExprSimple) SimpleExpr
+       | (ExprTernary) CondFact QUESTION Expr COLON Expr ;
+
+SimpleExpr ::= (SimpleExpr) MinusOpt Term ExprRest ;
+
+MinusOpt ::= (MinusOpt) MINUS
+           | (MinusOptEmpty) /* empty */ ;
+
+ExprRest ::= (ExprRestYes) Addop Term ExprRest
+           | (ExprRestEmpty) /* empty */ ;
+
+Term ::= (Term) Factor TermRest ;
+
+TermRest ::= (TermRestYes) Mulop Factor TermRest
+           | (TermRestEmpty) /* empty */ ;
+
+Factor ::= (FactorDesignator) Designator FactorRest
+         | (FactorNum) NUMCONST
+         | (FactorChar) CHARCONST
+         | (FactorBool) BOOLCONST
+         | (FactorNewArray) NEW Type LBRACKET Expr RBRACKET
+         | (FactorParen) LPAREN Expr RPAREN ;
+
+FactorRest ::= (FactorRestCall) LPAREN ActParsOpt RPAREN
+             | (FactorRestEmpty) /* empty */ ;
+
+Designator ::= (Designator) IDENT DesignatorRestMultiple ;
+
+DesignatorRestMultiple ::= (DesignatorRestMultipleDot) DOT IdentLength DesignatorRestMultiple
+                         | (DesignatorRestMultipleIndex) LBRACKET Expr RBRACKET DesignatorRestMultiple
+                         | (DesignatorRestMultipleEmpty) /* empty */ ;
+
+IdentLength ::= (IdentLengthIdent) IDENT
+              | (IdentLengthLength) LENGTH ;
+
+Assignop ::= (Assignop) ASSIGN ;
+
+Relop ::= (RelopEq) EQEQ
+        | (RelopNeq) NEQ
+        | (RelopGt) GT
+        | (RelopGe) GE
+        | (RelopLt) LT
+        | (RelopLe) LE ;
+
+Addop ::= (AddopPlus) PLUS
+        | (AddopMinus) MINUS ;
+
+Mulop ::= (MulopMul) MUL
+        | (MulopDiv) DIV
+        | (MulopMod) MOD ;
 
