@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 24/0/2026 0:1:43
+// 5/1/2026 20:46:12
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -10,14 +10,14 @@ public class ConstDecl implements SyntaxNode {
     private SyntaxNode parent;
     private int line;
     private Type Type;
-    private String I2;
+    private String constName;
     private ConstItem ConstItem;
     private ConstDeclList ConstDeclList;
 
-    public ConstDecl (Type Type, String I2, ConstItem ConstItem, ConstDeclList ConstDeclList) {
+    public ConstDecl (Type Type, String constName, ConstItem ConstItem, ConstDeclList ConstDeclList) {
         this.Type=Type;
         if(Type!=null) Type.setParent(this);
-        this.I2=I2;
+        this.constName=constName;
         this.ConstItem=ConstItem;
         if(ConstItem!=null) ConstItem.setParent(this);
         this.ConstDeclList=ConstDeclList;
@@ -32,12 +32,12 @@ public class ConstDecl implements SyntaxNode {
         this.Type=Type;
     }
 
-    public String getI2() {
-        return I2;
+    public String getConstName() {
+        return constName;
     }
 
-    public void setI2(String I2) {
-        this.I2=I2;
+    public void setConstName(String constName) {
+        this.constName=constName;
     }
 
     public ConstItem getConstItem() {
@@ -107,7 +107,7 @@ public class ConstDecl implements SyntaxNode {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        buffer.append(" "+tab+I2);
+        buffer.append(" "+tab+constName);
         buffer.append("\n");
 
         if(ConstItem!=null)

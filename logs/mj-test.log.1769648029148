@@ -1,0 +1,27 @@
+INFO  01:48:00,981 - Compiling source file: C:\Users\SBM\Desktop\FAKULTET\7. semestar\PP1\pp1lab.templateAST\workspace\MJCompiler\test\VarDeclErrorRecovery.mj
+INFO  01:48:01,005 - #2 program
+INFO  01:48:01,005 - #49 P
+INFO  01:48:01,005 - #49 int
+INFO  01:48:01,005 - #49 aa
+INFO  01:48:01,005 - #40 ,
+INFO  01:48:01,006 - #50 56
+ERROR 01:48:01,006 - 
+Sintaksna greska na liniji 2
+INFO  01:48:01,006 - #39 ;
+INFO  01:48:01,006 - #49 int
+INFO  01:48:01,006 - #49 ok1
+INFO  01:48:01,006 - #39 ;
+INFO  01:48:01,006 - #46 {
+INFO  01:48:01,006 - #14 void
+INFO  01:48:01,006 - #49 main
+INFO  01:48:01,006 - #42 (
+INFO  01:48:01,006 - #43 )
+INFO  01:48:01,006 - #46 {
+INFO  01:48:01,006 - #11 print
+INFO  01:48:01,006 - #42 (
+INFO  01:48:01,010 - #49 ok1
+INFO  01:48:01,010 - #43 )
+INFO  01:48:01,010 - #39 ;
+INFO  01:48:01,010 - #47 }
+INFO  01:48:01,010 - #47 }
+ERROR 01:48:01,010 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 8

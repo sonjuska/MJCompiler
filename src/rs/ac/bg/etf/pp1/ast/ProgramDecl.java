@@ -1,30 +1,31 @@
 // generated with ast extension for cup
 // version 0.8
-// 24/0/2026 0:1:43
+// 5/1/2026 20:46:12
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class ProgramDecl extends Program {
 
-    private String I1;
+    private ProgName ProgName;
     private GlobalDeclList GlobalDeclList;
     private MethodDeclList MethodDeclList;
 
-    public ProgramDecl (String I1, GlobalDeclList GlobalDeclList, MethodDeclList MethodDeclList) {
-        this.I1=I1;
+    public ProgramDecl (ProgName ProgName, GlobalDeclList GlobalDeclList, MethodDeclList MethodDeclList) {
+        this.ProgName=ProgName;
+        if(ProgName!=null) ProgName.setParent(this);
         this.GlobalDeclList=GlobalDeclList;
         if(GlobalDeclList!=null) GlobalDeclList.setParent(this);
         this.MethodDeclList=MethodDeclList;
         if(MethodDeclList!=null) MethodDeclList.setParent(this);
     }
 
-    public String getI1() {
-        return I1;
+    public ProgName getProgName() {
+        return ProgName;
     }
 
-    public void setI1(String I1) {
-        this.I1=I1;
+    public void setProgName(ProgName ProgName) {
+        this.ProgName=ProgName;
     }
 
     public GlobalDeclList getGlobalDeclList() {
@@ -48,17 +49,20 @@ public class ProgramDecl extends Program {
     }
 
     public void childrenAccept(Visitor visitor) {
+        if(ProgName!=null) ProgName.accept(visitor);
         if(GlobalDeclList!=null) GlobalDeclList.accept(visitor);
         if(MethodDeclList!=null) MethodDeclList.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
+        if(ProgName!=null) ProgName.traverseTopDown(visitor);
         if(GlobalDeclList!=null) GlobalDeclList.traverseTopDown(visitor);
         if(MethodDeclList!=null) MethodDeclList.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
+        if(ProgName!=null) ProgName.traverseBottomUp(visitor);
         if(GlobalDeclList!=null) GlobalDeclList.traverseBottomUp(visitor);
         if(MethodDeclList!=null) MethodDeclList.traverseBottomUp(visitor);
         accept(visitor);
@@ -69,7 +73,10 @@ public class ProgramDecl extends Program {
         buffer.append(tab);
         buffer.append("ProgramDecl(\n");
 
-        buffer.append(" "+tab+I1);
+        if(ProgName!=null)
+            buffer.append(ProgName.toString("  "+tab));
+        else
+            buffer.append(tab+"  null");
         buffer.append("\n");
 
         if(GlobalDeclList!=null)

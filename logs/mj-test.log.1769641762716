@@ -1,0 +1,107 @@
+INFO  00:04:48,084 - Compiling source file: C:\Users\SBM\Desktop\FAKULTET\7. semestar\PP1\pp1lab.templateAST\workspace\MJCompiler\test\VarDeclErrorRecovery.mj
+INFO  00:04:48,115 - #2 program
+INFO  00:04:48,115 - #49 P
+INFO  00:04:48,115 - #49 int
+INFO  00:04:48,115 - #49 ab
+INFO  00:04:48,115 - #40 ,
+INFO  00:04:48,116 - #50 56
+ERROR 00:04:48,116 - 
+Sintaksna greska na liniji 2
+INFO  00:04:48,116 - #40 ,
+INFO  00:04:48,116 - #49 aaa
+INFO  00:04:48,116 - #39 ;
+INFO  00:04:48,116 - #49 int
+INFO  00:04:48,116 - #49 ok1
+INFO  00:04:48,116 - #39 ;
+ERROR 00:04:48,116 - Oporavak u listi deklaracije promenljivih do ',' ili ';'
+INFO  00:04:48,117 - #46 {
+INFO  00:04:48,118 - #14 void
+INFO  00:04:48,118 - #49 main
+INFO  00:04:48,122 - #42 (
+INFO  00:04:48,122 - #43 )
+INFO  00:04:48,122 - #46 {
+INFO  00:04:48,123 - #11 print
+INFO  00:04:48,123 - #42 (
+INFO  00:04:48,123 - #49 ok1
+INFO  00:04:48,123 - #43 )
+INFO  00:04:48,126 - #39 ;
+INFO  00:04:48,126 - #47 }
+INFO  00:04:48,126 - #47 }
+INFO  00:04:48,129 - ProgramDecl(
+ P
+  GlobalDeclListYes(
+    GlobalDeclVar(
+      VarDecl(
+        TypeIdent(
+         int
+        ) [TypeIdent]
+       ab
+        BracketsOptEmpty(
+        ) [BracketsOptEmpty]
+        VarDeclListRecover(
+        ) [VarDeclListRecover]
+      ) [VarDecl]
+    ) [GlobalDeclVar]
+    GlobalDeclListYes(
+      GlobalDeclVar(
+        VarDecl(
+          TypeIdent(
+           int
+          ) [TypeIdent]
+         ok1
+          BracketsOptEmpty(
+          ) [BracketsOptEmpty]
+          VarDeclListEmpty(
+          ) [VarDeclListEmpty]
+        ) [VarDecl]
+      ) [GlobalDeclVar]
+      GlobalDeclListEmpty(
+      ) [GlobalDeclListEmpty]
+    ) [GlobalDeclListYes]
+  ) [GlobalDeclListYes]
+  MethodDeclListYes(
+    MethodDecl(
+      ReturnTypeVoid(
+      ) [ReturnTypeVoid]
+     main
+      FormParsOptEmpty(
+      ) [FormParsOptEmpty]
+      VarDeclMultipleEmpty(
+      ) [VarDeclMultipleEmpty]
+      StatementMultipleYes(
+        StmtPrint(
+          ExprSimple(
+            SimpleExpr(
+              MinusOptEmpty(
+              ) [MinusOptEmpty]
+              Term(
+                FactorDesignator(
+                  Designator(
+                   ok1
+                    DesignatorRestMultipleEmpty(
+                    ) [DesignatorRestMultipleEmpty]
+                  ) [Designator]
+                  FactorRestEmpty(
+                  ) [FactorRestEmpty]
+                ) [FactorDesignator]
+                TermRestEmpty(
+                ) [TermRestEmpty]
+              ) [Term]
+              ExprRestEmpty(
+              ) [ExprRestEmpty]
+            ) [SimpleExpr]
+          ) [ExprSimple]
+          CommaNumConstOptEmpty(
+          ) [CommaNumConstOptEmpty]
+        ) [StmtPrint]
+        StatementMultipleEmpty(
+        ) [StatementMultipleEmpty]
+      ) [StatementMultipleYes]
+    ) [MethodDecl]
+    MethodDeclListEmpty(
+    ) [MethodDeclListEmpty]
+  ) [MethodDeclListYes]
+) [ProgramDecl]
+INFO  00:04:48,129 - ===================================
+INFO  00:04:48,130 -  Print count calls = 1
+INFO  00:04:48,130 -  Deklarisanih promenljivih ima = 2

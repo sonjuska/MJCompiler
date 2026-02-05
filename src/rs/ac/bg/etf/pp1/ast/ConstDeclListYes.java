@@ -1,30 +1,30 @@
 // generated with ast extension for cup
 // version 0.8
-// 24/0/2026 0:1:43
+// 5/1/2026 20:46:12
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class ConstDeclListYes extends ConstDeclList {
 
-    private String I1;
+    private String constName;
     private ConstItem ConstItem;
     private ConstDeclList ConstDeclList;
 
-    public ConstDeclListYes (String I1, ConstItem ConstItem, ConstDeclList ConstDeclList) {
-        this.I1=I1;
+    public ConstDeclListYes (String constName, ConstItem ConstItem, ConstDeclList ConstDeclList) {
+        this.constName=constName;
         this.ConstItem=ConstItem;
         if(ConstItem!=null) ConstItem.setParent(this);
         this.ConstDeclList=ConstDeclList;
         if(ConstDeclList!=null) ConstDeclList.setParent(this);
     }
 
-    public String getI1() {
-        return I1;
+    public String getConstName() {
+        return constName;
     }
 
-    public void setI1(String I1) {
-        this.I1=I1;
+    public void setConstName(String constName) {
+        this.constName=constName;
     }
 
     public ConstItem getConstItem() {
@@ -69,7 +69,7 @@ public class ConstDeclListYes extends ConstDeclList {
         buffer.append(tab);
         buffer.append("ConstDeclListYes(\n");
 
-        buffer.append(" "+tab+I1);
+        buffer.append(" "+tab+constName);
         buffer.append("\n");
 
         if(ConstItem!=null)

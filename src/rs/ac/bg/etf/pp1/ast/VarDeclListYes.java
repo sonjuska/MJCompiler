@@ -1,30 +1,30 @@
 // generated with ast extension for cup
 // version 0.8
-// 24/0/2026 0:1:43
+// 5/1/2026 20:46:12
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class VarDeclListYes extends VarDeclList {
 
-    private String I1;
+    private String varName;
     private BracketsOpt BracketsOpt;
     private VarDeclList VarDeclList;
 
-    public VarDeclListYes (String I1, BracketsOpt BracketsOpt, VarDeclList VarDeclList) {
-        this.I1=I1;
+    public VarDeclListYes (String varName, BracketsOpt BracketsOpt, VarDeclList VarDeclList) {
+        this.varName=varName;
         this.BracketsOpt=BracketsOpt;
         if(BracketsOpt!=null) BracketsOpt.setParent(this);
         this.VarDeclList=VarDeclList;
         if(VarDeclList!=null) VarDeclList.setParent(this);
     }
 
-    public String getI1() {
-        return I1;
+    public String getVarName() {
+        return varName;
     }
 
-    public void setI1(String I1) {
-        this.I1=I1;
+    public void setVarName(String varName) {
+        this.varName=varName;
     }
 
     public BracketsOpt getBracketsOpt() {
@@ -69,7 +69,7 @@ public class VarDeclListYes extends VarDeclList {
         buffer.append(tab);
         buffer.append("VarDeclListYes(\n");
 
-        buffer.append(" "+tab+I1);
+        buffer.append(" "+tab+varName);
         buffer.append("\n");
 
         if(BracketsOpt!=null)

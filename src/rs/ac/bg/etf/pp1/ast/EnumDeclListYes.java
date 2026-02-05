@@ -1,30 +1,30 @@
 // generated with ast extension for cup
 // version 0.8
-// 24/0/2026 0:1:43
+// 5/1/2026 20:46:12
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class EnumDeclListYes extends EnumDeclList {
 
-    private String I1;
+    private String enumItemName;
     private NumConstOpt NumConstOpt;
     private EnumDeclList EnumDeclList;
 
-    public EnumDeclListYes (String I1, NumConstOpt NumConstOpt, EnumDeclList EnumDeclList) {
-        this.I1=I1;
+    public EnumDeclListYes (String enumItemName, NumConstOpt NumConstOpt, EnumDeclList EnumDeclList) {
+        this.enumItemName=enumItemName;
         this.NumConstOpt=NumConstOpt;
         if(NumConstOpt!=null) NumConstOpt.setParent(this);
         this.EnumDeclList=EnumDeclList;
         if(EnumDeclList!=null) EnumDeclList.setParent(this);
     }
 
-    public String getI1() {
-        return I1;
+    public String getEnumItemName() {
+        return enumItemName;
     }
 
-    public void setI1(String I1) {
-        this.I1=I1;
+    public void setEnumItemName(String enumItemName) {
+        this.enumItemName=enumItemName;
     }
 
     public NumConstOpt getNumConstOpt() {
@@ -69,7 +69,7 @@ public class EnumDeclListYes extends EnumDeclList {
         buffer.append(tab);
         buffer.append("EnumDeclListYes(\n");
 
-        buffer.append(" "+tab+I1);
+        buffer.append(" "+tab+enumItemName);
         buffer.append("\n");
 
         if(NumConstOpt!=null)

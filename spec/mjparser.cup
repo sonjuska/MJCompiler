@@ -85,31 +85,32 @@ terminal String   CHARCONST;   //it's yytext() in lexer, so String here
 
 //NONTERMINALS ----------------------------------------------
 
-nonterminal Program, GlobalDeclList, GlobalDecl, MethodDeclList,
-			ConstDecl, ConstDeclList, ConstItem, VarDecl,
-			VarDeclList, BracketsOpt, EnumDecl, EnumDeclList,
+nonterminal GlobalDeclList, GlobalDecl, MethodDeclList,
+			ConstDecl, ConstDeclList, VarDecl,
+			BracketsOpt, EnumDecl, EnumDeclList,
 			NumConstOpt, ClassDecl, ExtendsOpt, VarDeclMultiple,
 			MethodDeclMultipleOpt, MethodDeclMultiple, AbstractClassDecl,
-			MOrAMDeclMultipleOpt, AbstractMethodDecl, ReturnType,
-			FormParsOpt, MethodDecl, StatementMultiple, FormPars,
-			FormParsList, Type, Statement, ElseStatementOpt, ExprOpt,
+			MOrAMDeclMultipleOpt, AbstractMethodDecl,
+			FormParsOpt, StatementMultiple, FormPars,
+			FormParsList, Statement, ElseStatementOpt, ExprOpt,
 			CommaNumConstOpt, CaseMultiple, DesignatorStatementOpt,
 			ConditionOpt, DesignatorStatement, DesignatorStatementRest,
 			ActParsOpt, ActPars, ExprList, Condition, OrCondTermMultiple,
-			CondTerm, AndCondFactMultiple, CondFact, CondFactRest, Expr,
-			SimpleExpr, MinusOpt, ExprRest, Term, TermRest, Factor,
-			FactorRest, Designator, DesignatorRestMultiple, IdentLength,
-			Assignop, Relop, Addop, Mulop;
+			CondTerm, AndCondFactMultiple, CondFact, CondFactRest,
+			SimpleExpr, MinusOpt, ExprRest, TermRest,
+			FactorRest, DesignatorRestMultiple, IdentLength,
+			Assignop, Relop, Addop, Mulop, VarDeclTail, EnumName;
 
-//nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, MethodTypeName; 
-//nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList; 
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, ReturnType, MethodTypeName; 
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, ConstItem; 
 
 //start with Program ;
 precedence left ELSE ;
 
 //GRAMMAR
 
-Program ::= (ProgramDecl) PROGRAM IDENT GlobalDeclList LBRACE MethodDeclList RBRACE ;
+Program ::= (ProgramDecl) PROGRAM ProgName GlobalDeclList LBRACE MethodDeclList RBRACE ;
+ProgName ::= (ProgName) IDENT:progName ;
 
 GlobalDeclList ::= (GlobalDeclListYes) GlobalDecl GlobalDeclList
                  | (GlobalDeclListEmpty) /* empty */ ;
@@ -118,31 +119,60 @@ GlobalDecl ::= (GlobalDeclConst) ConstDecl
              | (GlobalDeclVar) VarDecl
              | (GlobalDeclClass) ClassDecl
              | (GlobalDeclEnum) EnumDecl
-             | (GlobalDeclAbstractClass) AbstractClassDecl ;
+             | (GlobalDeclAbstractClass) AbstractClassDecl
+             
+             | (GlobalDeclErrorRecoverSemi) error SEMI:s
+               {:
+                   parser.report_error("Oporavak globalne deklaracije do ';'", s);
+               :}
+             ;
 
 MethodDeclList ::= (MethodDeclListYes) MethodDecl MethodDeclList
                  | (MethodDeclListEmpty) /* empty */ ;
 
-ConstDecl ::= (ConstDecl) CONST Type IDENT ASSIGN ConstItem ConstDeclList SEMI;
+ConstDecl ::= (ConstDecl) CONST Type:constType IDENT:constName ASSIGN ConstItem ConstDeclList SEMI;
 
-ConstDeclList ::= (ConstDeclListYes) COMMA IDENT ASSIGN ConstItem ConstDeclList
+ConstDeclList ::= (ConstDeclListYes) COMMA IDENT:constName ASSIGN ConstItem ConstDeclList
                 | (ConstDeclListEmpty) /* empty */ ;
 
 ConstItem ::= (ConstItemNum) NUMCONST
             | (ConstItemChar) CHARCONST
             | (ConstItemBool) BOOLCONST ;
 
-VarDecl ::= (VarDecl) Type IDENT BracketsOpt VarDeclList SEMI ;
+VarDecl ::= (VarDeclOk) Type:varType IDENT:varName BracketsOpt VarDeclTail
+    | (VarDeclErrorRecovery) Type error SEMI:s
+      {:
+          parser.report_error("Oporavak VarDecl do ';'", s);
+      :}
+    ;
 
-VarDeclList ::= (VarDeclListYes) COMMA IDENT BracketsOpt VarDeclList
-              | (VarDeclListEmpty) /* empty */ ;
+VarDeclTail ::= (VarDeclTailOk) VarDeclList SEMI
+    | (VarDeclTailRecoverSemi) COMMA error SEMI:s
+      {:
+          parser.report_error("Oporavak globalne promenljive do ';'", s);
+      :}
+    ;
+
+VarDeclList ::=
+      (VarDeclListYes) COMMA IDENT:varName BracketsOpt VarDeclList
+    | (VarDeclListRecoverComma) COMMA error COMMA:c VarDeclList:rest
+      {:
+          parser.report_error("Oporavak globalne promenljive do ','", c);
+          RESULT = rest;
+      :}
+    | (VarDeclListEmpty) /* empty */
+    ;
+
+
+
 
 BracketsOpt ::= (BracketsOptYes) LBRACKET RBRACKET
               | (BracketsOptEmpty) /* empty */ ;
 
-EnumDecl ::= (EnumDecl) ENUM IDENT LBRACE IDENT NumConstOpt EnumDeclList RBRACE ;
+EnumDecl ::= (EnumDecl) ENUM EnumName LBRACE IDENT:enumItemName NumConstOpt EnumDeclList RBRACE ;
+EnumName ::= (EnumName) IDENT:enumName ;
 
-EnumDeclList ::= (EnumDeclListYes) COMMA IDENT NumConstOpt EnumDeclList
+EnumDeclList ::= (EnumDeclListYes) COMMA IDENT:enumItemName NumConstOpt EnumDeclList
                | (EnumDeclListEmpty) /* empty */ ;
 
 NumConstOpt ::= (NumConstOptAssign) ASSIGN NUMCONST
@@ -176,17 +206,19 @@ ReturnType ::= (ReturnTypeType) Type
 FormParsOpt ::= (FormParsOptYes) FormPars
               | (FormParsOptEmpty) /* empty */ ;
 
-MethodDecl ::= (MethodDecl) ReturnType IDENT LPAREN FormParsOpt RPAREN VarDeclMultiple LBRACE StatementMultiple RBRACE ;
+MethodDecl ::= (MethodDecl) MethodTypeName LPAREN FormParsOpt RPAREN VarDeclMultiple LBRACE StatementMultiple RBRACE ;
+
+MethodTypeName ::= (MethodTypeName) ReturnType IDENT:methodName;
 
 StatementMultiple ::= (StatementMultipleYes) Statement StatementMultiple
                     | (StatementMultipleEmpty) /* empty */ ;
 
-FormPars ::= (FormPars) Type IDENT BracketsOpt FormParsList;
+FormPars ::= (FormPars) Type:formParsType IDENT:formParsName BracketsOpt FormParsList;
 
-FormParsList ::= (FormParsListYes) COMMA Type IDENT BracketsOpt FormParsList
+FormParsList ::= (FormParsListYes) COMMA Type:formParsType IDENT BracketsOpt FormParsList
                | (FormParsListEmpty) /* empty */ ;
 
-Type ::= (TypeIdent) IDENT ;
+Type ::= (TypeIdent) IDENT:typeName ;
 
 Statement ::= (StmtDesignator) DesignatorStatement SEMI
             | (StmtIf) IF LPAREN Condition RPAREN Statement ElseStatementOpt
@@ -297,4 +329,3 @@ Addop ::= (AddopPlus) PLUS
 Mulop ::= (MulopMul) MUL
         | (MulopDiv) DIV
         | (MulopMod) MOD ;
-

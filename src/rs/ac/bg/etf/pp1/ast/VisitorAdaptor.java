@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 24/0/2026 0:1:43
+// 5/1/2026 20:46:12
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -16,6 +16,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(ActParsOpt ActParsOpt) { }
     public void visit(MethodDeclMultipleOpt MethodDeclMultipleOpt) { }
     public void visit(FactorRest FactorRest) { }
+    public void visit(VarDeclTail VarDeclTail) { }
     public void visit(Addop Addop) { }
     public void visit(CondFactRest CondFactRest) { }
     public void visit(AndCondFactMultiple AndCondFactMultiple) { }
@@ -32,8 +33,8 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(BracketsOpt BracketsOpt) { }
     public void visit(ConstDeclList ConstDeclList) { }
     public void visit(DesignatorStatementOpt DesignatorStatementOpt) { }
-    public void visit(ExprRest ExprRest) { }
     public void visit(ConstItem ConstItem) { }
+    public void visit(ExprRest ExprRest) { }
     public void visit(ConditionOpt ConditionOpt) { }
     public void visit(ExprList ExprList) { }
     public void visit(GlobalDeclList GlobalDeclList) { }
@@ -43,6 +44,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(VarDeclMultiple VarDeclMultiple) { }
     public void visit(CommaNumConstOpt CommaNumConstOpt) { }
     public void visit(Statement Statement) { }
+    public void visit(VarDecl VarDecl) { }
     public void visit(Type Type) { }
     public void visit(StatementMultiple StatementMultiple) { }
     public void visit(ElseStatementOpt ElseStatementOpt) { }
@@ -133,6 +135,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(FormPars FormPars) { visit(); }
     public void visit(StatementMultipleEmpty StatementMultipleEmpty) { visit(); }
     public void visit(StatementMultipleYes StatementMultipleYes) { visit(); }
+    public void visit(MethodTypeName MethodTypeName) { visit(); }
     public void visit(MethodDecl MethodDecl) { visit(); }
     public void visit(FormParsOptEmpty FormParsOptEmpty) { visit(); }
     public void visit(FormParsOptYes FormParsOptYes) { visit(); }
@@ -156,12 +159,17 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(NumConstOptAssign NumConstOptAssign) { visit(); }
     public void visit(EnumDeclListEmpty EnumDeclListEmpty) { visit(); }
     public void visit(EnumDeclListYes EnumDeclListYes) { visit(); }
+    public void visit(EnumName EnumName) { visit(); }
     public void visit(EnumDecl EnumDecl) { visit(); }
     public void visit(BracketsOptEmpty BracketsOptEmpty) { visit(); }
     public void visit(BracketsOptYes BracketsOptYes) { visit(); }
     public void visit(VarDeclListEmpty VarDeclListEmpty) { visit(); }
+    public void visit(VarDeclListRecoverComma VarDeclListRecoverComma) { visit(); }
     public void visit(VarDeclListYes VarDeclListYes) { visit(); }
-    public void visit(VarDecl VarDecl) { visit(); }
+    public void visit(VarDeclTailRecoverSemi VarDeclTailRecoverSemi) { visit(); }
+    public void visit(VarDeclTailOk VarDeclTailOk) { visit(); }
+    public void visit(VarDeclErrorRecovery VarDeclErrorRecovery) { visit(); }
+    public void visit(VarDeclOk VarDeclOk) { visit(); }
     public void visit(ConstItemBool ConstItemBool) { visit(); }
     public void visit(ConstItemChar ConstItemChar) { visit(); }
     public void visit(ConstItemNum ConstItemNum) { visit(); }
@@ -170,6 +178,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(ConstDecl ConstDecl) { visit(); }
     public void visit(MethodDeclListEmpty MethodDeclListEmpty) { visit(); }
     public void visit(MethodDeclListYes MethodDeclListYes) { visit(); }
+    public void visit(GlobalDeclErrorRecoverSemi GlobalDeclErrorRecoverSemi) { visit(); }
     public void visit(GlobalDeclAbstractClass GlobalDeclAbstractClass) { visit(); }
     public void visit(GlobalDeclEnum GlobalDeclEnum) { visit(); }
     public void visit(GlobalDeclClass GlobalDeclClass) { visit(); }
@@ -177,6 +186,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(GlobalDeclConst GlobalDeclConst) { visit(); }
     public void visit(GlobalDeclListEmpty GlobalDeclListEmpty) { visit(); }
     public void visit(GlobalDeclListYes GlobalDeclListYes) { visit(); }
+    public void visit(ProgName ProgName) { visit(); }
     public void visit(ProgramDecl ProgramDecl) { visit(); }
 
 

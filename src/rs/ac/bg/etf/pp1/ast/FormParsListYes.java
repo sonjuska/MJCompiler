@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 24/0/2026 0:1:43
+// 5/1/2026 20:46:12
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -8,14 +8,14 @@ package rs.ac.bg.etf.pp1.ast;
 public class FormParsListYes extends FormParsList {
 
     private Type Type;
-    private String I2;
+    private String I1;
     private BracketsOpt BracketsOpt;
     private FormParsList FormParsList;
 
-    public FormParsListYes (Type Type, String I2, BracketsOpt BracketsOpt, FormParsList FormParsList) {
+    public FormParsListYes (Type Type, String I1, BracketsOpt BracketsOpt, FormParsList FormParsList) {
         this.Type=Type;
         if(Type!=null) Type.setParent(this);
-        this.I2=I2;
+        this.I1=I1;
         this.BracketsOpt=BracketsOpt;
         if(BracketsOpt!=null) BracketsOpt.setParent(this);
         this.FormParsList=FormParsList;
@@ -30,12 +30,12 @@ public class FormParsListYes extends FormParsList {
         this.Type=Type;
     }
 
-    public String getI2() {
-        return I2;
+    public String getI1() {
+        return I1;
     }
 
-    public void setI2(String I2) {
-        this.I2=I2;
+    public void setI1(String I1) {
+        this.I1=I1;
     }
 
     public BracketsOpt getBracketsOpt() {
@@ -89,7 +89,7 @@ public class FormParsListYes extends FormParsList {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        buffer.append(" "+tab+I2);
+        buffer.append(" "+tab+I1);
         buffer.append("\n");
 
         if(BracketsOpt!=null)

@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 24/0/2026 0:1:43
+// 5/1/2026 20:46:12
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -9,34 +9,35 @@ public class EnumDecl implements SyntaxNode {
 
     private SyntaxNode parent;
     private int line;
-    private String I1;
-    private String I2;
+    private EnumName EnumName;
+    private String enumItemName;
     private NumConstOpt NumConstOpt;
     private EnumDeclList EnumDeclList;
 
-    public EnumDecl (String I1, String I2, NumConstOpt NumConstOpt, EnumDeclList EnumDeclList) {
-        this.I1=I1;
-        this.I2=I2;
+    public EnumDecl (EnumName EnumName, String enumItemName, NumConstOpt NumConstOpt, EnumDeclList EnumDeclList) {
+        this.EnumName=EnumName;
+        if(EnumName!=null) EnumName.setParent(this);
+        this.enumItemName=enumItemName;
         this.NumConstOpt=NumConstOpt;
         if(NumConstOpt!=null) NumConstOpt.setParent(this);
         this.EnumDeclList=EnumDeclList;
         if(EnumDeclList!=null) EnumDeclList.setParent(this);
     }
 
-    public String getI1() {
-        return I1;
+    public EnumName getEnumName() {
+        return EnumName;
     }
 
-    public void setI1(String I1) {
-        this.I1=I1;
+    public void setEnumName(EnumName EnumName) {
+        this.EnumName=EnumName;
     }
 
-    public String getI2() {
-        return I2;
+    public String getEnumItemName() {
+        return enumItemName;
     }
 
-    public void setI2(String I2) {
-        this.I2=I2;
+    public void setEnumItemName(String enumItemName) {
+        this.enumItemName=enumItemName;
     }
 
     public NumConstOpt getNumConstOpt() {
@@ -76,17 +77,20 @@ public class EnumDecl implements SyntaxNode {
     }
 
     public void childrenAccept(Visitor visitor) {
+        if(EnumName!=null) EnumName.accept(visitor);
         if(NumConstOpt!=null) NumConstOpt.accept(visitor);
         if(EnumDeclList!=null) EnumDeclList.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
+        if(EnumName!=null) EnumName.traverseTopDown(visitor);
         if(NumConstOpt!=null) NumConstOpt.traverseTopDown(visitor);
         if(EnumDeclList!=null) EnumDeclList.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
+        if(EnumName!=null) EnumName.traverseBottomUp(visitor);
         if(NumConstOpt!=null) NumConstOpt.traverseBottomUp(visitor);
         if(EnumDeclList!=null) EnumDeclList.traverseBottomUp(visitor);
         accept(visitor);
@@ -97,10 +101,13 @@ public class EnumDecl implements SyntaxNode {
         buffer.append(tab);
         buffer.append("EnumDecl(\n");
 
-        buffer.append(" "+tab+I1);
+        if(EnumName!=null)
+            buffer.append(EnumName.toString("  "+tab));
+        else
+            buffer.append(tab+"  null");
         buffer.append("\n");
 
-        buffer.append(" "+tab+I2);
+        buffer.append(" "+tab+enumItemName);
         buffer.append("\n");
 
         if(NumConstOpt!=null)

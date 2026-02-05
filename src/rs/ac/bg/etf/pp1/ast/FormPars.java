@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 24/0/2026 0:1:43
+// 5/1/2026 20:46:12
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -10,14 +10,14 @@ public class FormPars implements SyntaxNode {
     private SyntaxNode parent;
     private int line;
     private Type Type;
-    private String I2;
+    private String formParsName;
     private BracketsOpt BracketsOpt;
     private FormParsList FormParsList;
 
-    public FormPars (Type Type, String I2, BracketsOpt BracketsOpt, FormParsList FormParsList) {
+    public FormPars (Type Type, String formParsName, BracketsOpt BracketsOpt, FormParsList FormParsList) {
         this.Type=Type;
         if(Type!=null) Type.setParent(this);
-        this.I2=I2;
+        this.formParsName=formParsName;
         this.BracketsOpt=BracketsOpt;
         if(BracketsOpt!=null) BracketsOpt.setParent(this);
         this.FormParsList=FormParsList;
@@ -32,12 +32,12 @@ public class FormPars implements SyntaxNode {
         this.Type=Type;
     }
 
-    public String getI2() {
-        return I2;
+    public String getFormParsName() {
+        return formParsName;
     }
 
-    public void setI2(String I2) {
-        this.I2=I2;
+    public void setFormParsName(String formParsName) {
+        this.formParsName=formParsName;
     }
 
     public BracketsOpt getBracketsOpt() {
@@ -107,7 +107,7 @@ public class FormPars implements SyntaxNode {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        buffer.append(" "+tab+I2);
+        buffer.append(" "+tab+formParsName);
         buffer.append("\n");
 
         if(BracketsOpt!=null)

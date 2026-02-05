@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 24/0/2026 0:1:43
+// 5/1/2026 20:46:12
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -16,6 +16,7 @@ public interface Visitor {
     public void visit(ActParsOpt ActParsOpt);
     public void visit(MethodDeclMultipleOpt MethodDeclMultipleOpt);
     public void visit(FactorRest FactorRest);
+    public void visit(VarDeclTail VarDeclTail);
     public void visit(Addop Addop);
     public void visit(CondFactRest CondFactRest);
     public void visit(AndCondFactMultiple AndCondFactMultiple);
@@ -32,8 +33,8 @@ public interface Visitor {
     public void visit(BracketsOpt BracketsOpt);
     public void visit(ConstDeclList ConstDeclList);
     public void visit(DesignatorStatementOpt DesignatorStatementOpt);
-    public void visit(ExprRest ExprRest);
     public void visit(ConstItem ConstItem);
+    public void visit(ExprRest ExprRest);
     public void visit(ConditionOpt ConditionOpt);
     public void visit(ExprList ExprList);
     public void visit(GlobalDeclList GlobalDeclList);
@@ -43,6 +44,7 @@ public interface Visitor {
     public void visit(VarDeclMultiple VarDeclMultiple);
     public void visit(CommaNumConstOpt CommaNumConstOpt);
     public void visit(Statement Statement);
+    public void visit(VarDecl VarDecl);
     public void visit(Type Type);
     public void visit(StatementMultiple StatementMultiple);
     public void visit(ElseStatementOpt ElseStatementOpt);
@@ -133,6 +135,7 @@ public interface Visitor {
     public void visit(FormPars FormPars);
     public void visit(StatementMultipleEmpty StatementMultipleEmpty);
     public void visit(StatementMultipleYes StatementMultipleYes);
+    public void visit(MethodTypeName MethodTypeName);
     public void visit(MethodDecl MethodDecl);
     public void visit(FormParsOptEmpty FormParsOptEmpty);
     public void visit(FormParsOptYes FormParsOptYes);
@@ -156,12 +159,17 @@ public interface Visitor {
     public void visit(NumConstOptAssign NumConstOptAssign);
     public void visit(EnumDeclListEmpty EnumDeclListEmpty);
     public void visit(EnumDeclListYes EnumDeclListYes);
+    public void visit(EnumName EnumName);
     public void visit(EnumDecl EnumDecl);
     public void visit(BracketsOptEmpty BracketsOptEmpty);
     public void visit(BracketsOptYes BracketsOptYes);
     public void visit(VarDeclListEmpty VarDeclListEmpty);
+    public void visit(VarDeclListRecoverComma VarDeclListRecoverComma);
     public void visit(VarDeclListYes VarDeclListYes);
-    public void visit(VarDecl VarDecl);
+    public void visit(VarDeclTailRecoverSemi VarDeclTailRecoverSemi);
+    public void visit(VarDeclTailOk VarDeclTailOk);
+    public void visit(VarDeclErrorRecovery VarDeclErrorRecovery);
+    public void visit(VarDeclOk VarDeclOk);
     public void visit(ConstItemBool ConstItemBool);
     public void visit(ConstItemChar ConstItemChar);
     public void visit(ConstItemNum ConstItemNum);
@@ -170,6 +178,7 @@ public interface Visitor {
     public void visit(ConstDecl ConstDecl);
     public void visit(MethodDeclListEmpty MethodDeclListEmpty);
     public void visit(MethodDeclListYes MethodDeclListYes);
+    public void visit(GlobalDeclErrorRecoverSemi GlobalDeclErrorRecoverSemi);
     public void visit(GlobalDeclAbstractClass GlobalDeclAbstractClass);
     public void visit(GlobalDeclEnum GlobalDeclEnum);
     public void visit(GlobalDeclClass GlobalDeclClass);
@@ -177,6 +186,7 @@ public interface Visitor {
     public void visit(GlobalDeclConst GlobalDeclConst);
     public void visit(GlobalDeclListEmpty GlobalDeclListEmpty);
     public void visit(GlobalDeclListYes GlobalDeclListYes);
+    public void visit(ProgName ProgName);
     public void visit(ProgramDecl ProgramDecl);
 
 }
