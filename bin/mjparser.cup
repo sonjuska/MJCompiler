@@ -95,14 +95,13 @@ nonterminal GlobalDeclList, GlobalDecl, MethodDeclList,
 			FormParsList, Statement, ElseStatementOpt, ExprOpt,
 			CommaNumConstOpt, CaseMultiple, DesignatorStatementOpt,
 			ConditionOpt, DesignatorStatement, DesignatorStatementRest,
-			ActParsOpt, ActPars, ExprList, Condition, OrCondTermMultiple,
-			CondTerm, AndCondFactMultiple, CondFact, CondFactRest,
-			SimpleExpr, MinusOpt, ExprRest, TermRest,
+			ActParsOpt, ActPars, ExprList, MinusOpt,
 			FactorRest, DesignatorRestMultiple, IdentLength,
 			Assignop, Relop, Addop, Mulop, VarDeclTail, EnumName;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, ReturnType, MethodTypeName; 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, ConstItem; 
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, ConstItem, SimpleExpr,
+    ExprRest, TermRest, Condition, CondTerm, CondFact, OrCondTermMultiple, AndCondFactMultiple, CondFactRest;
 
 //start with Program ;
 precedence left ELSE ;
@@ -215,7 +214,7 @@ StatementMultiple ::= (StatementMultipleYes) Statement StatementMultiple
 
 FormPars ::= (FormPars) Type:formParsType IDENT:formParsName BracketsOpt FormParsList;
 
-FormParsList ::= (FormParsListYes) COMMA Type:formParsType IDENT BracketsOpt FormParsList
+FormParsList ::= (FormParsListYes) COMMA Type:formParsType IDENT:formParsName BracketsOpt FormParsList
                | (FormParsListEmpty) /* empty */ ;
 
 Type ::= (TypeIdent) IDENT:typeName ;
@@ -249,7 +248,7 @@ DesignatorStatementOpt ::= (DesignatorStatementOptYes) DesignatorStatement
 ConditionOpt ::= (ConditionOptYes) Condition
                | (ConditionOptEmpty) /* empty */ ;
 
-DesignatorStatement ::= (DesignatorStatement) Designator DesignatorStatementRest ;
+DesignatorStatement ::= (DesignatorStatement) Designator:designator DesignatorStatementRest ;
 
 DesignatorStatementRest ::= (DesignatorStmtAssign) Assignop Expr
                           | (DesignatorStmtCall) LPAREN ActParsOpt RPAREN
@@ -284,7 +283,7 @@ Expr ::= (ExprSimple) SimpleExpr
 
 SimpleExpr ::= (SimpleExpr) MinusOpt Term ExprRest ;
 
-MinusOpt ::= (MinusOpt) MINUS
+MinusOpt ::= (MinusOptYes) MINUS
            | (MinusOptEmpty) /* empty */ ;
 
 ExprRest ::= (ExprRestYes) Addop Term ExprRest
@@ -305,13 +304,13 @@ Factor ::= (FactorDesignator) Designator FactorRest
 FactorRest ::= (FactorRestCall) LPAREN ActParsOpt RPAREN
              | (FactorRestEmpty) /* empty */ ;
 
-Designator ::= (Designator) IDENT DesignatorRestMultiple ;
+Designator ::= (Designator) IDENT:name DesignatorRestMultiple ;
 
 DesignatorRestMultiple ::= (DesignatorRestMultipleDot) DOT IdentLength DesignatorRestMultiple
                          | (DesignatorRestMultipleIndex) LBRACKET Expr RBRACKET DesignatorRestMultiple
                          | (DesignatorRestMultipleEmpty) /* empty */ ;
 
-IdentLength ::= (IdentLengthIdent) IDENT
+IdentLength ::= (IdentLengthIdent) IDENT:ident
               | (IdentLengthLength) LENGTH ;
 
 Assignop ::= (Assignop) ASSIGN ;

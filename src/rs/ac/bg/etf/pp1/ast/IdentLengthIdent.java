@@ -1,24 +1,24 @@
 // generated with ast extension for cup
 // version 0.8
-// 5/1/2026 20:46:12
+// 16/1/2026 20:24:21
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class IdentLengthIdent extends IdentLength {
 
-    private String I1;
+    private String ident;
 
-    public IdentLengthIdent (String I1) {
-        this.I1=I1;
+    public IdentLengthIdent (String ident) {
+        this.ident=ident;
     }
 
-    public String getI1() {
-        return I1;
+    public String getIdent() {
+        return ident;
     }
 
-    public void setI1(String I1) {
-        this.I1=I1;
+    public void setIdent(String ident) {
+        this.ident=ident;
     }
 
     public void accept(Visitor visitor) {
@@ -41,7 +41,7 @@ public class IdentLengthIdent extends IdentLength {
         buffer.append(tab);
         buffer.append("IdentLengthIdent(\n");
 
-        buffer.append(" "+tab+I1);
+        buffer.append(" "+tab+ident);
         buffer.append("\n");
 
         buffer.append(tab);

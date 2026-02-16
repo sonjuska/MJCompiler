@@ -129,18 +129,7 @@ nonterminal
 			ActParsOpt ActParsOpt;
 nonterminal ActPars ActPars;
 nonterminal ExprList ExprList;
-nonterminal Condition Condition;
-nonterminal OrCondTermMultiple OrCondTermMultiple;
-nonterminal
-			CondTerm CondTerm;
-nonterminal AndCondFactMultiple AndCondFactMultiple;
-nonterminal CondFact CondFact;
-nonterminal CondFactRest CondFactRest;
-nonterminal
-			SimpleExpr SimpleExpr;
 nonterminal MinusOpt MinusOpt;
-nonterminal ExprRest ExprRest;
-nonterminal TermRest TermRest;
 nonterminal
 			FactorRest FactorRest;
 nonterminal DesignatorRestMultiple DesignatorRestMultiple;
@@ -154,7 +143,8 @@ nonterminal VarDeclTail VarDeclTail;
 nonterminal EnumName EnumName;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, ReturnType, MethodTypeName; 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, ConstItem; 
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, ConstItem, SimpleExpr,
+    ExprRest, TermRest, Condition, CondTerm, CondFact, OrCondTermMultiple, AndCondFactMultiple, CondFactRest;
 
 //start with Program ;
 precedence left ELSE ;
@@ -267,7 +257,7 @@ StatementMultiple ::= (StatementMultipleYes) Statement:S1 StatementMultiple:S2 {
 
 FormPars ::= (FormPars) Type:formParsType IDENT:formParsName BracketsOpt:B1 FormParsList:F2 {: RESULT=new FormPars(formParsType, formParsName, B1, F2); RESULT.setLine(formParsTypeleft); :};
 
-FormParsList ::= (FormParsListYes) COMMA Type:formParsType IDENT:I1 BracketsOpt:B2 FormParsList:F3 {: RESULT=new FormParsListYes(formParsType, I1, B2, F3); RESULT.setLine(formParsTypeleft); :}
+FormParsList ::= (FormParsListYes) COMMA Type:formParsType IDENT:formParsName BracketsOpt:B1 FormParsList:F2 {: RESULT=new FormParsListYes(formParsType, formParsName, B1, F2); RESULT.setLine(formParsTypeleft); :}
                | (FormParsListEmpty) {: RESULT=new FormParsListEmpty(); :} /* empty */ ;
 
 Type ::= (TypeIdent) IDENT:typeName {: RESULT=new TypeIdent(typeName); RESULT.setLine(typeNameleft); :} ;
@@ -301,7 +291,7 @@ DesignatorStatementOpt ::= (DesignatorStatementOptYes) DesignatorStatement:D1 {:
 ConditionOpt ::= (ConditionOptYes) Condition:C1 {: RESULT=new ConditionOptYes(C1); RESULT.setLine(C1left); :}
                | (ConditionOptEmpty) {: RESULT=new ConditionOptEmpty(); :} /* empty */ ;
 
-DesignatorStatement ::= (DesignatorStatement) Designator:D1 DesignatorStatementRest:D2 {: RESULT=new DesignatorStatement(D1, D2); RESULT.setLine(D1left); :} ;
+DesignatorStatement ::= (DesignatorStatement) Designator:designator DesignatorStatementRest:D1 {: RESULT=new DesignatorStatement(designator, D1); RESULT.setLine(designatorleft); :} ;
 
 DesignatorStatementRest ::= (DesignatorStmtAssign) Assignop:A1 Expr:E2 {: RESULT=new DesignatorStmtAssign(A1, E2); RESULT.setLine(A1left); :}
                           | (DesignatorStmtCall) LPAREN ActParsOpt:A1 RPAREN {: RESULT=new DesignatorStmtCall(A1); RESULT.setLine(A1left); :}
@@ -336,7 +326,7 @@ Expr ::= (ExprSimple) SimpleExpr:S1 {: RESULT=new ExprSimple(S1); RESULT.setLine
 
 SimpleExpr ::= (SimpleExpr) MinusOpt:M1 Term:T2 ExprRest:E3 {: RESULT=new SimpleExpr(M1, T2, E3); RESULT.setLine(M1left); :} ;
 
-MinusOpt ::= (MinusOpt) MINUS {: RESULT=new MinusOpt(); :}
+MinusOpt ::= (MinusOptYes) MINUS {: RESULT=new MinusOptYes(); :}
            | (MinusOptEmpty) {: RESULT=new MinusOptEmpty(); :} /* empty */ ;
 
 ExprRest ::= (ExprRestYes) Addop:A1 Term:T2 ExprRest:E3 {: RESULT=new ExprRestYes(A1, T2, E3); RESULT.setLine(A1left); :}
@@ -357,13 +347,13 @@ Factor ::= (FactorDesignator) Designator:D1 FactorRest:F2 {: RESULT=new FactorDe
 FactorRest ::= (FactorRestCall) LPAREN ActParsOpt:A1 RPAREN {: RESULT=new FactorRestCall(A1); RESULT.setLine(A1left); :}
              | (FactorRestEmpty) {: RESULT=new FactorRestEmpty(); :} /* empty */ ;
 
-Designator ::= (Designator) IDENT:I1 DesignatorRestMultiple:D2 {: RESULT=new Designator(I1, D2); RESULT.setLine(I1left); :} ;
+Designator ::= (Designator) IDENT:name DesignatorRestMultiple:D1 {: RESULT=new Designator(name, D1); RESULT.setLine(nameleft); :} ;
 
 DesignatorRestMultiple ::= (DesignatorRestMultipleDot) DOT IdentLength:I1 DesignatorRestMultiple:D2 {: RESULT=new DesignatorRestMultipleDot(I1, D2); RESULT.setLine(I1left); :}
                          | (DesignatorRestMultipleIndex) LBRACKET Expr:E1 RBRACKET DesignatorRestMultiple:D2 {: RESULT=new DesignatorRestMultipleIndex(E1, D2); RESULT.setLine(E1left); :}
                          | (DesignatorRestMultipleEmpty) {: RESULT=new DesignatorRestMultipleEmpty(); :} /* empty */ ;
 
-IdentLength ::= (IdentLengthIdent) IDENT:I1 {: RESULT=new IdentLengthIdent(I1); RESULT.setLine(I1left); :}
+IdentLength ::= (IdentLengthIdent) IDENT:ident {: RESULT=new IdentLengthIdent(ident); RESULT.setLine(identleft); :}
               | (IdentLengthLength) LENGTH {: RESULT=new IdentLengthLength(); :} ;
 
 Assignop ::= (Assignop) ASSIGN {: RESULT=new Assignop(); :} ;
