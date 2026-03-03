@@ -11,7 +11,7 @@ public class SemanticPass extends VisitorAdaptor {
     private boolean errorDetected = false;
 
     private Obj currentMethod = Tab.noObj;
-    private Struct currentDeclType = Tab.noType;     //Type za VarDecl/ConstDecl
+    //private Struct currentDeclType = Tab.noType;     //Type za VarDecl/ConstDecl
     private Struct currentVarBaseType = Tab.noType;  // za VarDeclList (ponavljanje)
     private Struct currentConstDeclType = Tab.noType;
     private boolean currentVarIsArray = false;
@@ -26,13 +26,11 @@ public class SemanticPass extends VisitorAdaptor {
 
     private int varDeclCount = 0;
     private int printCallCount = 0;
+    private int formParamCount = 0;
 
     boolean mainFound = false;
     int mainParamCount = -1;     
-    private Struct mainReturnType = null;  // mora Tab.noType (void)
-
-    int formParamCount = 0;        
-
+    private Struct mainReturnType = null;  // mora Tab.noType (void)     
 
     private boolean returnFound = false;
     private int nVars = 0;
@@ -94,26 +92,29 @@ public class SemanticPass extends VisitorAdaptor {
         return "type(kind=" + t.getKind() + ")";
     }
     
+    //proverava da li je nesto promenljiva, element niza ili polje objekta
     private boolean isLValue(Obj o) {
         if (o == null || o == Tab.noObj) return false;
         return o.getKind() == Obj.Var || o.getKind() == Obj.Elem || o.getKind() == Obj.Fld;
     }
 
-    private boolean assignable(Struct dst, Struct src) {
-        return dst.equals(src); 
-    }
-    private boolean isBoolType(Struct t) {
+    
+    private Struct boolType() {
         Obj b = Tab.find("bool");
-        return (b != Tab.noObj && b.getKind() == Obj.Type && t.equals(b.getType()));
+        return (b != Tab.noObj && b.getKind() == Obj.Type) ? b.getType() : Tab.noType;
     }
 
+    //proverava da li je tip Struct cvora bool
+    private boolean isBool(Struct t) {
+        return t != null && t.equals(boolType());
+    }
+
+    //proverava da li je tip Struct cvora int, char ili bool
     private boolean isIntCharBool(Struct t) {
-        if (t == null) return false;
-        return t.equals(Tab.intType) || t.equals(Tab.charType) || isBoolType(t);
+        return t != null && (t.equals(Tab.intType) || t.equals(Tab.charType) || isBool(t));
     }
 
-
-
+    //ispisuje deklaracije promenljivih i konstanti 
     private void report_decl(Obj obj, SyntaxNode where, String extra) {
         if (obj == null || obj == Tab.noObj) return;
 
@@ -124,15 +125,49 @@ public class SemanticPass extends VisitorAdaptor {
 
         report_info(msg, where);
     }
+    private void declareVar(String name, Struct baseType, boolean isArray, SyntaxNode where) {
+        if (alreadyDeclaredInCurrentScope(name)) {
+            report_error("Promenljiva " + name + " je vec deklarisana u istom opsegu", where);
+            return;
+        }
+        Struct t = baseType;
+        if (isArray) t = new Struct(Struct.Array, baseType);
+        Obj v = Tab.insert(Obj.Var, name, t);
+        if (isArray) report_decl(v, where, "(niz)");
+        else report_decl(v, where, "");
+    }
+    
+    //provera broja i tipova argumenat standardnih metoda
+    private void checkStdCall(String mname, ActParsOpt apo, SyntaxNode where) {
+        if (apo instanceof ActParsOptEmpty) {
+            report_error("Poziv standardne metode mora imati tacno 1 argument.", where);
+            return;
+        }
+
+        ActPars ap = ((ActParsOptYes) apo).getActPars();
+        Struct at = ap.getExpr().struct;
+
+        if (!(ap.getExprList() instanceof ExprListEmpty)) {
+            report_error("Poziv standardne metode mora imati tacno 1 argument.", where);
+        }
+
+        if ("chr".equals(mname)) {
+            if (!Tab.intType.equals(at)) report_error("chr(e): e mora biti izraz tipa int.", where);
+        } else if ("ord".equals(mname)) {
+            if (!Tab.charType.equals(at)) report_error("ord(c): c mora biti tipa char.", where);
+        } else { // len
+            if (at == null || at.getKind() != Struct.Array) {
+                report_error("len(a): a mora biti niz.", where);
+            }
+        }
+    }
+
 
     
 	
 	//program
 	
-    public void visit(ProgName progName){
-    	progName.obj = Tab.insert(Obj.Prog, progName.getProgName(), Tab.noType);
-    	Tab.openScope();
-    }
+    //Program ::= (ProgramDecl) PROGRAM ProgName GlobalDeclList LBRACE MethodDeclList RBRACE ;
     public void visit(ProgramDecl p) {
         //zatvaranje programa + tsdump broj var
         nVars = Tab.currentScope().getnVars();
@@ -143,32 +178,37 @@ public class SemanticPass extends VisitorAdaptor {
             report_error("Nedostaje metoda void main()", p); // main() mora postojati
         }
     }
+    //ProgName ::= (ProgName) IDENT:progName ;
+    public void visit(ProgName progName){
+    	progName.obj = Tab.insert(Obj.Prog, progName.getProgName(), Tab.noType);
+    	Tab.openScope();
+    }
 	
     public void visit(StmtPrint p) {
         printCallCount++;
-
-        Struct t = p.getExpr().struct;
-        if (t == null || t == Tab.noType) return;
-
-        // Expr mora biti int/char/bool
-        if (!isIntCharBool(t)) {
+        if (!isIntCharBool(p.getExpr().struct)) {  //proverava tip izraza u StmtPrint
             report_error("PRINT: izraz mora biti tipa int, char ili bool.", p);
         }
     }
     
-    //Type
+    //Type ::= (TypeIdent) IDENT:typeName ;
     public void visit(TypeIdent t) {
-        Obj typeNode = Tab.find(t.getTypeName());
+        Obj typeNode = Tab.find(t.getTypeName());  //nadjemo Obj cvor datog tipa u tabeli simbola
         if (typeNode == Tab.noObj || typeNode.getKind() != Obj.Type) {
             report_error("Ime " + t.getTypeName() + " ne predstavlja tip!", t);
             t.struct = Tab.noType;
         } else {
             t.struct = typeNode.getType();
         }
-        currentDeclType = t.struct;
+        //currentDeclType = t.struct;
     }
     
     //ConstDecl
+    
+    //ConstItem ::= (ConstItemNum) NUMCONST
+    //        | (ConstItemChar) CHARCONST
+    //        | (ConstItemBool) BOOLCONST ;
+    
     public void visit(ConstItemNum n) {
         n.struct = Tab.intType;
     }
@@ -178,7 +218,7 @@ public class SemanticPass extends VisitorAdaptor {
     }
 
     public void visit(ConstItemBool b) {
-        Obj boolType = Tab.find("bool"); // ili Tab.boolType ako imate
+        Obj boolType = Tab.find("bool");
         if (boolType == Tab.noObj || boolType.getKind() != Obj.Type) {
             report_error("Tip bool nije definisan u univerzumu", b);
             b.struct = Tab.noType;
@@ -187,11 +227,11 @@ public class SemanticPass extends VisitorAdaptor {
         }
     }
 
+    //ConstDecl ::= (ConstDecl) CONST Type:constType IDENT:constName ASSIGN ConstItem ConstDeclList SEMI;
     public void visit(ConstDecl c) {
         currentConstDeclType = c.getType().struct;
 
         String name = c.getConstName();
-
         Struct itemType = c.getConstItem().struct;
         
         if (!currentConstDeclType.equals(itemType)) {
@@ -208,6 +248,7 @@ public class SemanticPass extends VisitorAdaptor {
         // con.setAdr(extractConstValue(c.getConstItem()));
     }
     
+    //ConstDeclList ::= (ConstDeclListYes) COMMA IDENT:constName ASSIGN ConstItem ConstDeclList
     public void visit(ConstDeclListYes cl) {
         String name = cl.getConstName();
 
@@ -229,180 +270,95 @@ public class SemanticPass extends VisitorAdaptor {
         // con.setAdr(extractConstValue(cl.getConstItem()));
     }
     
-    // ---------------- VAR DECL ----------------
-    // VarDeclOk ::= Type:varType IDENT BracketsOpt VarDeclTail
-
+    //VarDecl
+    
+    //VarDecl ::= (VarDeclOk) Type:varType IDENT:varName BracketsOpt VarDeclTail
     public void visit(VarDeclOk v) {
         currentVarBaseType = v.getType().struct;
         currentVarIsArray = v.getBracketsOpt() instanceof BracketsOptYes;
 
         String name = v.getVarName();
         declareVar(name, currentVarBaseType, currentVarIsArray, v);
-        
     }
 
-    // VarDeclListYes ::= COMMA IDENT BracketsOpt VarDeclList
+    //VarDeclList ::= (VarDeclListYes) COMMA IDENT:varName BracketsOpt VarDeclList
     public void visit(VarDeclListYes vl) {
         String name = vl.getVarName();
         boolean isArr = vl.getBracketsOpt() instanceof BracketsOptYes;
         declareVar(name, currentVarBaseType, isArr, vl);
     }
-
-    private void declareVar(String name, Struct baseType, boolean isArray, SyntaxNode where) {
-        if (alreadyDeclaredInCurrentScope(name)) {
-            report_error("Promenljiva " + name + " je vec deklarisana u istom opsegu", where);
-            return;
-        }
-        Struct t = baseType;
-        if (isArray) t = new Struct(Struct.Array, baseType);
-        Obj v = Tab.insert(Obj.Var, name, t);
-        if (isArray) report_decl(v, where, "(niz)");
-        else report_decl(v, where, "");
-    }
     
-    //MethodDecl
-    private Struct resolveReturnType(ReturnType rt) {
-        if (rt instanceof ReturnTypeVoid) return Tab.noType;
-        return ((ReturnTypeType) rt).getType().struct;
-    }
+    //MethodDecl (samo provere za main)
     
-    public void visit(MethodTypeName mtn) {
-        // nova metoda pocinje
-        currentMethod = null;
-        returnFound = false;
-        formParamCount = 0;
-
-        String name = mtn.getMethodName();
-
-        // 1) izracunaj povratni tip (Struct)
-        Struct retType = resolveReturnType(mtn.getReturnType());
-
-        // 2) provera duplikata u istom opsegu
-        if (Tab.currentScope().findSymbol(name) != null) {
-            report_error("Ime metode '" + name + "' je vec deklarisano u ovom opsegu!", mtn);
-            // da bi analiza mogla da nastavi, ipak napravi "metodu" (ali prijavi gresku)
-        }
-
-        // 3) ubaci metodu u tabelu simbola (uvek jednom)
-        currentMethod = Tab.insert(Obj.Meth, name, retType);
-        mtn.obj = currentMethod;
-
-        // 4) otvori scope metode (formalni + lokalni idu ovde)
-        Tab.openScope();
-
-        report_info("Obrada deklaracije metode: " + name, mtn);
-
-        // 5) main info (proveru void i 0 param radis u visit(MethodDecl))
-        if ("main".equals(name)) {
-            mainFound = true;
-            mainReturnType = retType; // mora Tab.noType
-        }
-    }
-    private Struct applyBrackets(Struct base, BracketsOpt br) {
-        if (br instanceof BracketsOptYes) {
-            return new Struct(Struct.Array, base);
-        }
-        return base;
-    }
-
-    public void visit(FormPars fp) {
-        String pname = fp.getFormParsName(); // IDENT:formParsName
-        Struct ptype = applyBrackets(fp.getType().struct, fp.getBracketsOpt());
-
-        if (Tab.currentScope().findSymbol(pname) != null) {
-            report_error("Formalni parametar '" + pname + "' je vec deklarisan u metodi!", fp);
-        } else {
-            Obj p = Tab.insert(Obj.Var, pname, ptype);
-            // (opciono) p.setFpPos(formParamCount);  // ako tvoj Obj ima fpPos (cesto ima) 
-        }
-        formParamCount++;
-    }
-    public void visit(FormParsListYes fp) {
-        String pname = fp.getFormParsName();  
-        Struct ptype = applyBrackets(fp.getType().struct, fp.getBracketsOpt());
-
-        if (Tab.currentScope().findSymbol(pname) != null) {
-            report_error("Formalni parametar '" + pname + "' je vec deklarisan u metodi!", fp);
-        } else {
-            Tab.insert(Obj.Var, pname, ptype);
-        }
-        formParamCount++;
-    }
-
-
-    
+    //MethodDecl ::= (MethodDecl) MethodTypeName LPAREN FormParsOpt RPAREN VarDeclMultiple LBRACE StatementMultiple RBRACE ;
     public void visit(MethodDecl md) {
-        // 1) provera return za ne-void
-        if (currentMethod != null && currentMethod.getType() != Tab.noType) {
-            if (!returnFound) {
-                report_error("Metoda '" + currentMethod.getName() + "' nema return iskaz, a nije void!", md);
+
+        if (currentMethod != null) {
+            String name = currentMethod.getName();
+
+            //main mora biti void i bez parametara
+            if ("main".equals(name)) {
+                if (currentMethod.getType() != Tab.noType) {
+                    report_error("Metoda main mora biti deklarisana kao void!", md);
+                }
+                if (formParamCount != 0) {
+                    report_error("Metoda main ne sme imati formalne parametre!", md);
+                }
+                mainFound = true;
+                mainParamCount = formParamCount;
             }
+
         }
 
-        // 2) ako je main, proveri uslove
-        if (currentMethod != null && "main".equals(currentMethod.getName())) {
-            // void?
-            if (currentMethod.getType() != Tab.noType) {
-                report_error("Metoda main mora biti deklarisana kao void!", md);
-            }
-            // bez argumenata?
-            if (formParamCount != 0) {
-                report_error("Metoda main ne sme imati formalne argumente!", md);
-            }
-            // zapamti da kasnije (na kraju programa) mozes dodatno proveriti
-            mainParamCount = formParamCount;
-        }
-
-        // 3) spakuj lokalne simbole metode i zatvori scope
+        //pakujem lokalne simbole metode i zatvaram scope
         Tab.chainLocalSymbols(currentMethod);
         Tab.closeScope();
 
-        // 4) reset
+        // reset
         currentMethod = null;
-        returnFound = false;
+        returnFound = false;   
         formParamCount = 0;
     }
+    
+    //MethodTypeName ::= (MethodTypeName) ReturnType IDENT:methodName;
+    public void visit(MethodTypeName mtn) {
+    	
+    	formParamCount = 0;
+        String name = mtn.getMethodName();
 
-    public void visit(EnumName en) {
-        String enumName = en.getEnumName();
-
-        if (Tab.currentScope().findSymbol(enumName) != null) {
-            report_error("Tip " + enumName + " je vec deklarisan u istom opsegu", en);
-            currentEnumType = Tab.noObj;
-            return;
+        //povratni tip
+        Struct retType;
+        if (mtn.getReturnType() instanceof ReturnTypeVoid) {
+            retType = Tab.noType;
+        } else {
+            retType = ((ReturnTypeType) mtn.getReturnType()).getType().struct;
         }
 
-        currentEnumType = Tab.insert(Obj.Type, enumName, Tab.intType);
-        enumTypes.add(currentEnumType);
+        if (Tab.currentScope().findSymbol(name) != null) {
+            report_error("Ime metode '" + name + "' je vec deklarisano u ovom opsegu.", mtn);
+        }
+
+        currentMethod = Tab.insert(Obj.Meth, name, retType);
+        mtn.obj = currentMethod;
+
         Tab.openScope();
-        
-        currentEnumValue = 0;
-        enumOverrideSet = false;
-        enumUsedValues.clear();
 
+        if ("main".equals(name)) {
+            mainFound = true;
+            mainReturnType = retType; 
+        }
     }
     
-    public void visit(EnumDeclListYes el) {
-        String item = el.getEnumItemName();
-
-        if (Tab.currentScope().findSymbol(item) != null) {
-            report_error("Enum polje " + item + " je vec deklarisano u istom enum-u", el);
-            return;
-        }
-
-        int val = enumOverrideSet ? enumOverrideValue : currentEnumValue;
-
-        Obj c = Tab.insert(Obj.Con, item, Tab.intType);
-        c.setAdr(val);
-        if (!enumUsedValues.add(val)) {
-            report_error("Enum vrednost " + val + " nije jedinstvena u okviru ovog enum-a", el);
-        }
-
-        currentEnumValue = val + 1;
-        enumOverrideSet = false;
-
+    //FormPars ::= (FormPars) Type:formParsType IDENT:formParsName BracketsOpt FormParsList;
+    public void visit(FormPars fp) {
+        formParamCount = 1;
+    }
+    //FormParsList ::= (FormParsListYes) COMMA Type:formParsType IDENT:formParsName BracketsOpt FormParsList
+    public void visit(FormParsListYes fp) {
+        formParamCount++;   
     }
     
+    //EnumDecl ::= (EnumDecl) ENUM EnumName LBRACE IDENT:enumItemName NumConstOpt EnumDeclList RBRACE ;
     public void visit(EnumDecl ed) {
         String item = ed.getEnumItemName();
 
@@ -434,11 +390,54 @@ public class SemanticPass extends VisitorAdaptor {
         currentEnumValue = 0;
     }
     
+    //EnumName ::= (EnumName) IDENT:enumName ;
+    public void visit(EnumName en) {
+        String enumName = en.getEnumName();
+
+        if (Tab.currentScope().findSymbol(enumName) != null) {
+            report_error("Tip " + enumName + " je vec deklarisan u istom opsegu.", en);
+            currentEnumType = Tab.noObj;
+            return;
+        }
+
+        currentEnumType = Tab.insert(Obj.Type, enumName, Tab.intType);
+        enumTypes.add(currentEnumType);
+        Tab.openScope();
+        
+        currentEnumValue = 0;
+        enumOverrideSet = false;
+        enumUsedValues.clear();
+
+    }
+    //EnumDeclList ::= (EnumDeclListYes) COMMA IDENT:enumItemName NumConstOpt EnumDeclList
+    public void visit(EnumDeclListYes el) {
+        String item = el.getEnumItemName();
+
+        if (Tab.currentScope().findSymbol(item) != null) {
+            report_error("Enum polje " + item + " je vec deklarisano u istom enum-u", el);
+            return;
+        }
+
+        int val = enumOverrideSet ? enumOverrideValue : currentEnumValue;
+
+        Obj c = Tab.insert(Obj.Con, item, Tab.intType);
+        c.setAdr(val);
+        if (!enumUsedValues.add(val)) {
+            report_error("Enum vrednost " + val + " nije jedinstvena u okviru ovog enum-a", el);
+        }
+
+        currentEnumValue = val + 1;
+        enumOverrideSet = false;
+
+    }
+    
+    //NumConstOpt ::= (NumConstOptAssign) ASSIGN NUMCONST
     public void visit(NumConstOptAssign nc) {
         enumOverrideSet = true;
         enumOverrideValue = nc.getN1();
     }
     
+    //Designator ::= (Designator) IDENT:name DesignatorRestMultiple ;
     public void visit(Designator d) {
 
         Obj cur = Tab.find(d.getName());
@@ -454,7 +453,7 @@ public class SemanticPass extends VisitorAdaptor {
         
         while (!(rest instanceof DesignatorRestMultipleEmpty)) {
 
-            // ---------- [ Expr ] ----------
+            //DesignatorRestMultiple ::= (DesignatorRestMultipleIndex) LBRACKET Expr RBRACKET DesignatorRestMultiple
             if (rest instanceof DesignatorRestMultipleIndex) {
                 DesignatorRestMultipleIndex idx = (DesignatorRestMultipleIndex) rest;
 
@@ -478,12 +477,12 @@ public class SemanticPass extends VisitorAdaptor {
                 continue;
             }
 
-            // ---------- . IdentLength ----------
+            //DesignatorRestMultiple ::= (DesignatorRestMultipleDot) DOT IdentLength DesignatorRestMultiple
             if (rest instanceof DesignatorRestMultipleDot) {
                 DesignatorRestMultipleDot dot = (DesignatorRestMultipleDot) rest;
                 IdentLength il = dot.getIdentLength();
 
-                // ----- .length -----
+                // IdentLength ::= (IdentLengthLength) LENGTH ;
                 if (il instanceof IdentLengthLength) {
                     if (cur.getType().getKind() != Struct.Array) {
                         report_error("'.length' je dozvoljeno samo nad nizom.", d);
@@ -504,12 +503,9 @@ public class SemanticPass extends VisitorAdaptor {
                     continue;
                 }
 
-                // ----- .IDENT -----
+                //IdentLength ::= (IdentLengthIdent) IDENT:ident
                 if (il instanceof IdentLengthIdent) {
-                    // PAZNJA: proveri tacan getter u tvojoj AST klasi.
-                    // Nekad je getIdent(), nekad getI1(), nekad getName()...
                     String member = ((IdentLengthIdent) il).getIdent();
-
                     Struct lt = cur.getType();
                     
                  // ENUM: Broj.NULA
@@ -533,38 +529,6 @@ public class SemanticPass extends VisitorAdaptor {
                         rest = dot.getDesignatorRestMultiple();
                         continue;
                     }
-
-                    // klasa: trazi clana u kolekciji po imenu clana
-                    if (lt.getKind() == Struct.Class) {
-                        Obj found = null;
-
-                        Object mem = lt.getMembers();
-
-                        if (mem instanceof rs.etf.pp1.symboltable.structure.SymbolDataStructure) {
-                            rs.etf.pp1.symboltable.structure.SymbolDataStructure sds =
-                                    (rs.etf.pp1.symboltable.structure.SymbolDataStructure) mem;
-
-                            found = sds.searchKey(member);   // pronadje polje/metodu po imenu
-                        } else if (mem instanceof java.util.Collection) {
-                            for (Object o : (java.util.Collection) mem) {
-                                Obj m = (Obj) o;
-                                if (m.getName().equals(member)) { found = m; break; }
-                            }
-                        }
-
-                        if (found == null) {
-                            report_error("Klasa nema clana '" + member + "'.", dot);
-                            d.obj = Tab.noObj;
-                            return;
-                        }
-
-                        // pomeri dalje kroz lanac designatora
-                        cur = found;
-                        rest = dot.getDesignatorRestMultiple();
-                        continue;
-                    }
-
-
 
                     // enum: ovde ti treba dodatna informacija (jer ti enum = intType),
                     // pa za sada prijavi gresku (ili ostavi kao TODO)
@@ -600,7 +564,7 @@ public class SemanticPass extends VisitorAdaptor {
 
         if (lhs == null || lhs == Tab.noObj) return;
 
-        // 1) DODELA
+        //1) dodela
         if (r instanceof DesignatorStmtAssign) {
             DesignatorStmtAssign asg = (DesignatorStmtAssign) r;
             Struct rhs = asg.getExpr().struct;
@@ -611,14 +575,14 @@ public class SemanticPass extends VisitorAdaptor {
             }
             if (lhs.getType() == Tab.noType || rhs == Tab.noType) return;
 
-            if (!assignable(lhs.getType(), rhs)) {
+            if (!rhs.assignableTo(lhs.getType())) {
                 report_error("Nekompatibilni tipovi u dodeli: " +
                         typeToString(lhs.getType()) + " = " + typeToString(rhs), ds);
             }
             return;
         }
 
-        // 2) ++
+        //2) ++
         if (r instanceof DesignatorStmtInc) {
             if (!isLValue(lhs)) {
                 report_error("Operator ++ je dozvoljen samo nad promenljivom, elementom niza ili poljem objekta.", ds);
@@ -630,7 +594,7 @@ public class SemanticPass extends VisitorAdaptor {
             return;
         }
 
-        // 3) --
+        //3) --
         if (r instanceof DesignatorStmtDec) {
             if (!isLValue(lhs)) {
                 report_error("Operator -- je dozvoljen samo nad promenljivom, elementom niza ili poljem objekta.", ds);
@@ -642,18 +606,27 @@ public class SemanticPass extends VisitorAdaptor {
             return;
         }
 
-        // 4) Poziv funkcije/metode (A nivo: obavezno samo da je Meth)
+     //4) Poziv funkcije/metode
         if (r instanceof DesignatorStmtCall) {
             if (lhs.getKind() != Obj.Meth) {
                 report_error("Poziv sa () je dozvoljen samo nad metodom/funkcijom.", ds);
+                return;
             }
+
+            DesignatorStmtCall call = (DesignatorStmtCall) r;
+            ActParsOpt apo = call.getActParsOpt();
+
+            String mname = lhs.getName();
+            if ("chr".equals(mname) || "ord".equals(mname) || "len".equals(mname)) {
+                checkStdCall(mname, apo, ds);
+            }
+
+            //ovde provera za user metode
             return;
         }
+
     }
 
-
-
-    
     public void visit(FactorNum f) {
         f.struct = Tab.intType;
     }
@@ -694,13 +667,24 @@ public class SemanticPass extends VisitorAdaptor {
             if (o.getKind() != Obj.Meth) {
                 report_error("Poziv sa () je dozvoljen samo nad metodom/funkcijom.", f);
                 f.struct = Tab.noType;
-            } else {
-                f.struct = o.getType(); // povratni tip metode
+                return;
             }
+
+            FactorRestCall call = (FactorRestCall) f.getFactorRest();
+            ActParsOpt apo = call.getActParsOpt();
+
+            String mname = o.getName();
+            if ("chr".equals(mname) || "ord".equals(mname) || "len".equals(mname)) {
+                checkStdCall(mname, apo, f);
+            }
+
+            f.struct = o.getType();
+            return;
+        
         } else {
-            // obican designator (promenljiva/konstanta/elem/fld)
             f.struct = o.getType();
         }
+
     }
     
     public void visit(TermRestEmpty tr) {
@@ -746,8 +730,8 @@ public class SemanticPass extends VisitorAdaptor {
         er.struct = Tab.intType;
     }
 
+    //SimpleExpr ::= (SimpleExpr) MinusOpt Term ExprRest ;
     public void visit(SimpleExpr se) {
-        // MinusOpt Term ExprRest
     	boolean hasMinus = se.getMinusOpt() instanceof MinusOptYes;
 
         if (hasMinus && se.getTerm().struct != Tab.intType) {
@@ -771,99 +755,118 @@ public class SemanticPass extends VisitorAdaptor {
     }
 
     public void visit(CondFactRestRel cfr) {
-        // Relop SimpleExpr
-        cfr.struct = Tab.intType; // marker ima relaciju
+        //konkretan operator proveravamo u visit(CondFact)
     }
+
 
     public void visit(CondFact cf) {
-        // SimpleExpr CondFactRest
-        Obj bt = Tab.find("bool");
-        Struct boolType = (bt != Tab.noObj && bt.getKind() == Obj.Type) ? bt.getType() : Tab.noType;
+    	Struct boolT = boolType();
 
-        if (cf.getCondFactRest().struct == Tab.noType) {
-            // bez relacije - SimpleExpr mora biti bool (ovo ti treba za bt ? x : y)
-            if (!cf.getSimpleExpr().struct.equals(boolType)) {
+        // 1) Ako nema relacije: SimpleExpr mora biti bool (za A nivo ternary uslov)
+        if (cf.getCondFactRest() instanceof CondFactRestEmpty) {
+            if (!cf.getSimpleExpr().struct.equals(boolT)) {
                 report_error("Uslov (bez relacije) mora biti tipa bool.", cf);
             }
-        } else {
+            cf.struct = boolT;
+            return;
+        }
 
-            SimpleExpr right = ((CondFactRestRel)cf.getCondFactRest()).getSimpleExpr();
-            if (cf.getSimpleExpr().struct != Tab.intType || right.struct != Tab.intType) {
-                report_error("Relacijski operatori (>,>=,<,<=) ocekuju int (minimalna provera).", cf);
+        // 2) Ima relaciju: Expr Relop Expr (kod tebe je SimpleExpr + desni SimpleExpr)
+        CondFactRestRel rel = (CondFactRestRel) cf.getCondFactRest();
+
+        Struct t1 = cf.getSimpleExpr().struct;
+        Struct t2 = rel.getSimpleExpr().struct;
+
+        if (t1 == null || t2 == null || t1 == Tab.noType || t2 == Tab.noType) {
+            cf.struct = boolT;
+            return;
+        }
+
+        // (a) kompatibilnost tipova: ekvivalentni ili ref-null (u oba smera)
+        boolean okCompat = t1.compatibleWith(t2);
+        if (!okCompat) {
+            report_error("Tipovi u relacijskom izrazu nisu kompatibilni: " +
+                    typeToString(t1) + " i " + typeToString(t2), cf);
+        }
+
+        // (b) izvuci operator: == ili != ili ostali
+        Relop op = rel.getRelop();
+        boolean isEq  = (op instanceof RelopEq);   // ==  
+        boolean isNeq = (op instanceof RelopNeq);  // !=
+
+        // (c) reference pravilo: uz niz/null dozvoljeno samo == i !=
+        boolean refLike1 = t1.isRefType();
+        boolean refLike2 = t2.isRefType();
+
+        if (refLike1 || refLike2) {
+            if (!(isEq || isNeq)) {
+                report_error("Za tip klase ili niza dozvoljeni su samo == i !=.", cf);
+            }
+            cf.struct = boolT;
+            return;
+        }
+
+        // (d) A nivo (po tvojoj dosadasnjoj logici): relacijski <,>,<=,>= samo nad int
+        if (!(isEq || isNeq)) { // dakle <,>,<=,>=
+            if (!t1.equals(Tab.intType) || !t2.equals(Tab.intType)) {
+                report_error("Relacijski operatori (<,>,<=,>=) ocekuju int.", cf);
             }
         }
 
-        cf.struct = boolType;
+        cf.struct = boolT;
     }
 
-    public void visit(AndCondFactMultipleEmpty a) { a.struct = Tab.noType; }
-    public void visit(AndCondFactMultipleYes a)   { a.struct = Tab.intType; } 
-
-    public void visit(CondTerm ct) {
-        Obj bt = Tab.find("bool");
-        Struct boolType = (bt != Tab.noObj && bt.getKind() == Obj.Type) ? bt.getType() : Tab.noType;
-
-        if (!ct.getCondFact().struct.equals(boolType)) {
-            report_error("Operand '&&' mora biti bool.", ct);
-        }
-        ct.struct = boolType;
-    }
-
-    public void visit(OrCondTermMultipleEmpty o) { o.struct = Tab.noType; }
-    public void visit(OrCondTermMultipleYes o)  { o.struct = Tab.intType; } 
-
-    public void visit(Condition c) {
-        Obj bt = Tab.find("bool");
-        Struct boolType = (bt != Tab.noObj && bt.getKind() == Obj.Type) ? bt.getType() : Tab.noType;
-
-        if (!c.getCondTerm().struct.equals(boolType)) {
-            report_error("Operand '||' mora biti bool.", c);
-        }
-        c.struct = boolType;
-    }
 
     public void visit(ExprSimple e) {
         e.struct = e.getSimpleExpr().struct;
     }
 
     public void visit(ExprTernary e) {
-        // CondFact ? Expr : Expr
-        Obj bt = Tab.find("bool");
-        Struct boolType = (bt != Tab.noObj && bt.getKind() == Obj.Type) ? bt.getType() : Tab.noType;
+        Struct boolT = boolType();
 
-        if (!e.getCondFact().struct.equals(boolType)) {
-            report_error("Uslov u ternarnom operatoru mora biti bool.", e);
+        Struct condT = (e.getCondFact() != null) ? e.getCondFact().struct : Tab.noType;
+        if (!boolT.equals(condT)) {
+            report_error("Uslov u ternarnom operatoru mora biti bool.", e.getCondFact() != null ? e.getCondFact() : e);
         }
-        if (!e.getExpr().struct.equals(e.getExpr1().struct)) { // proveri: cesto su getExpr() i getExpr1()
-            report_error("Drugi i treci izraz u ?: moraju biti istog tipa.", e);
+
+        Struct tThen = (e.getExpr()  != null) ? e.getExpr().struct  : Tab.noType;
+        Struct tElse = (e.getExpr1() != null) ? e.getExpr1().struct : Tab.noType;
+
+        if (tThen == Tab.noType || tElse == Tab.noType) {
+            e.struct = Tab.noType;
+            return;
         }
-        e.struct = e.getExpr().struct;
+
+        if (!tThen.equals(tElse)) {
+            report_error("Drugi i treci izraz u ?: moraju biti istog tipa.", e.getExpr1() != null ? e.getExpr1() : e);
+            e.struct = Tab.noType;
+            return;
+        }
+
+        e.struct = tThen;
     }
-
 
 
     public void visit(NumConstOptEmpty nc) {
         
     }
+    
+    //Statement ::= (StmtRead) READ LPAREN Designator RPAREN SEMI
     public void visit(StmtRead r) {
         Obj d = r.getDesignator().obj;
-
         if (d == null || d == Tab.noObj) return;
 
-        // Designator mora biti promenljiva/elem niza/polje
         if (!isLValue(d)) {
             report_error("READ: designator mora biti promenljiva, element niza ili polje objekta.", r);
             return;
         }
 
-        // Tip mora biti int/char/bool
         if (!isIntCharBool(d.getType())) {
             report_error("READ: dozvoljeni tipovi su int, char ili bool.", r);
         }
     }
 
-
-    
+    //Statement ::= (StmtReturn) RETURN ExprOpt SEMI
     public void visit(StmtReturn sr) {
         returnFound = true;
     }

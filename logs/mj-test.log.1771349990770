@@ -1,0 +1,1376 @@
+INFO  18:31:01,922 - Compiling source file: C:\Users\SBM\Desktop\FAKULTET\7. semestar\PP1\pp1lab.templateAST\workspace\MJCompiler\test\ternaryErrors.mj
+INFO  18:31:01,966 - #2 program
+INFO  18:31:01,966 - #49 TernaryExprErrors
+INFO  18:31:01,966 - #49 int
+INFO  18:31:01,967 - #49 i
+INFO  18:31:01,967 - #39 ;
+INFO  18:31:01,968 - #49 char
+INFO  18:31:01,968 - #49 c
+INFO  18:31:01,968 - #39 ;
+INFO  18:31:01,969 - #49 bool
+INFO  18:31:01,969 - #49 b
+INFO  18:31:01,969 - #39 ;
+INFO  18:31:01,969 - #49 int
+INFO  18:31:01,969 - #49 ai
+INFO  18:31:01,969 - #44 [
+INFO  18:31:01,969 - #45 ]
+INFO  18:31:01,969 - #39 ;
+INFO  18:31:01,970 - #46 {
+INFO  18:31:01,970 - #14 void
+INFO  18:31:01,970 - #49 foo
+INFO  18:31:01,972 - #42 (
+INFO  18:31:01,976 - #43 )
+INFO  18:31:01,977 - #46 {
+INFO  18:31:01,978 - #47 }
+INFO  18:31:01,978 - #14 void
+INFO  18:31:01,979 - #49 main
+INFO  18:31:01,979 - #42 (
+INFO  18:31:01,979 - #43 )
+INFO  18:31:01,979 - #46 {
+INFO  18:31:01,979 - #49 i
+INFO  18:31:01,980 - #34 =
+INFO  18:31:01,982 - #42 (
+INFO  18:31:01,984 - #50 1
+INFO  18:31:01,984 - #37 ?
+INFO  18:31:01,987 - #50 2
+INFO  18:31:01,987 - #38 :
+INFO  18:31:01,987 - #50 3
+INFO  18:31:01,987 - #43 )
+INFO  18:31:01,988 - #39 ;
+INFO  18:31:01,988 - #49 i
+INFO  18:31:01,988 - #34 =
+INFO  18:31:01,988 - #42 (
+INFO  18:31:01,990 - #51 'a'
+INFO  18:31:01,990 - #37 ?
+INFO  18:31:01,991 - #50 2
+INFO  18:31:01,991 - #38 :
+INFO  18:31:01,991 - #50 3
+INFO  18:31:01,991 - #43 )
+INFO  18:31:01,991 - #39 ;
+INFO  18:31:01,991 - #49 i
+INFO  18:31:01,991 - #34 =
+INFO  18:31:01,991 - #42 (
+INFO  18:31:01,991 - #48 true
+INFO  18:31:01,991 - #37 ?
+INFO  18:31:01,992 - #50 1
+INFO  18:31:01,992 - #38 :
+INFO  18:31:01,992 - #51 'a'
+INFO  18:31:01,992 - #43 )
+INFO  18:31:01,993 - #39 ;
+INFO  18:31:01,993 - #49 ai
+INFO  18:31:01,993 - #34 =
+INFO  18:31:01,993 - #42 (
+INFO  18:31:01,993 - #48 true
+INFO  18:31:01,993 - #37 ?
+INFO  18:31:01,993 - #10 new
+INFO  18:31:01,993 - #49 int
+INFO  18:31:01,993 - #44 [
+INFO  18:31:01,993 - #50 5
+INFO  18:31:01,994 - #45 ]
+INFO  18:31:01,994 - #38 :
+INFO  18:31:01,998 - #50 0
+INFO  18:31:01,998 - #43 )
+INFO  18:31:01,999 - #39 ;
+INFO  18:31:01,999 - #49 b
+INFO  18:31:01,999 - #34 =
+INFO  18:31:01,999 - #42 (
+INFO  18:31:01,999 - #48 true
+INFO  18:31:01,999 - #37 ?
+INFO  18:31:01,999 - #48 true
+INFO  18:31:02,000 - #38 :
+INFO  18:31:02,000 - #50 0
+INFO  18:31:02,000 - #43 )
+INFO  18:31:02,000 - #39 ;
+INFO  18:31:02,000 - #49 i
+INFO  18:31:02,000 - #34 =
+INFO  18:31:02,000 - #42 (
+INFO  18:31:02,000 - #48 true
+INFO  18:31:02,000 - #37 ?
+INFO  18:31:02,000 - #49 foo
+INFO  18:31:02,001 - #42 (
+INFO  18:31:02,001 - #43 )
+INFO  18:31:02,002 - #38 :
+INFO  18:31:02,002 - #50 1
+INFO  18:31:02,002 - #43 )
+INFO  18:31:02,003 - #39 ;
+INFO  18:31:02,003 - #49 i
+INFO  18:31:02,003 - #34 =
+INFO  18:31:02,003 - #22 -
+INFO  18:31:02,003 - #51 'a'
+INFO  18:31:02,005 - #39 ;
+INFO  18:31:02,006 - #49 i
+INFO  18:31:02,006 - #34 =
+INFO  18:31:02,006 - #22 -
+INFO  18:31:02,006 - #48 true
+INFO  18:31:02,006 - #39 ;
+INFO  18:31:02,006 - #49 i
+INFO  18:31:02,006 - #34 =
+INFO  18:31:02,006 - #22 -
+INFO  18:31:02,006 - #49 ai
+INFO  18:31:02,007 - #39 ;
+INFO  18:31:02,008 - #49 i
+INFO  18:31:02,008 - #34 =
+INFO  18:31:02,008 - #50 1
+INFO  18:31:02,008 - #21 +
+INFO  18:31:02,008 - #51 'a'
+INFO  18:31:02,009 - #39 ;
+INFO  18:31:02,010 - #49 i
+INFO  18:31:02,010 - #34 =
+INFO  18:31:02,010 - #51 'a'
+INFO  18:31:02,010 - #21 +
+INFO  18:31:02,010 - #50 1
+INFO  18:31:02,010 - #39 ;
+INFO  18:31:02,011 - #49 i
+INFO  18:31:02,011 - #34 =
+INFO  18:31:02,011 - #48 true
+INFO  18:31:02,011 - #22 -
+INFO  18:31:02,011 - #50 1
+INFO  18:31:02,012 - #39 ;
+INFO  18:31:02,012 - #49 i
+INFO  18:31:02,012 - #34 =
+INFO  18:31:02,012 - #50 1
+INFO  18:31:02,013 - #21 +
+INFO  18:31:02,013 - #48 true
+INFO  18:31:02,013 - #39 ;
+INFO  18:31:02,013 - #49 i
+INFO  18:31:02,013 - #34 =
+INFO  18:31:02,014 - #50 1
+INFO  18:31:02,014 - #21 +
+INFO  18:31:02,014 - #49 ai
+INFO  18:31:02,014 - #39 ;
+INFO  18:31:02,015 - #49 i
+INFO  18:31:02,015 - #34 =
+INFO  18:31:02,015 - #49 ai
+INFO  18:31:02,015 - #21 +
+INFO  18:31:02,015 - #50 1
+INFO  18:31:02,015 - #39 ;
+INFO  18:31:02,015 - #49 i
+INFO  18:31:02,016 - #34 =
+INFO  18:31:02,016 - #50 1
+INFO  18:31:02,016 - #21 +
+INFO  18:31:02,016 - #42 (
+INFO  18:31:02,016 - #48 true
+INFO  18:31:02,016 - #37 ?
+INFO  18:31:02,016 - #51 'a'
+INFO  18:31:02,016 - #38 :
+INFO  18:31:02,016 - #51 'b'
+INFO  18:31:02,016 - #43 )
+INFO  18:31:02,016 - #39 ;
+INFO  18:31:02,016 - #49 i
+INFO  18:31:02,017 - #34 =
+INFO  18:31:02,017 - #42 (
+INFO  18:31:02,017 - #42 (
+INFO  18:31:02,017 - #48 true
+INFO  18:31:02,017 - #37 ?
+INFO  18:31:02,017 - #50 1
+INFO  18:31:02,017 - #38 :
+INFO  18:31:02,017 - #50 2
+INFO  18:31:02,017 - #43 )
+INFO  18:31:02,017 - #37 ?
+INFO  18:31:02,018 - #50 3
+INFO  18:31:02,018 - #38 :
+INFO  18:31:02,018 - #50 4
+INFO  18:31:02,018 - #43 )
+INFO  18:31:02,020 - #39 ;
+INFO  18:31:02,020 - #47 }
+INFO  18:31:02,021 - #47 }
+INFO  18:31:02,051 - ProgramDecl(
+  ProgName(
+   TernaryExprErrors
+  ) [ProgName]
+  GlobalDeclListYes(
+    GlobalDeclVar(
+      VarDeclOk(
+        TypeIdent(
+         int
+        ) [TypeIdent]
+       i
+        BracketsOptEmpty(
+        ) [BracketsOptEmpty]
+        VarDeclTailOk(
+          VarDeclListEmpty(
+          ) [VarDeclListEmpty]
+        ) [VarDeclTailOk]
+      ) [VarDeclOk]
+    ) [GlobalDeclVar]
+    GlobalDeclListYes(
+      GlobalDeclVar(
+        VarDeclOk(
+          TypeIdent(
+           char
+          ) [TypeIdent]
+         c
+          BracketsOptEmpty(
+          ) [BracketsOptEmpty]
+          VarDeclTailOk(
+            VarDeclListEmpty(
+            ) [VarDeclListEmpty]
+          ) [VarDeclTailOk]
+        ) [VarDeclOk]
+      ) [GlobalDeclVar]
+      GlobalDeclListYes(
+        GlobalDeclVar(
+          VarDeclOk(
+            TypeIdent(
+             bool
+            ) [TypeIdent]
+           b
+            BracketsOptEmpty(
+            ) [BracketsOptEmpty]
+            VarDeclTailOk(
+              VarDeclListEmpty(
+              ) [VarDeclListEmpty]
+            ) [VarDeclTailOk]
+          ) [VarDeclOk]
+        ) [GlobalDeclVar]
+        GlobalDeclListYes(
+          GlobalDeclVar(
+            VarDeclOk(
+              TypeIdent(
+               int
+              ) [TypeIdent]
+             ai
+              BracketsOptYes(
+              ) [BracketsOptYes]
+              VarDeclTailOk(
+                VarDeclListEmpty(
+                ) [VarDeclListEmpty]
+              ) [VarDeclTailOk]
+            ) [VarDeclOk]
+          ) [GlobalDeclVar]
+          GlobalDeclListEmpty(
+          ) [GlobalDeclListEmpty]
+        ) [GlobalDeclListYes]
+      ) [GlobalDeclListYes]
+    ) [GlobalDeclListYes]
+  ) [GlobalDeclListYes]
+  MethodDeclListYes(
+    MethodDecl(
+      MethodTypeName(
+        ReturnTypeVoid(
+        ) [ReturnTypeVoid]
+       foo
+      ) [MethodTypeName]
+      FormParsOptEmpty(
+      ) [FormParsOptEmpty]
+      VarDeclMultipleEmpty(
+      ) [VarDeclMultipleEmpty]
+      StatementMultipleEmpty(
+      ) [StatementMultipleEmpty]
+    ) [MethodDecl]
+    MethodDeclListYes(
+      MethodDecl(
+        MethodTypeName(
+          ReturnTypeVoid(
+          ) [ReturnTypeVoid]
+         main
+        ) [MethodTypeName]
+        FormParsOptEmpty(
+        ) [FormParsOptEmpty]
+        VarDeclMultipleEmpty(
+        ) [VarDeclMultipleEmpty]
+        StatementMultipleYes(
+          StmtDesignator(
+            DesignatorStatement(
+              Designator(
+               i
+                DesignatorRestMultipleEmpty(
+                ) [DesignatorRestMultipleEmpty]
+              ) [Designator]
+              DesignatorStmtAssign(
+                Assignop(
+                ) [Assignop]
+                ExprSimple(
+                  SimpleExpr(
+                    MinusOptEmpty(
+                    ) [MinusOptEmpty]
+                    Term(
+                      FactorParen(
+                        ExprTernary(
+                          CondFact(
+                            SimpleExpr(
+                              MinusOptEmpty(
+                              ) [MinusOptEmpty]
+                              Term(
+                                FactorNum(
+                                 1
+                                ) [FactorNum]
+                                TermRestEmpty(
+                                ) [TermRestEmpty]
+                              ) [Term]
+                              ExprRestEmpty(
+                              ) [ExprRestEmpty]
+                            ) [SimpleExpr]
+                            CondFactRestEmpty(
+                            ) [CondFactRestEmpty]
+                          ) [CondFact]
+                          ExprSimple(
+                            SimpleExpr(
+                              MinusOptEmpty(
+                              ) [MinusOptEmpty]
+                              Term(
+                                FactorNum(
+                                 2
+                                ) [FactorNum]
+                                TermRestEmpty(
+                                ) [TermRestEmpty]
+                              ) [Term]
+                              ExprRestEmpty(
+                              ) [ExprRestEmpty]
+                            ) [SimpleExpr]
+                          ) [ExprSimple]
+                          ExprSimple(
+                            SimpleExpr(
+                              MinusOptEmpty(
+                              ) [MinusOptEmpty]
+                              Term(
+                                FactorNum(
+                                 3
+                                ) [FactorNum]
+                                TermRestEmpty(
+                                ) [TermRestEmpty]
+                              ) [Term]
+                              ExprRestEmpty(
+                              ) [ExprRestEmpty]
+                            ) [SimpleExpr]
+                          ) [ExprSimple]
+                        ) [ExprTernary]
+                      ) [FactorParen]
+                      TermRestEmpty(
+                      ) [TermRestEmpty]
+                    ) [Term]
+                    ExprRestEmpty(
+                    ) [ExprRestEmpty]
+                  ) [SimpleExpr]
+                ) [ExprSimple]
+              ) [DesignatorStmtAssign]
+            ) [DesignatorStatement]
+          ) [StmtDesignator]
+          StatementMultipleYes(
+            StmtDesignator(
+              DesignatorStatement(
+                Designator(
+                 i
+                  DesignatorRestMultipleEmpty(
+                  ) [DesignatorRestMultipleEmpty]
+                ) [Designator]
+                DesignatorStmtAssign(
+                  Assignop(
+                  ) [Assignop]
+                  ExprSimple(
+                    SimpleExpr(
+                      MinusOptEmpty(
+                      ) [MinusOptEmpty]
+                      Term(
+                        FactorParen(
+                          ExprTernary(
+                            CondFact(
+                              SimpleExpr(
+                                MinusOptEmpty(
+                                ) [MinusOptEmpty]
+                                Term(
+                                  FactorChar(
+                                   'a'
+                                  ) [FactorChar]
+                                  TermRestEmpty(
+                                  ) [TermRestEmpty]
+                                ) [Term]
+                                ExprRestEmpty(
+                                ) [ExprRestEmpty]
+                              ) [SimpleExpr]
+                              CondFactRestEmpty(
+                              ) [CondFactRestEmpty]
+                            ) [CondFact]
+                            ExprSimple(
+                              SimpleExpr(
+                                MinusOptEmpty(
+                                ) [MinusOptEmpty]
+                                Term(
+                                  FactorNum(
+                                   2
+                                  ) [FactorNum]
+                                  TermRestEmpty(
+                                  ) [TermRestEmpty]
+                                ) [Term]
+                                ExprRestEmpty(
+                                ) [ExprRestEmpty]
+                              ) [SimpleExpr]
+                            ) [ExprSimple]
+                            ExprSimple(
+                              SimpleExpr(
+                                MinusOptEmpty(
+                                ) [MinusOptEmpty]
+                                Term(
+                                  FactorNum(
+                                   3
+                                  ) [FactorNum]
+                                  TermRestEmpty(
+                                  ) [TermRestEmpty]
+                                ) [Term]
+                                ExprRestEmpty(
+                                ) [ExprRestEmpty]
+                              ) [SimpleExpr]
+                            ) [ExprSimple]
+                          ) [ExprTernary]
+                        ) [FactorParen]
+                        TermRestEmpty(
+                        ) [TermRestEmpty]
+                      ) [Term]
+                      ExprRestEmpty(
+                      ) [ExprRestEmpty]
+                    ) [SimpleExpr]
+                  ) [ExprSimple]
+                ) [DesignatorStmtAssign]
+              ) [DesignatorStatement]
+            ) [StmtDesignator]
+            StatementMultipleYes(
+              StmtDesignator(
+                DesignatorStatement(
+                  Designator(
+                   i
+                    DesignatorRestMultipleEmpty(
+                    ) [DesignatorRestMultipleEmpty]
+                  ) [Designator]
+                  DesignatorStmtAssign(
+                    Assignop(
+                    ) [Assignop]
+                    ExprSimple(
+                      SimpleExpr(
+                        MinusOptEmpty(
+                        ) [MinusOptEmpty]
+                        Term(
+                          FactorParen(
+                            ExprTernary(
+                              CondFact(
+                                SimpleExpr(
+                                  MinusOptEmpty(
+                                  ) [MinusOptEmpty]
+                                  Term(
+                                    FactorBool(
+                                    ) [FactorBool]
+                                    TermRestEmpty(
+                                    ) [TermRestEmpty]
+                                  ) [Term]
+                                  ExprRestEmpty(
+                                  ) [ExprRestEmpty]
+                                ) [SimpleExpr]
+                                CondFactRestEmpty(
+                                ) [CondFactRestEmpty]
+                              ) [CondFact]
+                              ExprSimple(
+                                SimpleExpr(
+                                  MinusOptEmpty(
+                                  ) [MinusOptEmpty]
+                                  Term(
+                                    FactorNum(
+                                     1
+                                    ) [FactorNum]
+                                    TermRestEmpty(
+                                    ) [TermRestEmpty]
+                                  ) [Term]
+                                  ExprRestEmpty(
+                                  ) [ExprRestEmpty]
+                                ) [SimpleExpr]
+                              ) [ExprSimple]
+                              ExprSimple(
+                                SimpleExpr(
+                                  MinusOptEmpty(
+                                  ) [MinusOptEmpty]
+                                  Term(
+                                    FactorChar(
+                                     'a'
+                                    ) [FactorChar]
+                                    TermRestEmpty(
+                                    ) [TermRestEmpty]
+                                  ) [Term]
+                                  ExprRestEmpty(
+                                  ) [ExprRestEmpty]
+                                ) [SimpleExpr]
+                              ) [ExprSimple]
+                            ) [ExprTernary]
+                          ) [FactorParen]
+                          TermRestEmpty(
+                          ) [TermRestEmpty]
+                        ) [Term]
+                        ExprRestEmpty(
+                        ) [ExprRestEmpty]
+                      ) [SimpleExpr]
+                    ) [ExprSimple]
+                  ) [DesignatorStmtAssign]
+                ) [DesignatorStatement]
+              ) [StmtDesignator]
+              StatementMultipleYes(
+                StmtDesignator(
+                  DesignatorStatement(
+                    Designator(
+                     ai
+                      DesignatorRestMultipleEmpty(
+                      ) [DesignatorRestMultipleEmpty]
+                    ) [Designator]
+                    DesignatorStmtAssign(
+                      Assignop(
+                      ) [Assignop]
+                      ExprSimple(
+                        SimpleExpr(
+                          MinusOptEmpty(
+                          ) [MinusOptEmpty]
+                          Term(
+                            FactorParen(
+                              ExprTernary(
+                                CondFact(
+                                  SimpleExpr(
+                                    MinusOptEmpty(
+                                    ) [MinusOptEmpty]
+                                    Term(
+                                      FactorBool(
+                                      ) [FactorBool]
+                                      TermRestEmpty(
+                                      ) [TermRestEmpty]
+                                    ) [Term]
+                                    ExprRestEmpty(
+                                    ) [ExprRestEmpty]
+                                  ) [SimpleExpr]
+                                  CondFactRestEmpty(
+                                  ) [CondFactRestEmpty]
+                                ) [CondFact]
+                                ExprSimple(
+                                  SimpleExpr(
+                                    MinusOptEmpty(
+                                    ) [MinusOptEmpty]
+                                    Term(
+                                      FactorNewArray(
+                                        TypeIdent(
+                                         int
+                                        ) [TypeIdent]
+                                        ExprSimple(
+                                          SimpleExpr(
+                                            MinusOptEmpty(
+                                            ) [MinusOptEmpty]
+                                            Term(
+                                              FactorNum(
+                                               5
+                                              ) [FactorNum]
+                                              TermRestEmpty(
+                                              ) [TermRestEmpty]
+                                            ) [Term]
+                                            ExprRestEmpty(
+                                            ) [ExprRestEmpty]
+                                          ) [SimpleExpr]
+                                        ) [ExprSimple]
+                                      ) [FactorNewArray]
+                                      TermRestEmpty(
+                                      ) [TermRestEmpty]
+                                    ) [Term]
+                                    ExprRestEmpty(
+                                    ) [ExprRestEmpty]
+                                  ) [SimpleExpr]
+                                ) [ExprSimple]
+                                ExprSimple(
+                                  SimpleExpr(
+                                    MinusOptEmpty(
+                                    ) [MinusOptEmpty]
+                                    Term(
+                                      FactorNum(
+                                       0
+                                      ) [FactorNum]
+                                      TermRestEmpty(
+                                      ) [TermRestEmpty]
+                                    ) [Term]
+                                    ExprRestEmpty(
+                                    ) [ExprRestEmpty]
+                                  ) [SimpleExpr]
+                                ) [ExprSimple]
+                              ) [ExprTernary]
+                            ) [FactorParen]
+                            TermRestEmpty(
+                            ) [TermRestEmpty]
+                          ) [Term]
+                          ExprRestEmpty(
+                          ) [ExprRestEmpty]
+                        ) [SimpleExpr]
+                      ) [ExprSimple]
+                    ) [DesignatorStmtAssign]
+                  ) [DesignatorStatement]
+                ) [StmtDesignator]
+                StatementMultipleYes(
+                  StmtDesignator(
+                    DesignatorStatement(
+                      Designator(
+                       b
+                        DesignatorRestMultipleEmpty(
+                        ) [DesignatorRestMultipleEmpty]
+                      ) [Designator]
+                      DesignatorStmtAssign(
+                        Assignop(
+                        ) [Assignop]
+                        ExprSimple(
+                          SimpleExpr(
+                            MinusOptEmpty(
+                            ) [MinusOptEmpty]
+                            Term(
+                              FactorParen(
+                                ExprTernary(
+                                  CondFact(
+                                    SimpleExpr(
+                                      MinusOptEmpty(
+                                      ) [MinusOptEmpty]
+                                      Term(
+                                        FactorBool(
+                                        ) [FactorBool]
+                                        TermRestEmpty(
+                                        ) [TermRestEmpty]
+                                      ) [Term]
+                                      ExprRestEmpty(
+                                      ) [ExprRestEmpty]
+                                    ) [SimpleExpr]
+                                    CondFactRestEmpty(
+                                    ) [CondFactRestEmpty]
+                                  ) [CondFact]
+                                  ExprSimple(
+                                    SimpleExpr(
+                                      MinusOptEmpty(
+                                      ) [MinusOptEmpty]
+                                      Term(
+                                        FactorBool(
+                                        ) [FactorBool]
+                                        TermRestEmpty(
+                                        ) [TermRestEmpty]
+                                      ) [Term]
+                                      ExprRestEmpty(
+                                      ) [ExprRestEmpty]
+                                    ) [SimpleExpr]
+                                  ) [ExprSimple]
+                                  ExprSimple(
+                                    SimpleExpr(
+                                      MinusOptEmpty(
+                                      ) [MinusOptEmpty]
+                                      Term(
+                                        FactorNum(
+                                         0
+                                        ) [FactorNum]
+                                        TermRestEmpty(
+                                        ) [TermRestEmpty]
+                                      ) [Term]
+                                      ExprRestEmpty(
+                                      ) [ExprRestEmpty]
+                                    ) [SimpleExpr]
+                                  ) [ExprSimple]
+                                ) [ExprTernary]
+                              ) [FactorParen]
+                              TermRestEmpty(
+                              ) [TermRestEmpty]
+                            ) [Term]
+                            ExprRestEmpty(
+                            ) [ExprRestEmpty]
+                          ) [SimpleExpr]
+                        ) [ExprSimple]
+                      ) [DesignatorStmtAssign]
+                    ) [DesignatorStatement]
+                  ) [StmtDesignator]
+                  StatementMultipleYes(
+                    StmtDesignator(
+                      DesignatorStatement(
+                        Designator(
+                         i
+                          DesignatorRestMultipleEmpty(
+                          ) [DesignatorRestMultipleEmpty]
+                        ) [Designator]
+                        DesignatorStmtAssign(
+                          Assignop(
+                          ) [Assignop]
+                          ExprSimple(
+                            SimpleExpr(
+                              MinusOptEmpty(
+                              ) [MinusOptEmpty]
+                              Term(
+                                FactorParen(
+                                  ExprTernary(
+                                    CondFact(
+                                      SimpleExpr(
+                                        MinusOptEmpty(
+                                        ) [MinusOptEmpty]
+                                        Term(
+                                          FactorBool(
+                                          ) [FactorBool]
+                                          TermRestEmpty(
+                                          ) [TermRestEmpty]
+                                        ) [Term]
+                                        ExprRestEmpty(
+                                        ) [ExprRestEmpty]
+                                      ) [SimpleExpr]
+                                      CondFactRestEmpty(
+                                      ) [CondFactRestEmpty]
+                                    ) [CondFact]
+                                    ExprSimple(
+                                      SimpleExpr(
+                                        MinusOptEmpty(
+                                        ) [MinusOptEmpty]
+                                        Term(
+                                          FactorDesignator(
+                                            Designator(
+                                             foo
+                                              DesignatorRestMultipleEmpty(
+                                              ) [DesignatorRestMultipleEmpty]
+                                            ) [Designator]
+                                            FactorRestCall(
+                                              ActParsOptEmpty(
+                                              ) [ActParsOptEmpty]
+                                            ) [FactorRestCall]
+                                          ) [FactorDesignator]
+                                          TermRestEmpty(
+                                          ) [TermRestEmpty]
+                                        ) [Term]
+                                        ExprRestEmpty(
+                                        ) [ExprRestEmpty]
+                                      ) [SimpleExpr]
+                                    ) [ExprSimple]
+                                    ExprSimple(
+                                      SimpleExpr(
+                                        MinusOptEmpty(
+                                        ) [MinusOptEmpty]
+                                        Term(
+                                          FactorNum(
+                                           1
+                                          ) [FactorNum]
+                                          TermRestEmpty(
+                                          ) [TermRestEmpty]
+                                        ) [Term]
+                                        ExprRestEmpty(
+                                        ) [ExprRestEmpty]
+                                      ) [SimpleExpr]
+                                    ) [ExprSimple]
+                                  ) [ExprTernary]
+                                ) [FactorParen]
+                                TermRestEmpty(
+                                ) [TermRestEmpty]
+                              ) [Term]
+                              ExprRestEmpty(
+                              ) [ExprRestEmpty]
+                            ) [SimpleExpr]
+                          ) [ExprSimple]
+                        ) [DesignatorStmtAssign]
+                      ) [DesignatorStatement]
+                    ) [StmtDesignator]
+                    StatementMultipleYes(
+                      StmtDesignator(
+                        DesignatorStatement(
+                          Designator(
+                           i
+                            DesignatorRestMultipleEmpty(
+                            ) [DesignatorRestMultipleEmpty]
+                          ) [Designator]
+                          DesignatorStmtAssign(
+                            Assignop(
+                            ) [Assignop]
+                            ExprSimple(
+                              SimpleExpr(
+                                MinusOptYes(
+                                ) [MinusOptYes]
+                                Term(
+                                  FactorChar(
+                                   'a'
+                                  ) [FactorChar]
+                                  TermRestEmpty(
+                                  ) [TermRestEmpty]
+                                ) [Term]
+                                ExprRestEmpty(
+                                ) [ExprRestEmpty]
+                              ) [SimpleExpr]
+                            ) [ExprSimple]
+                          ) [DesignatorStmtAssign]
+                        ) [DesignatorStatement]
+                      ) [StmtDesignator]
+                      StatementMultipleYes(
+                        StmtDesignator(
+                          DesignatorStatement(
+                            Designator(
+                             i
+                              DesignatorRestMultipleEmpty(
+                              ) [DesignatorRestMultipleEmpty]
+                            ) [Designator]
+                            DesignatorStmtAssign(
+                              Assignop(
+                              ) [Assignop]
+                              ExprSimple(
+                                SimpleExpr(
+                                  MinusOptYes(
+                                  ) [MinusOptYes]
+                                  Term(
+                                    FactorBool(
+                                    ) [FactorBool]
+                                    TermRestEmpty(
+                                    ) [TermRestEmpty]
+                                  ) [Term]
+                                  ExprRestEmpty(
+                                  ) [ExprRestEmpty]
+                                ) [SimpleExpr]
+                              ) [ExprSimple]
+                            ) [DesignatorStmtAssign]
+                          ) [DesignatorStatement]
+                        ) [StmtDesignator]
+                        StatementMultipleYes(
+                          StmtDesignator(
+                            DesignatorStatement(
+                              Designator(
+                               i
+                                DesignatorRestMultipleEmpty(
+                                ) [DesignatorRestMultipleEmpty]
+                              ) [Designator]
+                              DesignatorStmtAssign(
+                                Assignop(
+                                ) [Assignop]
+                                ExprSimple(
+                                  SimpleExpr(
+                                    MinusOptYes(
+                                    ) [MinusOptYes]
+                                    Term(
+                                      FactorDesignator(
+                                        Designator(
+                                         ai
+                                          DesignatorRestMultipleEmpty(
+                                          ) [DesignatorRestMultipleEmpty]
+                                        ) [Designator]
+                                        FactorRestEmpty(
+                                        ) [FactorRestEmpty]
+                                      ) [FactorDesignator]
+                                      TermRestEmpty(
+                                      ) [TermRestEmpty]
+                                    ) [Term]
+                                    ExprRestEmpty(
+                                    ) [ExprRestEmpty]
+                                  ) [SimpleExpr]
+                                ) [ExprSimple]
+                              ) [DesignatorStmtAssign]
+                            ) [DesignatorStatement]
+                          ) [StmtDesignator]
+                          StatementMultipleYes(
+                            StmtDesignator(
+                              DesignatorStatement(
+                                Designator(
+                                 i
+                                  DesignatorRestMultipleEmpty(
+                                  ) [DesignatorRestMultipleEmpty]
+                                ) [Designator]
+                                DesignatorStmtAssign(
+                                  Assignop(
+                                  ) [Assignop]
+                                  ExprSimple(
+                                    SimpleExpr(
+                                      MinusOptEmpty(
+                                      ) [MinusOptEmpty]
+                                      Term(
+                                        FactorNum(
+                                         1
+                                        ) [FactorNum]
+                                        TermRestEmpty(
+                                        ) [TermRestEmpty]
+                                      ) [Term]
+                                      ExprRestYes(
+                                        AddopPlus(
+                                        ) [AddopPlus]
+                                        Term(
+                                          FactorChar(
+                                           'a'
+                                          ) [FactorChar]
+                                          TermRestEmpty(
+                                          ) [TermRestEmpty]
+                                        ) [Term]
+                                        ExprRestEmpty(
+                                        ) [ExprRestEmpty]
+                                      ) [ExprRestYes]
+                                    ) [SimpleExpr]
+                                  ) [ExprSimple]
+                                ) [DesignatorStmtAssign]
+                              ) [DesignatorStatement]
+                            ) [StmtDesignator]
+                            StatementMultipleYes(
+                              StmtDesignator(
+                                DesignatorStatement(
+                                  Designator(
+                                   i
+                                    DesignatorRestMultipleEmpty(
+                                    ) [DesignatorRestMultipleEmpty]
+                                  ) [Designator]
+                                  DesignatorStmtAssign(
+                                    Assignop(
+                                    ) [Assignop]
+                                    ExprSimple(
+                                      SimpleExpr(
+                                        MinusOptEmpty(
+                                        ) [MinusOptEmpty]
+                                        Term(
+                                          FactorChar(
+                                           'a'
+                                          ) [FactorChar]
+                                          TermRestEmpty(
+                                          ) [TermRestEmpty]
+                                        ) [Term]
+                                        ExprRestYes(
+                                          AddopPlus(
+                                          ) [AddopPlus]
+                                          Term(
+                                            FactorNum(
+                                             1
+                                            ) [FactorNum]
+                                            TermRestEmpty(
+                                            ) [TermRestEmpty]
+                                          ) [Term]
+                                          ExprRestEmpty(
+                                          ) [ExprRestEmpty]
+                                        ) [ExprRestYes]
+                                      ) [SimpleExpr]
+                                    ) [ExprSimple]
+                                  ) [DesignatorStmtAssign]
+                                ) [DesignatorStatement]
+                              ) [StmtDesignator]
+                              StatementMultipleYes(
+                                StmtDesignator(
+                                  DesignatorStatement(
+                                    Designator(
+                                     i
+                                      DesignatorRestMultipleEmpty(
+                                      ) [DesignatorRestMultipleEmpty]
+                                    ) [Designator]
+                                    DesignatorStmtAssign(
+                                      Assignop(
+                                      ) [Assignop]
+                                      ExprSimple(
+                                        SimpleExpr(
+                                          MinusOptEmpty(
+                                          ) [MinusOptEmpty]
+                                          Term(
+                                            FactorBool(
+                                            ) [FactorBool]
+                                            TermRestEmpty(
+                                            ) [TermRestEmpty]
+                                          ) [Term]
+                                          ExprRestYes(
+                                            AddopMinus(
+                                            ) [AddopMinus]
+                                            Term(
+                                              FactorNum(
+                                               1
+                                              ) [FactorNum]
+                                              TermRestEmpty(
+                                              ) [TermRestEmpty]
+                                            ) [Term]
+                                            ExprRestEmpty(
+                                            ) [ExprRestEmpty]
+                                          ) [ExprRestYes]
+                                        ) [SimpleExpr]
+                                      ) [ExprSimple]
+                                    ) [DesignatorStmtAssign]
+                                  ) [DesignatorStatement]
+                                ) [StmtDesignator]
+                                StatementMultipleYes(
+                                  StmtDesignator(
+                                    DesignatorStatement(
+                                      Designator(
+                                       i
+                                        DesignatorRestMultipleEmpty(
+                                        ) [DesignatorRestMultipleEmpty]
+                                      ) [Designator]
+                                      DesignatorStmtAssign(
+                                        Assignop(
+                                        ) [Assignop]
+                                        ExprSimple(
+                                          SimpleExpr(
+                                            MinusOptEmpty(
+                                            ) [MinusOptEmpty]
+                                            Term(
+                                              FactorNum(
+                                               1
+                                              ) [FactorNum]
+                                              TermRestEmpty(
+                                              ) [TermRestEmpty]
+                                            ) [Term]
+                                            ExprRestYes(
+                                              AddopPlus(
+                                              ) [AddopPlus]
+                                              Term(
+                                                FactorBool(
+                                                ) [FactorBool]
+                                                TermRestEmpty(
+                                                ) [TermRestEmpty]
+                                              ) [Term]
+                                              ExprRestEmpty(
+                                              ) [ExprRestEmpty]
+                                            ) [ExprRestYes]
+                                          ) [SimpleExpr]
+                                        ) [ExprSimple]
+                                      ) [DesignatorStmtAssign]
+                                    ) [DesignatorStatement]
+                                  ) [StmtDesignator]
+                                  StatementMultipleYes(
+                                    StmtDesignator(
+                                      DesignatorStatement(
+                                        Designator(
+                                         i
+                                          DesignatorRestMultipleEmpty(
+                                          ) [DesignatorRestMultipleEmpty]
+                                        ) [Designator]
+                                        DesignatorStmtAssign(
+                                          Assignop(
+                                          ) [Assignop]
+                                          ExprSimple(
+                                            SimpleExpr(
+                                              MinusOptEmpty(
+                                              ) [MinusOptEmpty]
+                                              Term(
+                                                FactorNum(
+                                                 1
+                                                ) [FactorNum]
+                                                TermRestEmpty(
+                                                ) [TermRestEmpty]
+                                              ) [Term]
+                                              ExprRestYes(
+                                                AddopPlus(
+                                                ) [AddopPlus]
+                                                Term(
+                                                  FactorDesignator(
+                                                    Designator(
+                                                     ai
+                                                      DesignatorRestMultipleEmpty(
+                                                      ) [DesignatorRestMultipleEmpty]
+                                                    ) [Designator]
+                                                    FactorRestEmpty(
+                                                    ) [FactorRestEmpty]
+                                                  ) [FactorDesignator]
+                                                  TermRestEmpty(
+                                                  ) [TermRestEmpty]
+                                                ) [Term]
+                                                ExprRestEmpty(
+                                                ) [ExprRestEmpty]
+                                              ) [ExprRestYes]
+                                            ) [SimpleExpr]
+                                          ) [ExprSimple]
+                                        ) [DesignatorStmtAssign]
+                                      ) [DesignatorStatement]
+                                    ) [StmtDesignator]
+                                    StatementMultipleYes(
+                                      StmtDesignator(
+                                        DesignatorStatement(
+                                          Designator(
+                                           i
+                                            DesignatorRestMultipleEmpty(
+                                            ) [DesignatorRestMultipleEmpty]
+                                          ) [Designator]
+                                          DesignatorStmtAssign(
+                                            Assignop(
+                                            ) [Assignop]
+                                            ExprSimple(
+                                              SimpleExpr(
+                                                MinusOptEmpty(
+                                                ) [MinusOptEmpty]
+                                                Term(
+                                                  FactorDesignator(
+                                                    Designator(
+                                                     ai
+                                                      DesignatorRestMultipleEmpty(
+                                                      ) [DesignatorRestMultipleEmpty]
+                                                    ) [Designator]
+                                                    FactorRestEmpty(
+                                                    ) [FactorRestEmpty]
+                                                  ) [FactorDesignator]
+                                                  TermRestEmpty(
+                                                  ) [TermRestEmpty]
+                                                ) [Term]
+                                                ExprRestYes(
+                                                  AddopPlus(
+                                                  ) [AddopPlus]
+                                                  Term(
+                                                    FactorNum(
+                                                     1
+                                                    ) [FactorNum]
+                                                    TermRestEmpty(
+                                                    ) [TermRestEmpty]
+                                                  ) [Term]
+                                                  ExprRestEmpty(
+                                                  ) [ExprRestEmpty]
+                                                ) [ExprRestYes]
+                                              ) [SimpleExpr]
+                                            ) [ExprSimple]
+                                          ) [DesignatorStmtAssign]
+                                        ) [DesignatorStatement]
+                                      ) [StmtDesignator]
+                                      StatementMultipleYes(
+                                        StmtDesignator(
+                                          DesignatorStatement(
+                                            Designator(
+                                             i
+                                              DesignatorRestMultipleEmpty(
+                                              ) [DesignatorRestMultipleEmpty]
+                                            ) [Designator]
+                                            DesignatorStmtAssign(
+                                              Assignop(
+                                              ) [Assignop]
+                                              ExprSimple(
+                                                SimpleExpr(
+                                                  MinusOptEmpty(
+                                                  ) [MinusOptEmpty]
+                                                  Term(
+                                                    FactorNum(
+                                                     1
+                                                    ) [FactorNum]
+                                                    TermRestEmpty(
+                                                    ) [TermRestEmpty]
+                                                  ) [Term]
+                                                  ExprRestYes(
+                                                    AddopPlus(
+                                                    ) [AddopPlus]
+                                                    Term(
+                                                      FactorParen(
+                                                        ExprTernary(
+                                                          CondFact(
+                                                            SimpleExpr(
+                                                              MinusOptEmpty(
+                                                              ) [MinusOptEmpty]
+                                                              Term(
+                                                                FactorBool(
+                                                                ) [FactorBool]
+                                                                TermRestEmpty(
+                                                                ) [TermRestEmpty]
+                                                              ) [Term]
+                                                              ExprRestEmpty(
+                                                              ) [ExprRestEmpty]
+                                                            ) [SimpleExpr]
+                                                            CondFactRestEmpty(
+                                                            ) [CondFactRestEmpty]
+                                                          ) [CondFact]
+                                                          ExprSimple(
+                                                            SimpleExpr(
+                                                              MinusOptEmpty(
+                                                              ) [MinusOptEmpty]
+                                                              Term(
+                                                                FactorChar(
+                                                                 'a'
+                                                                ) [FactorChar]
+                                                                TermRestEmpty(
+                                                                ) [TermRestEmpty]
+                                                              ) [Term]
+                                                              ExprRestEmpty(
+                                                              ) [ExprRestEmpty]
+                                                            ) [SimpleExpr]
+                                                          ) [ExprSimple]
+                                                          ExprSimple(
+                                                            SimpleExpr(
+                                                              MinusOptEmpty(
+                                                              ) [MinusOptEmpty]
+                                                              Term(
+                                                                FactorChar(
+                                                                 'b'
+                                                                ) [FactorChar]
+                                                                TermRestEmpty(
+                                                                ) [TermRestEmpty]
+                                                              ) [Term]
+                                                              ExprRestEmpty(
+                                                              ) [ExprRestEmpty]
+                                                            ) [SimpleExpr]
+                                                          ) [ExprSimple]
+                                                        ) [ExprTernary]
+                                                      ) [FactorParen]
+                                                      TermRestEmpty(
+                                                      ) [TermRestEmpty]
+                                                    ) [Term]
+                                                    ExprRestEmpty(
+                                                    ) [ExprRestEmpty]
+                                                  ) [ExprRestYes]
+                                                ) [SimpleExpr]
+                                              ) [ExprSimple]
+                                            ) [DesignatorStmtAssign]
+                                          ) [DesignatorStatement]
+                                        ) [StmtDesignator]
+                                        StatementMultipleYes(
+                                          StmtDesignator(
+                                            DesignatorStatement(
+                                              Designator(
+                                               i
+                                                DesignatorRestMultipleEmpty(
+                                                ) [DesignatorRestMultipleEmpty]
+                                              ) [Designator]
+                                              DesignatorStmtAssign(
+                                                Assignop(
+                                                ) [Assignop]
+                                                ExprSimple(
+                                                  SimpleExpr(
+                                                    MinusOptEmpty(
+                                                    ) [MinusOptEmpty]
+                                                    Term(
+                                                      FactorParen(
+                                                        ExprTernary(
+                                                          CondFact(
+                                                            SimpleExpr(
+                                                              MinusOptEmpty(
+                                                              ) [MinusOptEmpty]
+                                                              Term(
+                                                                FactorParen(
+                                                                  ExprTernary(
+                                                                    CondFact(
+                                                                      SimpleExpr(
+                                                                        MinusOptEmpty(
+                                                                        ) [MinusOptEmpty]
+                                                                        Term(
+                                                                          FactorBool(
+                                                                          ) [FactorBool]
+                                                                          TermRestEmpty(
+                                                                          ) [TermRestEmpty]
+                                                                        ) [Term]
+                                                                        ExprRestEmpty(
+                                                                        ) [ExprRestEmpty]
+                                                                      ) [SimpleExpr]
+                                                                      CondFactRestEmpty(
+                                                                      ) [CondFactRestEmpty]
+                                                                    ) [CondFact]
+                                                                    ExprSimple(
+                                                                      SimpleExpr(
+                                                                        MinusOptEmpty(
+                                                                        ) [MinusOptEmpty]
+                                                                        Term(
+                                                                          FactorNum(
+                                                                           1
+                                                                          ) [FactorNum]
+                                                                          TermRestEmpty(
+                                                                          ) [TermRestEmpty]
+                                                                        ) [Term]
+                                                                        ExprRestEmpty(
+                                                                        ) [ExprRestEmpty]
+                                                                      ) [SimpleExpr]
+                                                                    ) [ExprSimple]
+                                                                    ExprSimple(
+                                                                      SimpleExpr(
+                                                                        MinusOptEmpty(
+                                                                        ) [MinusOptEmpty]
+                                                                        Term(
+                                                                          FactorNum(
+                                                                           2
+                                                                          ) [FactorNum]
+                                                                          TermRestEmpty(
+                                                                          ) [TermRestEmpty]
+                                                                        ) [Term]
+                                                                        ExprRestEmpty(
+                                                                        ) [ExprRestEmpty]
+                                                                      ) [SimpleExpr]
+                                                                    ) [ExprSimple]
+                                                                  ) [ExprTernary]
+                                                                ) [FactorParen]
+                                                                TermRestEmpty(
+                                                                ) [TermRestEmpty]
+                                                              ) [Term]
+                                                              ExprRestEmpty(
+                                                              ) [ExprRestEmpty]
+                                                            ) [SimpleExpr]
+                                                            CondFactRestEmpty(
+                                                            ) [CondFactRestEmpty]
+                                                          ) [CondFact]
+                                                          ExprSimple(
+                                                            SimpleExpr(
+                                                              MinusOptEmpty(
+                                                              ) [MinusOptEmpty]
+                                                              Term(
+                                                                FactorNum(
+                                                                 3
+                                                                ) [FactorNum]
+                                                                TermRestEmpty(
+                                                                ) [TermRestEmpty]
+                                                              ) [Term]
+                                                              ExprRestEmpty(
+                                                              ) [ExprRestEmpty]
+                                                            ) [SimpleExpr]
+                                                          ) [ExprSimple]
+                                                          ExprSimple(
+                                                            SimpleExpr(
+                                                              MinusOptEmpty(
+                                                              ) [MinusOptEmpty]
+                                                              Term(
+                                                                FactorNum(
+                                                                 4
+                                                                ) [FactorNum]
+                                                                TermRestEmpty(
+                                                                ) [TermRestEmpty]
+                                                              ) [Term]
+                                                              ExprRestEmpty(
+                                                              ) [ExprRestEmpty]
+                                                            ) [SimpleExpr]
+                                                          ) [ExprSimple]
+                                                        ) [ExprTernary]
+                                                      ) [FactorParen]
+                                                      TermRestEmpty(
+                                                      ) [TermRestEmpty]
+                                                    ) [Term]
+                                                    ExprRestEmpty(
+                                                    ) [ExprRestEmpty]
+                                                  ) [SimpleExpr]
+                                                ) [ExprSimple]
+                                              ) [DesignatorStmtAssign]
+                                            ) [DesignatorStatement]
+                                          ) [StmtDesignator]
+                                          StatementMultipleEmpty(
+                                          ) [StatementMultipleEmpty]
+                                        ) [StatementMultipleYes]
+                                      ) [StatementMultipleYes]
+                                    ) [StatementMultipleYes]
+                                  ) [StatementMultipleYes]
+                                ) [StatementMultipleYes]
+                              ) [StatementMultipleYes]
+                            ) [StatementMultipleYes]
+                          ) [StatementMultipleYes]
+                        ) [StatementMultipleYes]
+                      ) [StatementMultipleYes]
+                    ) [StatementMultipleYes]
+                  ) [StatementMultipleYes]
+                ) [StatementMultipleYes]
+              ) [StatementMultipleYes]
+            ) [StatementMultipleYes]
+          ) [StatementMultipleYes]
+        ) [StatementMultipleYes]
+      ) [MethodDecl]
+      MethodDeclListEmpty(
+      ) [MethodDeclListEmpty]
+    ) [MethodDeclListYes]
+  ) [MethodDeclListYes]
+) [ProgramDecl]
+INFO  18:31:02,053 - ===================================
+INFO  18:31:02,054 - Deklarisano: promenljiva 'i' : int na liniji 5
+INFO  18:31:02,054 - Deklarisano: promenljiva 'c' : char na liniji 6
+INFO  18:31:02,054 - Deklarisano: promenljiva 'b' : bool na liniji 7
+INFO  18:31:02,054 - Deklarisano: promenljiva 'ai' : int[] (niz) na liniji 9
+INFO  18:31:02,055 - Koriscenje promenljive 'i' na liniji 23
+ERROR 18:31:02,055 - Uslov (bez relacije) mora biti tipa bool. na liniji 13
+INFO  18:31:02,055 - Koriscenje promenljive 'i' na liniji 26
+ERROR 18:31:02,055 - Uslov (bez relacije) mora biti tipa bool. na liniji 13
+INFO  18:31:02,055 - Koriscenje promenljive 'i' na liniji 29
+ERROR 18:31:02,055 - Drugi i treci izraz u ?: moraju biti istog tipa. na liniji 24
+INFO  18:31:02,055 - Koriscenje promenljive 'ai' na liniji 32
+ERROR 18:31:02,055 - Drugi i treci izraz u ?: moraju biti istog tipa. na liniji 34
+INFO  18:31:02,055 - Koriscenje promenljive 'b' na liniji 35
+ERROR 18:31:02,056 - Drugi i treci izraz u ?: moraju biti istog tipa. na liniji 27
+INFO  18:31:02,056 - Koriscenje promenljive 'i' na liniji 38
+INFO  18:31:02,056 - Koriscenje metode 'foo' na liniji 38
+INFO  18:31:02,056 - Koriscenje promenljive 'i' na liniji 46
+ERROR 18:31:02,056 - Unary minus je dozvoljen samo nad int. na liniji 46
+ERROR 18:31:02,056 - Nekompatibilni tipovi u dodeli: int = char na liniji 46
+INFO  18:31:02,056 - Koriscenje promenljive 'i' na liniji 49
+ERROR 18:31:02,056 - Unary minus je dozvoljen samo nad int. na liniji 49
+ERROR 18:31:02,056 - Nekompatibilni tipovi u dodeli: int = bool na liniji 49
+INFO  18:31:02,056 - Koriscenje promenljive 'i' na liniji 52
+INFO  18:31:02,056 - Koriscenje promenljive 'ai' na liniji 52
+ERROR 18:31:02,056 - Unary minus je dozvoljen samo nad int. na liniji 52
+ERROR 18:31:02,056 - Nekompatibilni tipovi u dodeli: int = int[] na liniji 52
+INFO  18:31:02,056 - Koriscenje promenljive 'i' na liniji 61
+ERROR 18:31:02,056 - Term u sabiranju/oduzimanju mora biti int. na liniji 61
+INFO  18:31:02,056 - Koriscenje promenljive 'i' na liniji 64
+ERROR 18:31:02,056 - Levi operand u + ili - mora biti int. na liniji 11
+INFO  18:31:02,057 - Koriscenje promenljive 'i' na liniji 67
+ERROR 18:31:02,057 - Levi operand u + ili - mora biti int. na liniji 11
+INFO  18:31:02,057 - Koriscenje promenljive 'i' na liniji 70
+ERROR 18:31:02,057 - Term u sabiranju/oduzimanju mora biti int. na liniji 70
+INFO  18:31:02,057 - Koriscenje promenljive 'i' na liniji 73
+INFO  18:31:02,057 - Koriscenje promenljive 'ai' na liniji 73
+ERROR 18:31:02,057 - Term u sabiranju/oduzimanju mora biti int. na liniji 73
+INFO  18:31:02,057 - Koriscenje promenljive 'i' na liniji 76
+INFO  18:31:02,057 - Koriscenje promenljive 'ai' na liniji 76
+ERROR 18:31:02,057 - Levi operand u + ili - mora biti int. na liniji 11
+INFO  18:31:02,057 - Koriscenje promenljive 'i' na liniji 83
+ERROR 18:31:02,057 - Term u sabiranju/oduzimanju mora biti int. na liniji 83
+INFO  18:31:02,057 - Koriscenje promenljive 'i' na liniji 86
+ERROR 18:31:02,057 - Uslov (bez relacije) mora biti tipa bool. na liniji 13

@@ -1,0 +1,88 @@
+// Test - ternary i expr semanticke greske
+
+program TernaryExprErrors
+
+int i;
+char c;
+bool b;
+
+int ai[];
+
+{
+    void foo() {
+        // void metoda
+    }
+
+    void main() {
+
+        // =========================
+        // TERNARY (?:) SEMANTIC ERRORS
+        // =========================
+
+        // (T1) uslov nije bool (int u uslovu)
+        i = ( 1 ? 2 : 3 );
+
+        // (T2) uslov nije bool (char u uslovu)
+        i = ( 'a' ? 2 : 3 );
+
+        // (T3) grane nisu istog tipa: int vs char
+        i = ( true ? 1 : 'a' );
+
+        // (T4) grane nisu istog tipa: int[] vs int
+        ai = ( true ? new int[5] : 0 );
+
+        // (T6) grane nisu istog tipa: bool vs int
+        b = ( true ? true : 0 );
+
+        // (T7) grana je void (poziv void metode)
+        i = ( true ? foo() : 1 );
+
+        // =========================
+        // EXPR ERRORS: unary minus
+        // Expr = "-" Term, Term mora biti int
+        // =========================
+
+        // (E1) unary minus nad char
+        i = -'a';
+
+        // (E2) unary minus nad bool
+        i = -true;
+
+        // (E3) unary minus nad niz (referenca)
+        i = -ai;
+
+        // =========================
+        // EXPR ERRORS: Addop (+/-)
+        // Expr = Expr Addop Term
+        // Expr i Term moraju biti int (A nivo)
+        // =========================
+
+        // (E4) int + char
+        i = 1 + 'a';
+
+        // (E5) char + int
+        i = 'a' + 1;
+
+        // (E6) bool - int
+        i = true - 1;
+
+        // (E7) int + bool
+        i = 1 + true;
+
+        // (E8) int + niz
+        i = 1 + ai;
+
+        // (E9) niz + int
+        i = ai + 1;
+
+        // =========================
+        // BONUS kombinacije
+        // =========================
+
+        // (B1) ternary vraca char pa ide u sabiranje sa int
+        i = 1 + ( true ? 'a' : 'b' );
+
+        // (B2) ternary vraca int, pa se koristi kao uslov ternary (int nije bool)
+        i = ( (true ? 1 : 2) ? 3 : 4 );
+    }
+}
