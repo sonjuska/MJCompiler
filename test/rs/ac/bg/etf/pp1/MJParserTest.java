@@ -3,6 +3,7 @@ package rs.ac.bg.etf.pp1;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -14,6 +15,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 import rs.ac.bg.etf.pp1.ast.Program;
 import rs.ac.bg.etf.pp1.util.Log4JUtils;
+import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.*;
 
@@ -42,16 +44,37 @@ public class MJParserTest {
 	        Program prog = (Program)(s.value); 
 	        Tab.init();
 	        Tab.insert(Obj.Type, "bool", new Struct(Struct.Int));
-	        SemanticPass sem = new SemanticPass();
+	        
 			// ispis sintaksnog stabla
 			log.info(prog.toString(""));
 			log.info("===================================");
 
 			// ispis prepoznatih programskih konstrukcija
-			prog.traverseBottomUp(sem); 
+			SemanticPass v = new SemanticPass();
+			prog.traverseBottomUp(v); 
+	      
+			log.info(" Print count calls = " + v.printCallCount);
+
+			log.info(" Deklarisanih promenljivih ima = " + v.varDeclCount);
 			
-			//Tab.dump();
+			log.info("===================================");
+			Tab.dump();
 			
+			if(!p.errorDetected && v.passed()){
+				File objFile = new File("test/test301.obj");
+				if(objFile.exists()) objFile.delete();
+				
+				CodeGenerator codeGenerator = new CodeGenerator();
+				prog.traverseBottomUp(codeGenerator);
+				Code.dataSize = v.nVars;
+				Code.mainPc = codeGenerator.getMainPc();
+				log.info("CWD = " + System.getProperty("user.dir"));
+				log.info("OBJ path = " + objFile.getAbsolutePath());
+				Code.write(new FileOutputStream(objFile));
+				log.info("Parsiranje uspesno zavrseno!");
+			}else{
+				log.error("Parsiranje NIJE uspesno zavrseno!");
+			}
 		} 
 		finally {
 			if (br != null) try { br.close(); } catch (IOException e1) { log.error(e1.getMessage(), e1); }

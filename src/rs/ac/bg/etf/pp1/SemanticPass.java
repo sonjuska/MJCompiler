@@ -17,15 +17,13 @@ public class SemanticPass extends VisitorAdaptor {
     private boolean currentVarIsArray = false;
     private Obj currentEnumType = Tab.noObj;
     private int currentEnumValue = 0;
-    private boolean enumOverrideSet = false;
-    private int enumOverrideValue = 0;
     private java.util.HashSet<Integer> enumUsedValues = new java.util.HashSet<>();
     private Obj currentDesignatorObj = Tab.noObj;
     private java.util.HashSet<Obj> enumTypes = new java.util.HashSet<>();
 
 
-    private int varDeclCount = 0;
-    private int printCallCount = 0;
+    int varDeclCount = 0;
+    int printCallCount = 0;
     private int formParamCount = 0;
 
     boolean mainFound = false;
@@ -33,9 +31,24 @@ public class SemanticPass extends VisitorAdaptor {
     private Struct mainReturnType = null;  // mora Tab.noType (void)     
 
     private boolean returnFound = false;
-    private int nVars = 0;
+    int nVars = 0;
 	
 	Logger log = Logger.getLogger(getClass());
+	
+    private static class EnumItemInfo {
+        String name;
+        boolean hasOverride;
+        int overrideVal;
+
+        EnumItemInfo(String name, boolean hasOverride, int overrideVal) {
+            this.name = name;
+            this.hasOverride = hasOverride;
+            this.overrideVal = overrideVal;
+        }
+    }
+
+    private java.util.ArrayList<EnumItemInfo> enumItems = new java.util.ArrayList<>();
+    private java.util.HashSet<String> enumUsedNames = new java.util.HashSet<>();
 
 	public void report_error(String message, SyntaxNode info) {
 		errorDetected = true;
@@ -161,9 +174,48 @@ public class SemanticPass extends VisitorAdaptor {
             }
         }
     }
+    private int parseCharConst(String s) {
 
+	    //'c'
+	    if (s == null || s.length() < 3 || s.charAt(0) != '\'' || s.charAt(s.length() - 1) != '\'') {
+	    	System.out.println("Neispravan format char konstante: " + s);
+	        return 0;
+	    }
 
-    
+	    String inner = s.substring(1, s.length() - 1);
+
+	    if (inner.length() == 1) {
+	        return (int) inner.charAt(0);
+	    }
+
+	    //escape: '\n', '\r', '\t', '\0', '\'', '\\'
+	    if (inner.length() == 2 && inner.charAt(0) == '\\') {
+	        char esc = inner.charAt(1);
+
+	        switch (esc) {
+	            case 'n':  return 10;
+	            case 'r':  return 13;
+	            case 't':  return 9;
+	            case '0':  return 0;
+	            case '\'': return (int) '\'';
+	            case '\\': return (int) '\\';
+
+	            default:
+	                System.out.println("Nepoznata escape sekvenca u char konstanti: \\" + esc);
+	                return 0;
+	        }
+	    }
+	    //sus
+	    System.out.println("Neispravna char konstanta: " + s);
+	    return 0;
+	}
+    //dohvata vr konstanti
+    private int constValue(ConstItem ci) {
+        if (ci instanceof ConstItemNum)  return ((ConstItemNum)ci).getN1();
+        if (ci instanceof ConstItemBool) return ((ConstItemBool)ci).getB1();
+        if (ci instanceof ConstItemChar) return parseCharConst(((ConstItemChar)ci).getC1()); 
+        return 0;
+    }
 	
 	//program
 	
@@ -244,8 +296,7 @@ public class SemanticPass extends VisitorAdaptor {
         Obj con = Tab.insert(Obj.Con, name, currentConstDeclType);
         report_decl(con, c, "");
 
-        // (opciono) upisi vrednost u adr (ako ti kasnije treba u CodeGenerator-u)
-        // con.setAdr(extractConstValue(c.getConstItem()));
+        con.setAdr(constValue(c.getConstItem()));
     }
     
     //ConstDeclList ::= (ConstDeclListYes) COMMA IDENT:constName ASSIGN ConstItem ConstDeclList
@@ -265,9 +316,8 @@ public class SemanticPass extends VisitorAdaptor {
 
         Obj con = Tab.insert(Obj.Con, name, currentConstDeclType);
         report_decl(con, cl, "");
-
-        // (opciono) vrednost:
-        // con.setAdr(extractConstValue(cl.getConstItem()));
+        
+        con.setAdr(constValue(cl.getConstItem()));
     }
     
     //VarDecl
@@ -279,6 +329,7 @@ public class SemanticPass extends VisitorAdaptor {
 
         String name = v.getVarName();
         declareVar(name, currentVarBaseType, currentVarIsArray, v);
+        varDeclCount++;
     }
 
     //VarDeclList ::= (VarDeclListYes) COMMA IDENT:varName BracketsOpt VarDeclList
@@ -286,6 +337,8 @@ public class SemanticPass extends VisitorAdaptor {
         String name = vl.getVarName();
         boolean isArr = vl.getBracketsOpt() instanceof BracketsOptYes;
         declareVar(name, currentVarBaseType, isArr, vl);
+        
+        varDeclCount++;
     }
     
     //MethodDecl (samo provere za main)
@@ -360,34 +413,41 @@ public class SemanticPass extends VisitorAdaptor {
     
     //EnumDecl ::= (EnumDecl) ENUM EnumName LBRACE IDENT:enumItemName NumConstOpt EnumDeclList RBRACE ;
     public void visit(EnumDecl ed) {
-        String item = ed.getEnumItemName();
+        if (currentEnumType == Tab.noObj) return;
 
-        if (currentEnumType == Tab.noObj) {
-            return;
+        String firstItem = ed.getEnumItemName();
+
+        if (!enumUsedNames.add(firstItem)) {
+            report_error("Enum polje " + firstItem + " je vec deklarisano u istom enum-u", ed);
         }
 
-        if (Tab.currentScope().findSymbol(item) != null) {
-            report_error("Enum polje " + item + " je vec deklarisano u istom enum-u", ed);
-        } else {
-        	int val = enumOverrideSet ? enumOverrideValue : currentEnumValue;
+        NumConstOpt nco = ed.getNumConstOpt();
+        boolean hasOv = (nco instanceof NumConstOptAssign);
+        int ovVal = hasOv ? ((NumConstOptAssign)nco).getN1() : 0;
 
-        	Obj c = Tab.insert(Obj.Con, item, Tab.intType);
-        	c.setAdr(val);
-        	
-        	if (!enumUsedValues.add(val)) {
-        	    report_error("Enum vrednost " + val + " nije jedinstvena u okviru ovog enum-a", ed);
-        	}
+        enumItems.add(0, new EnumItemInfo(firstItem, hasOv, ovVal));
 
-        	currentEnumValue = val + 1;
-        	enumOverrideSet = false;
+        int nextVal = 0;
+        for (EnumItemInfo it : enumItems) {
+            int val = it.hasOverride ? it.overrideVal : nextVal;
 
+            Obj c = Tab.insert(Obj.Con, it.name, Tab.intType);
+            c.setAdr(val);
+
+            if (!enumUsedValues.add(val)) {
+                report_error("Enum vrednost " + val + " nije jedinstvena u okviru ovog enum-a", ed);
+            }
+
+            nextVal = val + 1;
         }
 
         Tab.chainLocalSymbols(currentEnumType);
         Tab.closeScope();
 
         currentEnumType = Tab.noObj;
-        currentEnumValue = 0;
+        enumItems.clear();
+        enumUsedNames.clear();
+        enumUsedValues.clear();
     }
     
     //EnumName ::= (EnumName) IDENT:enumName ;
@@ -403,39 +463,37 @@ public class SemanticPass extends VisitorAdaptor {
         currentEnumType = Tab.insert(Obj.Type, enumName, Tab.intType);
         enumTypes.add(currentEnumType);
         Tab.openScope();
-        
-        currentEnumValue = 0;
-        enumOverrideSet = false;
+
+        //reset za novi enum
+        enumItems.clear();
+        enumUsedNames.clear();
         enumUsedValues.clear();
 
+        currentEnumValue = 0;
     }
     //EnumDeclList ::= (EnumDeclListYes) COMMA IDENT:enumItemName NumConstOpt EnumDeclList
     public void visit(EnumDeclListYes el) {
         String item = el.getEnumItemName();
 
-        if (Tab.currentScope().findSymbol(item) != null) {
+        if (!enumUsedNames.add(item)) {
             report_error("Enum polje " + item + " je vec deklarisano u istom enum-u", el);
-            return;
         }
 
-        int val = enumOverrideSet ? enumOverrideValue : currentEnumValue;
+        NumConstOpt nco = el.getNumConstOpt();
+        boolean hasOv = (nco instanceof NumConstOptAssign);
+        int ovVal = hasOv ? ((NumConstOptAssign)nco).getN1() : 0;
 
-        Obj c = Tab.insert(Obj.Con, item, Tab.intType);
-        c.setAdr(val);
-        if (!enumUsedValues.add(val)) {
-            report_error("Enum vrednost " + val + " nije jedinstvena u okviru ovog enum-a", el);
-        }
-
-        currentEnumValue = val + 1;
-        enumOverrideSet = false;
-
+        //ubaci na pocetak da se dobije levo->desno redosled
+        enumItems.add(0, new EnumItemInfo(item, hasOv, ovVal));
     }
     
+    /*
     //NumConstOpt ::= (NumConstOptAssign) ASSIGN NUMCONST
     public void visit(NumConstOptAssign nc) {
         enumOverrideSet = true;
         enumOverrideValue = nc.getN1();
     }
+    */
     
     //Designator ::= (Designator) IDENT:name DesignatorRestMultiple ;
     public void visit(Designator d) {

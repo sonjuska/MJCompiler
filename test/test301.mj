@@ -12,7 +12,6 @@ int niz[];
 char nizch[];
 
 int a;
-
 	
 {
 	void main()	
@@ -20,8 +19,11 @@ int a;
 		int temp;
 		Broj nula, jedan;
 		bool bt;
-		int pet;
 	{
+		print(Broj.NULA);
+		print(eol);
+		print(Broj.PET);
+		print(eol);
 		nula = Broj.NULA;
 		jedan = Broj.JEDAN;
 		bodovi = 0;
@@ -31,7 +33,6 @@ int a;
 		bodovi--;
 		print(bodovi); //9
 		print(eol);
-		
 		
 		niz = new int[3];
 		niz[nula] = 2;
@@ -64,11 +65,7 @@ int a;
 		read(bodovi);
 		bt = true;
 		
-		print(bt ? bodovi : bodovi + 10);
-		print(false ? bodovi + 20 : bodovi + 30);
-		print(bodovi > 10 ? '+' : '-');
 		
-	
 	}
 }
 

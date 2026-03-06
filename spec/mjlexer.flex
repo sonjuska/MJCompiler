@@ -113,8 +113,8 @@ CHARCONST = \'({PLAIN_CHAR}|{CHAR_ESC_N}|{CHAR_ESC_R}|{CHAR_ESC_T}|{CHAR_ESC_0}|
 <YYINITIAL> "}"			{ return new_symbol(sym.RBRACE, yytext()); }
 
 [0-9]+  { return new_symbol(sym.NUMCONST, Integer.valueOf(yytext())); }        //numConst
-"true"  { return new_symbol(sym.BOOLCONST, Boolean.TRUE); }                    //boolConst true
-"false" { return new_symbol(sym.BOOLCONST, Boolean.FALSE); }                   //boolConst false
+"true"  { return new_symbol(sym.BOOLCONST, Integer.valueOf(1)); }			   //boolConst true
+"false" { return new_symbol(sym.BOOLCONST, Integer.valueOf(0)); }              //boolCont false
 
 
 {CHARCONST} { return new_symbol(sym.CHARCONST, yytext()); }                    //charConst

@@ -73,7 +73,7 @@ terminal PLUS, MINUS, MUL, DIV, MOD,
 terminal SEMI, COMMA, DOT,
          LPAREN, RPAREN, LBRACKET, RBRACKET, LBRACE, RBRACE;
 //boolean
-terminal BOOLCONST;
+terminal Integer BOOLCONST;
 
 //valued terminals (Symbol.value)
 terminal String   IDENT;
@@ -179,7 +179,7 @@ ConstDeclList ::= (ConstDeclListYes) COMMA IDENT:constName ASSIGN ConstItem:C1 C
 
 ConstItem ::= (ConstItemNum) NUMCONST:N1 {: RESULT=new ConstItemNum(N1); RESULT.setLine(N1left); :}
             | (ConstItemChar) CHARCONST:C1 {: RESULT=new ConstItemChar(C1); RESULT.setLine(C1left); :}
-            | (ConstItemBool) BOOLCONST {: RESULT=new ConstItemBool(); :} ;
+            | (ConstItemBool) BOOLCONST:B1 {: RESULT=new ConstItemBool(B1); RESULT.setLine(B1left); :} ;
 
 VarDecl ::= (VarDeclOk) Type:varType IDENT:varName BracketsOpt:B1 VarDeclTail:V2 {: RESULT=new VarDeclOk(varType, varName, B1, V2); RESULT.setLine(varTypeleft); :}
     | (VarDeclErrorRecovery) Type:T1 error SEMI:s
@@ -338,9 +338,9 @@ TermRest ::= (TermRestYes) Mulop:M1 Factor:F2 TermRest:T3 {: RESULT=new TermRest
            | (TermRestEmpty) {: RESULT=new TermRestEmpty(); :} /* empty */ ;
 
 Factor ::= (FactorDesignator) Designator:D1 FactorRest:F2 {: RESULT=new FactorDesignator(D1, F2); RESULT.setLine(D1left); :}
-         | (FactorNum) NUMCONST:N1 {: RESULT=new FactorNum(N1); RESULT.setLine(N1left); :}
-         | (FactorChar) CHARCONST:C1 {: RESULT=new FactorChar(C1); RESULT.setLine(C1left); :}
-         | (FactorBool) BOOLCONST {: RESULT=new FactorBool(); :}
+         | (FactorNum) NUMCONST:value {: RESULT=new FactorNum(value); RESULT.setLine(valueleft); :}
+         | (FactorChar) CHARCONST:value {: RESULT=new FactorChar(value); RESULT.setLine(valueleft); :}
+         | (FactorBool) BOOLCONST:value {: RESULT=new FactorBool(value); RESULT.setLine(valueleft); :}
          | (FactorNewArray) NEW Type:T1 LBRACKET Expr:E2 RBRACKET {: RESULT=new FactorNewArray(T1, E2); RESULT.setLine(T1left); :}
          | (FactorParen) LPAREN Expr:E1 RPAREN {: RESULT=new FactorParen(E1); RESULT.setLine(E1left); :} ;
 

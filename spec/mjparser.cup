@@ -73,7 +73,7 @@ terminal PLUS, MINUS, MUL, DIV, MOD,
 terminal SEMI, COMMA, DOT,
          LPAREN, RPAREN, LBRACKET, RBRACKET, LBRACE, RBRACE;
 //boolean
-terminal BOOLCONST;
+terminal Integer BOOLCONST;
 
 //valued terminals (Symbol.value)
 terminal String   IDENT;
@@ -295,9 +295,9 @@ TermRest ::= (TermRestYes) Mulop Factor TermRest
            | (TermRestEmpty) /* empty */ ;
 
 Factor ::= (FactorDesignator) Designator FactorRest
-         | (FactorNum) NUMCONST
-         | (FactorChar) CHARCONST
-         | (FactorBool) BOOLCONST
+         | (FactorNum) NUMCONST:value
+         | (FactorChar) CHARCONST:value
+         | (FactorBool) BOOLCONST:value
          | (FactorNewArray) NEW Type LBRACKET Expr RBRACKET
          | (FactorParen) LPAREN Expr RPAREN ;
 
