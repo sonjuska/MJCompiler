@@ -1,5 +1,8 @@
 package rs.ac.bg.etf.pp1;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 
 import rs.ac.bg.etf.pp1.ast.*;
@@ -49,6 +52,8 @@ public class SemanticPass extends VisitorAdaptor {
 
     private java.util.ArrayList<EnumItemInfo> enumItems = new java.util.ArrayList<>();
     private java.util.HashSet<String> enumUsedNames = new java.util.HashSet<>();
+    //za CodeGenerator
+    public final Map<Designator, Obj> designatorBase = new HashMap<>();
 
 	public void report_error(String message, SyntaxNode info) {
 		errorDetected = true;
@@ -504,6 +509,7 @@ public class SemanticPass extends VisitorAdaptor {
             d.obj = Tab.noObj;
             return;
         }
+        designatorBase.put(d, cur);   // base je prvi IDENT
 
         // 2) prodji kroz DesignatorRestMultiple lanac
         DesignatorRestMultiple rest = d.getDesignatorRestMultiple();

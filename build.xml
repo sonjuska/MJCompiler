@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <project name="MJCompiler" default="compile" basedir=".">
+
+	<property name="objfile" location="${basedir}\test\test301.obj"/>
 
 	<target name="delete">
 		<delete>
@@ -63,22 +66,30 @@
 		</javac>
 	</target>
 	
-	<target name="disasm">
-		<java classname="rs.etf.pp1.mj.runtime.disasm">
-			<arg value="test/test301.obj"/>
-			<classpath>
-				<pathelement location="lib/mj-runtime-1.1.jar"/>
-			</classpath>
-		</java>
+	<target name="disasm" depends= "checkObj">
+	  <java classname="rs.etf.pp1.mj.runtime.disasm" fork="true" failonerror="true">
+	    <arg value="${objfile}"/>
+	    <classpath>
+	      <pathelement location="${basedir}\lib\mj-runtime-1.1.jar"/>
+	    </classpath>
+	  </java>
 	</target>
 
-	<target name="runObj" depends="disasm" >
-		<java classname="rs.etf.pp1.mj.runtime.Run">
-			<arg value="test/test301.obj"/>
-			<classpath>
-				<pathelement location="lib/mj-runtime-1.1.jar"/>
-			</classpath>
-		</java>
+	<target name="runObj" depends="disasm">
+	  <java classname="rs.etf.pp1.mj.runtime.Run" fork="true" failonerror="true">
+	    <arg value="${objfile}"/>
+	    <classpath>
+	      <pathelement location="${basedir}\lib\mj-runtime-1.1.jar"/>
+	    </classpath>
+	  </java>
 	</target>
+	
+	<target name="checkObj">
+	  <available file="${objfile}" property="obj.exists"/>
+	  <fail unless="obj.exists" message="OBJ ne postoji: ${objfile}"/>
+	  <echo message="OBJ postoji: ${objfile}"/>
+	</target>
+	
+	
 	
 </project>

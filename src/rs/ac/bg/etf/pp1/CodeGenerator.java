@@ -1,6 +1,8 @@
 package rs.ac.bg.etf.pp1;
 
 
+import java.util.Map;
+
 import rs.ac.bg.etf.pp1.ast.*;
 import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.Tab;
@@ -12,6 +14,12 @@ public class CodeGenerator extends VisitorAdaptor {
 	private int mainPc;
 	private boolean designatorValueEmitted = false;
 	private boolean methodReturnEmitted = false;
+	
+    private final Map<Designator, Obj> baseMap;
+
+    public CodeGenerator(Map<Designator, Obj> baseMap) {
+        this.baseMap = baseMap;
+    }
 	
 	public int getMainPc(){
 		return mainPc;
@@ -320,9 +328,9 @@ public class CodeGenerator extends VisitorAdaptor {
 	    designatorValueEmitted = false;
 
 	    // 1) pocetni ident
-	    Obj cur = Tab.find(d.getName());
+	    Obj cur = baseMap.get(d);
 	    if (cur == null || cur == Tab.noObj) {
-	        // semantika je vec trebalo da prijavi, ovde samo fail-safe
+	        //fail-safe
 	        d.obj = Tab.noObj;
 	        return;
 	    }
@@ -376,33 +384,19 @@ public class CodeGenerator extends VisitorAdaptor {
 	                continue;
 	            }
 
-	            // ---- .IDENT ---- (enum konstanta)
+	         // ---- .IDENT ---- (enum konstanta)
 	            if (il instanceof IdentLengthIdent) {
-	                String member = ((IdentLengthIdent) il).getIdent();
-
-	                // A nivo: ident.ident samo za nabrajanja (enum)
-	                // Ocekivanje: cur je Obj.Type i ima lokalne simbole konstanti
-	                Obj found = null;
-	                if (cur.getKind() == Obj.Type) {
-	                    for (Obj o : cur.getLocalSymbols()) {
-	                        if (member.equals(o.getName())) {
-	                            found = o;
-	                            break;
-	                        }
-	                    }
-	                }
-
-	                if (found == null) {
-	                    // semantika bi vec prijavila; fail-safe
+	                //semantika je vec postavila d.obj na enum konstantu (Obj.Con)
+	                Obj enumCon = d.obj;
+	                if (enumCon == null || enumCon == Tab.noObj || enumCon.getKind() != Obj.Con) {
 	                    d.obj = Tab.noObj;
 	                    return;
 	                }
 
-	                // enum konstanta: stavi vrednost na stek (adr je vec set u semantici)
-	                Code.load(found);
+	                Code.load(enumCon);              // gura vrednost enum konstante
 	                designatorValueEmitted = true;
 
-	                cur = found;
+	                cur = enumCon;
 	                rest = dot.getDesignatorRestMultiple();
 	                continue;
 	            }

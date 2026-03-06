@@ -20,10 +20,6 @@ int a;
 		Broj nula, jedan;
 		bool bt;
 	{
-		print(Broj.NULA);
-		print(eol);
-		print(Broj.PET);
-		print(eol);
 		nula = Broj.NULA;
 		jedan = Broj.JEDAN;
 		bodovi = 0;
