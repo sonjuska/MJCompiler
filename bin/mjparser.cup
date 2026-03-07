@@ -97,7 +97,7 @@ nonterminal GlobalDeclList, GlobalDecl, MethodDeclList,
 			ConditionOpt, DesignatorStatement, DesignatorStatementRest,
 			ActParsOpt, ActPars, ExprList, MinusOpt,
 			FactorRest, DesignatorRestMultiple, IdentLength,
-			Assignop, Relop, Addop, Mulop, VarDeclTail, EnumName;
+			Assignop, Relop, Addop, Mulop, VarDeclTail, EnumName, TernaryColon;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, ReturnType, MethodTypeName; 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, ConstItem, SimpleExpr,
@@ -279,7 +279,9 @@ CondFactRest ::= (CondFactRestRel) Relop SimpleExpr
                | (CondFactRestEmpty) /* empty */ ;
 
 Expr ::= (ExprSimple) SimpleExpr
-       | (ExprTernary) CondFact QUESTION Expr COLON Expr ;
+       | (ExprTernary) CondFact QUESTION Expr TernaryColon Expr ;
+       
+TernaryColon ::= (TernaryColon) COLON ;
 
 SimpleExpr ::= (SimpleExpr) MinusOpt Term ExprRest ;
 

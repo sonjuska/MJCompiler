@@ -8,12 +8,17 @@ import rs.etf.pp1.mj.runtime.Code;
 import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class CodeGenerator extends VisitorAdaptor {
 
 	private int mainPc;
 	private boolean designatorValueEmitted = false;
 	private boolean methodReturnEmitted = false;
+
+	private final Deque<Integer> ternaryElseFix = new ArrayDeque<>(); //stekovi za ugnjezdjene ternarne
+	private final Deque<Integer> ternaryEndFix  = new ArrayDeque<>();
 	
     private final Map<Designator, Obj> baseMap;
 
@@ -372,12 +377,12 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	            // ---- .length ----
 	            if (il instanceof IdentLengthLength) {
-	                // u A nivou: samo za nizove
-	                Code.load(cur);                 // na stek ide arrayRef
-	                Code.put(Code.arraylength);     // skida arrayRef i gura duzinu (int)
+	                //samo za nizove
+	                Code.load(cur);                 //na stek ide arrayRef
+	                Code.put(Code.arraylength);     //skida arrayRef i gura duzinu (int)
 	                designatorValueEmitted = true;
 
-	                // napravi obj (cisto da d.obj nije noObj); adr nam nije bitan
+	                //napravi obj (cisto da d.obj nije noObj); adr nam nije bitan
 	                cur = new Obj(Obj.Con, cur.getName() + ".length", Tab.intType);
 
 	                rest = dot.getDesignatorRestMultiple();
@@ -393,7 +398,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	                    return;
 	                }
 
-	                Code.load(enumCon);              // gura vrednost enum konstante
+	                Code.load(enumCon);              //gura vrednost enum konstante
 	                designatorValueEmitted = true;
 
 	                cur = enumCon;
@@ -405,7 +410,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	            return;
 	        }
 
-	        // ako se pojavi nesto nepoznato
+	        //ako se pojavi nesto nepoznato
 	        d.obj = Tab.noObj;
 	        return;
 	    }
@@ -419,31 +424,59 @@ public class CodeGenerator extends VisitorAdaptor {
 	public void visit(CondFact cf) {
 	    CondFactRest rest = cf.getCondFactRest();
 
-	    //nema relacije
-	    if (rest instanceof CondFactRestEmpty) {
-	        return;
+	    // 1) Ako ima relaciju: (left op right) -> na stek stavi 1/0
+	    if (rest instanceof CondFactRestRel) {
+	        CondFactRestRel r = (CondFactRestRel) rest;
+	        int op = relopToCode(r.getRelop());
+
+	        // trenutno na steku: [left, right]
+	        Code.putFalseJump(op, 0);
+	        int falseFix = Code.pc - 2;
+
+	        Code.loadConst(1);
+	        Code.putJump(0);
+	        int endFix = Code.pc - 2;
+
+	        Code.fixup(falseFix);
+	        Code.loadConst(0);
+
+	        Code.fixup(endFix);
+	        // sad je na steku: 1 ili 0
+	    } 
+	    // 2) Ako nema relacije: vec imas bool izraz, semantika ti garantuje bool
+	    //    -> ne diraj, pretpostavi da je na steku 0/1
+
+	    // 3) Ako je CondFact deo ExprTernary: odmah posle uslova napravi skok na ELSE ako je uslov 0
+	    if (cf.getParent() instanceof ExprTernary) {
+	        // na steku je cond (0/1)
+	        Code.loadConst(0);                 // stek: [cond, 0]
+	        Code.putFalseJump(Code.ne, 0);     // jump-if-false za (cond != 0) => false kad cond==0 => ELSE
+	        int elseFix = Code.pc - 2;
+
+	        ternaryElseFix.push(elseFix);
+	        // jcc popuje operande => stek cist (sto zelimo pre THEN izraza)
 	    }
-
-	    CondFactRestRel r = (CondFactRestRel) rest;
-	    int op = relopToCode(r.getRelop());
-
-	    //false grana
-	    Code.putFalseJump(op, 0);
-	    int falseFix = Code.pc - 2;   // mesto gde stoji 0 offset (za fixup)
-
-	    // true grana: push 1, pa skoci na kraj
-	    Code.loadConst(1);
+	}
+	
+	public void visit(TernaryColon tc) {
+	    // zavrsili smo THEN izraz (jer je bottom-up), sada:
+	    // 1) bezuslovno preskoci ELSE (skoci na END)
 	    Code.putJump(0);
 	    int endFix = Code.pc - 2;
 
-	    // false label:
-	    Code.fixup(falseFix);
-	    Code.loadConst(0);
+	    // 2) patchuj ELSE skok da ide ovde (pocetak ELSE koda)
+	    int elseFix = ternaryElseFix.pop();
+	    Code.fixup(elseFix);
 
-	    //kraj:
-	    Code.fixup(endFix);
+	    // 3) zapamti END skok za kasnije patchovanje
+	    ternaryEndFix.push(endFix);
 	}
 	
-
+	public void visit(ExprTernary e) {
+	    int endFix = ternaryEndFix.pop();
+	    Code.fixup(endFix);
+	    //posle ovoga, na steku ostaje vrednost ili THEN ili ELSE izraza (tacno jedna)
+	}
+	
 
 }

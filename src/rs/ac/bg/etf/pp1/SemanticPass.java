@@ -846,19 +846,19 @@ public class SemanticPass extends VisitorAdaptor {
             return;
         }
 
-        // (a) kompatibilnost tipova: ekvivalentni ili ref-null (u oba smera)
+        //dal su tipovi kompatibilni
         boolean okCompat = t1.compatibleWith(t2);
         if (!okCompat) {
             report_error("Tipovi u relacijskom izrazu nisu kompatibilni: " +
                     typeToString(t1) + " i " + typeToString(t2), cf);
         }
 
-        // (b) izvuci operator: == ili != ili ostali
+        //izvuceni operatori
         Relop op = rel.getRelop();
         boolean isEq  = (op instanceof RelopEq);   // ==  
         boolean isNeq = (op instanceof RelopNeq);  // !=
 
-        // (c) reference pravilo: uz niz/null dozvoljeno samo == i !=
+        //uz niz/null dozvoljeno samo == i !=
         boolean refLike1 = t1.isRefType();
         boolean refLike2 = t2.isRefType();
 
@@ -870,8 +870,8 @@ public class SemanticPass extends VisitorAdaptor {
             return;
         }
 
-        // (d) A nivo (po tvojoj dosadasnjoj logici): relacijski <,>,<=,>= samo nad int
-        if (!(isEq || isNeq)) { // dakle <,>,<=,>=
+        //relacijski <,>,<=,>= samo nad int
+        if (!(isEq || isNeq)) {
             if (!t1.equals(Tab.intType) || !t2.equals(Tab.intType)) {
                 report_error("Relacijski operatori (<,>,<=,>=) ocekuju int.", cf);
             }

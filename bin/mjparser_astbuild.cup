@@ -141,6 +141,7 @@ nonterminal Addop Addop;
 nonterminal Mulop Mulop;
 nonterminal VarDeclTail VarDeclTail;
 nonterminal EnumName EnumName;
+nonterminal TernaryColon TernaryColon;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, ReturnType, MethodTypeName; 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, ConstItem, SimpleExpr,
@@ -322,7 +323,9 @@ CondFactRest ::= (CondFactRestRel) Relop:R1 SimpleExpr:S2 {: RESULT=new CondFact
                | (CondFactRestEmpty) {: RESULT=new CondFactRestEmpty(); :} /* empty */ ;
 
 Expr ::= (ExprSimple) SimpleExpr:S1 {: RESULT=new ExprSimple(S1); RESULT.setLine(S1left); :}
-       | (ExprTernary) CondFact:C1 QUESTION Expr:E2 COLON Expr:E3 {: RESULT=new ExprTernary(C1, E2, E3); RESULT.setLine(C1left); :} ;
+       | (ExprTernary) CondFact:C1 QUESTION Expr:E2 TernaryColon:T3 Expr:E4 {: RESULT=new ExprTernary(C1, E2, T3, E4); RESULT.setLine(C1left); :} ;
+       
+TernaryColon ::= (TernaryColon) COLON {: RESULT=new TernaryColon(); :} ;
 
 SimpleExpr ::= (SimpleExpr) MinusOpt:M1 Term:T2 ExprRest:E3 {: RESULT=new SimpleExpr(M1, T2, E3); RESULT.setLine(M1left); :} ;
 

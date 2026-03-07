@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 6/2/2026 20:16:59
+// 7/2/2026 23:40:7
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -9,13 +9,16 @@ public class ExprTernary extends Expr {
 
     private CondFact CondFact;
     private Expr Expr;
+    private TernaryColon TernaryColon;
     private Expr Expr1;
 
-    public ExprTernary (CondFact CondFact, Expr Expr, Expr Expr1) {
+    public ExprTernary (CondFact CondFact, Expr Expr, TernaryColon TernaryColon, Expr Expr1) {
         this.CondFact=CondFact;
         if(CondFact!=null) CondFact.setParent(this);
         this.Expr=Expr;
         if(Expr!=null) Expr.setParent(this);
+        this.TernaryColon=TernaryColon;
+        if(TernaryColon!=null) TernaryColon.setParent(this);
         this.Expr1=Expr1;
         if(Expr1!=null) Expr1.setParent(this);
     }
@@ -36,6 +39,14 @@ public class ExprTernary extends Expr {
         this.Expr=Expr;
     }
 
+    public TernaryColon getTernaryColon() {
+        return TernaryColon;
+    }
+
+    public void setTernaryColon(TernaryColon TernaryColon) {
+        this.TernaryColon=TernaryColon;
+    }
+
     public Expr getExpr1() {
         return Expr1;
     }
@@ -51,6 +62,7 @@ public class ExprTernary extends Expr {
     public void childrenAccept(Visitor visitor) {
         if(CondFact!=null) CondFact.accept(visitor);
         if(Expr!=null) Expr.accept(visitor);
+        if(TernaryColon!=null) TernaryColon.accept(visitor);
         if(Expr1!=null) Expr1.accept(visitor);
     }
 
@@ -58,12 +70,14 @@ public class ExprTernary extends Expr {
         accept(visitor);
         if(CondFact!=null) CondFact.traverseTopDown(visitor);
         if(Expr!=null) Expr.traverseTopDown(visitor);
+        if(TernaryColon!=null) TernaryColon.traverseTopDown(visitor);
         if(Expr1!=null) Expr1.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
         if(CondFact!=null) CondFact.traverseBottomUp(visitor);
         if(Expr!=null) Expr.traverseBottomUp(visitor);
+        if(TernaryColon!=null) TernaryColon.traverseBottomUp(visitor);
         if(Expr1!=null) Expr1.traverseBottomUp(visitor);
         accept(visitor);
     }
@@ -81,6 +95,12 @@ public class ExprTernary extends Expr {
 
         if(Expr!=null)
             buffer.append(Expr.toString("  "+tab));
+        else
+            buffer.append(tab+"  null");
+        buffer.append("\n");
+
+        if(TernaryColon!=null)
+            buffer.append(TernaryColon.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

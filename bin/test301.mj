@@ -12,6 +12,7 @@ int niz[];
 char nizch[];
 
 int a;
+int b;
 	
 {
 	void main()	
@@ -54,6 +55,7 @@ int a;
 		print(niz.length); // 3
 
 		a=1;
+		b=3;
 		read(bodovi);
 		bodovi = -bodovi + (pet * a / 2 - nula) * bodovi - (3 % 2 + 3 * 2 - 7); 
 		print(bodovi); //bodovi
@@ -61,6 +63,11 @@ int a;
 		read(bodovi);
 		bt = true;
 		
+		print(bt ? bodovi : bodovi + 10);
+		print(false ? bodovi + 20 : bodovi + 30);
+		print(bodovi > 10 ? '+' : '-');
+		
+		print(a>0? (b>0? 1: 2) : 3);
 		
 	}
 }
