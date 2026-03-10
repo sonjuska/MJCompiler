@@ -261,18 +261,18 @@ public class CodeGenerator extends VisitorAdaptor {
 	    Obj o = f.getDesignator().obj;
 	    if (o == null || o == Tab.noObj) return;
 
-	    //Designator vec emitovao vrednost (length ili enum konst)
+	    //Designator vec emitovao vrednost - length ili enum konst
 	    if (designatorValueEmitted && (f.getFactorRest() instanceof FactorRestEmpty)) {
 	        return;
 	    }
 
-	    // obican Designator kao faktor: ucitaj vrednost (var/elem/const)
+	    //obican Designator kao faktor tj. ucitavanje vrednosti var,elem,const
 	    if (f.getFactorRest() instanceof FactorRestEmpty) {
 	        Code.load(o);
 	        return;
 	    }
 
-	    //Designator( ActParsOpt )
+	    //Designator(ActParsOpt)
 	    if (f.getFactorRest() instanceof FactorRestCall) {
 	        FactorRestCall call = (FactorRestCall) f.getFactorRest();
 	        ActParsOpt apo = call.getActParsOpt();
@@ -334,7 +334,7 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	    designatorValueEmitted = false;
 
-	    // 1) pocetni ident
+	    //pocetni ident
 	    Obj cur = baseMap.get(d);
 	    if (cur == null || cur == Tab.noObj) {
 	        //fail-safe
@@ -344,26 +344,26 @@ public class CodeGenerator extends VisitorAdaptor {
 
 	    DesignatorRestMultiple rest = d.getDesignatorRestMultiple();
 
-	    // 2) prolaz kroz nastavke (u A nivou realno imas max jedan, ali ovo radi i za vise)
+	    //prolaz kroz nastavke (1 za A nivo)
 	    while (!(rest instanceof DesignatorRestMultipleEmpty)) {
 
 	        // -------------------- [ Expr ] --------------------
 	        if (rest instanceof DesignatorRestMultipleIndex) {
 	            DesignatorRestMultipleIndex idx = (DesignatorRestMultipleIndex) rest;
 
-	            // u bottomUp: Expr za indeks je vec obidjen -> na steku je index
-	            // treba nam jos i arrayRef, i to kao: [arrayRef, index]
+	            //u bottomUpje Expr za indeks vec obidjen - na steku je index
+	            //treba mi [arrayRef, index]
 
-	            // ubaci referencu niza na stek
-	            Code.load(cur);                 // stek: [index, arrayRef]
+	            //ubacujem referencu niza na stek
+	            Code.load(cur);                 //stek: [index, arrayRef]
 
-	            // swap top 2: [index, arrayRef] -> [arrayRef, index]
-	            // trik: dup_x1 -> [arrayRef, index, arrayRef], pa pop -> [arrayRef, index]
+	            //swap top 2: [index, arrayRef] - [arrayRef, index]
+	            //dup_x1 - [arrayRef, index, arrayRef], pa pop - [arrayRef, index]
 	            Code.put(Code.dup_x1);
 	            Code.put(Code.pop);
 
-	            // sad designator predstavlja element niza
-	            // (Obj.Elem) - Code.load/Code.store ce koristiti aload/baload ili astore/bastore
+	            //sad je designator element niza
+	            //(Obj.Elem) - Code.load/Code.store ce koristiti aload/baload ili astore/bastore
 	            Struct arrType = cur.getType();
 	            Struct elemType = (arrType != null && arrType.getKind() == Struct.Array) ? arrType.getElemType() : Tab.noType;
 	            cur = new Obj(Obj.Elem, cur.getName() + "[]", elemType);
@@ -384,7 +384,7 @@ public class CodeGenerator extends VisitorAdaptor {
 	                Code.put(Code.arraylength);     //skida arrayRef i gura duzinu (int)
 	                designatorValueEmitted = true;
 
-	                //napravi obj (cisto da d.obj nije noObj); adr nam nije bitan
+	                //napravim obj da d.obj ne bude noObj; adr nije bitan
 	                cur = new Obj(Obj.Con, cur.getName() + ".length", Tab.intType);
 
 	                rest = dot.getDesignatorRestMultiple();
@@ -426,12 +426,12 @@ public class CodeGenerator extends VisitorAdaptor {
 	public void visit(CondFact cf) {
 	    CondFactRest rest = cf.getCondFactRest();
 
-	    // 1) Ako ima relaciju: (left op right) -> na stek stavi 1/0
+	    //ako ima relaciju (left op right) -> na stek stavim 1/0
 	    if (rest instanceof CondFactRestRel) {
 	        CondFactRestRel r = (CondFactRestRel) rest;
 	        int op = relopToCode(r.getRelop());
 
-	        // trenutno na steku: [left, right]
+	        //na steku [left, right]
 	        Code.putFalseJump(op, 0);
 	        int falseFix = Code.pc - 2;
 
@@ -443,15 +443,14 @@ public class CodeGenerator extends VisitorAdaptor {
 	        Code.loadConst(0);
 
 	        Code.fixup(endFix);
-	        // sad je na steku: 1 ili 0
+	        //sad je na steku 1 ili 0
 	    } 
-	    // 2) Ako nema relacije: vec imas bool izraz, semantika ti garantuje bool
-	    //    -> ne diraj, pretpostavi da je na steku 0/1
+	    //ako nema relacije vec imam bool izraz pretpostavim da je na steku 0/1
 
-	    // 3) Ako je CondFact deo ExprTernary: odmah posle uslova napravi skok na ELSE ako je uslov 0
+	    //ako je CondFact deo ExprTernary: odmah posle uslova napravim skok na ELSE ako je uslov 0
 	    if (cf.getParent() instanceof ExprTernary) {
 	        // na steku je cond (0/1)
-	        Code.loadConst(0);                 // stek: [cond, 0]
+	        Code.loadConst(0);                 // stek [cond, 0]
 	        Code.putFalseJump(Code.ne, 0);     // jump-if-false za (cond != 0) => false kad cond==0 => ELSE
 	        int elseFix = Code.pc - 2;
 
@@ -461,16 +460,16 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 	
 	public void visit(TernaryColon tc) {
-	    // zavrsili smo THEN izraz (jer je bottom-up), sada:
-	    // 1) bezuslovno preskoci ELSE (skoci na END)
+	    //zavrsili smo THEN izraz (jer je bottom-up), sada:
+	    //bezuslovno preskoci ELSE (skoci na END)
 	    Code.putJump(0);
 	    int endFix = Code.pc - 2;
 
-	    // 2) patchuj ELSE skok da ide ovde (pocetak ELSE koda)
+	    //patchujem ELSE skok da ide ovde (pocetak ELSE koda)
 	    int elseFix = ternaryElseFix.pop();
 	    Code.fixup(elseFix);
 
-	    // 3) zapamti END skok za kasnije patchovanje
+	    //zapamtim END skok za kasnije patchovanje
 	    ternaryEndFix.push(endFix);
 	}
 	

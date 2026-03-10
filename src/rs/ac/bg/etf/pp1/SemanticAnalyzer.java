@@ -29,7 +29,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     int printCallCount = 0;
     private int formParamCount = 0;
 
-    boolean mainFound = false;
+    boolean mainFound = false;             //da li postoji main metoda
     int mainParamCount = -1;     
     private Struct mainReturnType = null;  // mora Tab.noType (void)     
 
@@ -506,7 +506,12 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     }
     */
     
+    
     //Designator ::= (Designator) IDENT:name DesignatorRestMultiple ;
+    
+    //DesignatorRestMultiple ::= (DesignatorRestMultipleDot) DOT IdentLength DesignatorRestMultiple
+    //							| (DesignatorRestMultipleIndex) LBRACKET Expr RBRACKET DesignatorRestMultiple
+    //							| (DesignatorRestMultipleEmpty) /* empty */ ;
     public void visit(Designator d) {
 
         Obj cur = Tab.find(d.getName());
@@ -515,9 +520,9 @@ public class SemanticAnalyzer extends VisitorAdaptor {
             d.obj = Tab.noObj;
             return;
         }
-        designatorBase.put(d, cur);   // base je prvi IDENT
+        designatorBase.put(d, cur);   //base je prvi IDENT
 
-        // 2) prodji kroz DesignatorRestMultiple lanac
+        //DesignatorRestMultiple lanac
         DesignatorRestMultiple rest = d.getDesignatorRestMultiple();
 
         
@@ -527,7 +532,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
             if (rest instanceof DesignatorRestMultipleIndex) {
                 DesignatorRestMultipleIndex idx = (DesignatorRestMultipleIndex) rest;
 
-                // levi mora biti niz
+                //levi je niz
                 Struct lt = cur.getType();
                 if (lt.getKind() != Struct.Array) {
                     report_error("Indeksiranje [] je dozvoljeno samo nad nizom.", d);
@@ -535,12 +540,12 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                     return;
                 }
 
-                // Expr mora biti int
+                //Expr mora biti int
                 if (idx.getExpr().struct != Tab.intType) {
                     report_error("Indeks niza mora biti tipa int.", idx);
                 }
 
-                // rezultat je element niza (Obj.Elem)
+                //rezultat je element niza (Obj.Elem)
                 cur = new Obj(Obj.Elem, cur.getName() + "[]", lt.getElemType());
 
                 rest = idx.getDesignatorRestMultiple();
@@ -552,17 +557,17 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                 DesignatorRestMultipleDot dot = (DesignatorRestMultipleDot) rest;
                 IdentLength il = dot.getIdentLength();
 
-                // IdentLength ::= (IdentLengthLength) LENGTH ;
+                //IdentLength ::= (IdentLengthLength) LENGTH ;
                 if (il instanceof IdentLengthLength) {
                     if (cur.getType().getKind() != Struct.Array) {
                         report_error("'.length' je dozvoljeno samo nad nizom.", d);
                         d.obj = Tab.noObj;
                         return;
                     }
-                    // length vraca int
+                    //length vraca int
                     cur = new Obj(Obj.Con, cur.getName() + ".length", Tab.intType);
 
-                    // (po zelji strogo) ne dozvoli dalje posle length
+                    //bez grananja posle length
                     if (!(dot.getDesignatorRestMultiple() instanceof DesignatorRestMultipleEmpty)) {
                         report_error("Nakon '.length' nije dozvoljeno dalje grananje designatora.", d);
                         d.obj = Tab.noObj;
@@ -578,11 +583,11 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                     String member = ((IdentLengthIdent) il).getIdent();
                     Struct lt = cur.getType();
                     
-                 // ENUM: Broj.NULA
+                 //ENUM: Broj.NULA
                     if (cur.getKind() == Obj.Type && enumTypes.contains(cur)) {
                         Obj found = null;
 
-                        for (Obj c : cur.getLocalSymbols()) {          // enum konstante su lokalni simboli tog tipa
+                        for (Obj c : cur.getLocalSymbols()) {          //enum konstante su lokalni simboli tog tipa
                             if (c.getName().equals(member)) {
                                 found = c;
                                 break;
@@ -595,7 +600,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                             return;
                         }
 
-                        cur = found;                                   // sad je to Obj.Con (konstanta)
+                        cur = found;                                   //sad je to Obj.Con (konstanta)
                         rest = dot.getDesignatorRestMultiple();
                         continue;
                     }
@@ -617,7 +622,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
             return;
         }
 
-        // 3) postavi rezultat
+        //kraj
         d.obj = cur;
 
         if (cur.getKind() == Obj.Var) {
