@@ -257,7 +257,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         } else {
             t.struct = typeNode.getType();
         }
-        //currentDeclType = t.struct;
+        currentConstDeclType = t.struct;
     }
     
     //ConstDecl
@@ -286,7 +286,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 
     //ConstDecl ::= (ConstDecl) CONST Type:constType IDENT:constName ASSIGN ConstItem ConstDeclList SEMI;
     public void visit(ConstDecl c) {
-        currentConstDeclType = c.getType().struct;
+        //currentConstDeclType = c.getType().struct;
 
         String name = c.getConstName();
         Struct itemType = c.getConstItem().struct;
