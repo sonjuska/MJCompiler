@@ -329,20 +329,26 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     
     //VarDecl ::= (VarDeclOk) Type:varType IDENT:varName BracketsOpt VarDeclTail
     public void visit(VarDeclOk v) {
-        currentVarBaseType = v.getType().struct;
-        currentVarIsArray = v.getBracketsOpt() instanceof BracketsOptYes;
-
+    	
+        Struct baseType = v.getType().struct;  
+        currentVarBaseType = baseType;          //za nastavak liste
+        boolean isArray = v.getBracketsOpt() instanceof BracketsOptYes;
         String name = v.getVarName();
-        declareVar(name, currentVarBaseType, currentVarIsArray, v);
+
+        declareVar(name, baseType, isArray, v);
         varDeclCount++;
     }
 
     //VarDeclList ::= (VarDeclListYes) COMMA IDENT:varName BracketsOpt VarDeclList
     public void visit(VarDeclListYes vl) {
+
+        Struct baseType = ((VarDeclOk)vl.getParent().getParent()).getType().struct;  //tip liste
+
         String name = vl.getVarName();
         boolean isArr = vl.getBracketsOpt() instanceof BracketsOptYes;
-        declareVar(name, currentVarBaseType, isArr, vl);
-        
+
+        declareVar(name, baseType, isArr, vl);
+
         varDeclCount++;
     }
     
