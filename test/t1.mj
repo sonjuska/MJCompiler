@@ -1,0 +1,40 @@
+program t1
+
+enum Broj { NULA, JEDAN, PET=5 }
+
+const int k = 2;
+int a;
+int b;
+int niz[];
+char chs[];
+bool bt;
+
+{
+  void main()
+    int x;
+    Broj e;
+  {
+    a = 3;
+    b = 4;
+    bt = true;
+
+    niz = new int[3];
+    niz[0] = 10;
+    niz[1] = 20;
+    niz[2] = 30;
+
+    chs = new char[2];
+    chs[0] = 'a';
+    chs[1] = 'b';
+
+    print(niz.length);      // 3
+    print(chs.length);      // 2
+    print(ord(chs[0]));     // 97
+
+    e = Broj.PET;
+    x = (bt ? a : b);
+    print(x);
+
+    print(a>0 ? (b>0 ? 1 : 2) : 3);  // ugnjezdjeni ternary
+  }
+}

@@ -1,8 +1,7 @@
 package rs.ac.bg.etf.pp1;
 
 /**
- * Stub sym.java for lexer-only testing (no CUP/parser yet).
- * Later, CUP will generate sym.java from mjparser.cup.
+Hand written sym, before generating
  */
 public class sym_old {
 

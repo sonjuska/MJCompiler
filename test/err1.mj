@@ -1,0 +1,24 @@
+program err1
+
+int niz[];
+int b[];
+int d[];
+const int c = 5;
+int a;
+
+{
+  void main()
+  bool t;
+  {
+    niz = new int[3];
+    print(niz);        //PRINT: izraz mora biti tipa int, char ili bool
+    
+    a=1;
+    read(c);          //READ: designator mora biti promenljiva/elem niza/polje
+    
+    b = new int[2];
+    d = new int[2];
+
+    print(t);    
+  }
+}

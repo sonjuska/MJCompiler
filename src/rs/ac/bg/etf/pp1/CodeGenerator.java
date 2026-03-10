@@ -21,6 +21,8 @@ public class CodeGenerator extends VisitorAdaptor {
 	private final Deque<Integer> ternaryEndFix  = new ArrayDeque<>();
 	
     private final Map<Designator, Obj> baseMap;
+    
+    //java -cp lib/mj-runtime-1.1.jar rs.etf.pp1.mj.runtime.Run test/test301.obj za runObj iz terminala
 
     public CodeGenerator(Map<Designator, Obj> baseMap) {
         this.baseMap = baseMap;

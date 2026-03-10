@@ -16,6 +16,7 @@
 				<exclude name="Yylex.java"/>
 				<exclude name="RuleVisitor.java"/>
 				<exclude name="SemanticPass.java"/>
+				<exclude name="SemanticAnalyzer.java"/>
 				<!--exclude name="ast/"/-->
 			</fileset>
 		</delete>

@@ -1,0 +1,245 @@
+INFO  16:01:28,831 - Compiling source file: C:\Users\SBM\Desktop\FAKULTET\7. semestar\PP1\pp1lab.templateAST\workspace\MJCompiler\test\err1.mj
+INFO  16:01:28,878 - #2 program
+INFO  16:01:28,878 - #49 err1
+INFO  16:01:28,878 - #49 int
+INFO  16:01:28,879 - #49 niz
+INFO  16:01:28,879 - #44 [
+INFO  16:01:28,879 - #45 ]
+INFO  16:01:28,879 - #39 ;
+INFO  16:01:28,880 - #8 const
+INFO  16:01:28,881 - #49 int
+INFO  16:01:28,881 - #49 c
+INFO  16:01:28,881 - #34 =
+INFO  16:01:28,881 - #50 5
+INFO  16:01:28,881 - #39 ;
+INFO  16:01:28,882 - #49 int
+INFO  16:01:28,882 - #49 a
+INFO  16:01:28,882 - #39 ;
+INFO  16:01:28,883 - #46 {
+INFO  16:01:28,883 - #14 void
+INFO  16:01:28,883 - #49 main
+INFO  16:01:28,884 - #42 (
+INFO  16:01:28,889 - #43 )
+INFO  16:01:28,889 - #46 {
+INFO  16:01:28,890 - #49 niz
+INFO  16:01:28,890 - #34 =
+INFO  16:01:28,891 - #10 new
+INFO  16:01:28,892 - #49 int
+INFO  16:01:28,892 - #44 [
+INFO  16:01:28,892 - #50 3
+INFO  16:01:28,892 - #45 ]
+INFO  16:01:28,894 - #39 ;
+INFO  16:01:28,895 - #11 print
+INFO  16:01:28,895 - #42 (
+INFO  16:01:28,895 - #49 niz
+INFO  16:01:28,895 - #43 )
+INFO  16:01:28,896 - #39 ;
+INFO  16:01:28,896 - #49 a
+INFO  16:01:28,896 - #34 =
+INFO  16:01:28,896 - #50 1
+INFO  16:01:28,897 - #39 ;
+INFO  16:01:28,897 - #12 read
+INFO  16:01:28,897 - #42 (
+INFO  16:01:28,897 - #49 c
+INFO  16:01:28,897 - #43 )
+INFO  16:01:28,897 - #39 ;
+INFO  16:01:28,897 - #47 }
+INFO  16:01:28,897 - #47 }
+INFO  16:01:28,909 - ProgramDecl(
+  ProgName(
+   err1
+  ) [ProgName]
+  GlobalDeclListYes(
+    GlobalDeclVar(
+      VarDeclOk(
+        TypeIdent(
+         int
+        ) [TypeIdent]
+       niz
+        BracketsOptYes(
+        ) [BracketsOptYes]
+        VarDeclTailOk(
+          VarDeclListEmpty(
+          ) [VarDeclListEmpty]
+        ) [VarDeclTailOk]
+      ) [VarDeclOk]
+    ) [GlobalDeclVar]
+    GlobalDeclListYes(
+      GlobalDeclConst(
+        ConstDecl(
+          TypeIdent(
+           int
+          ) [TypeIdent]
+         c
+          ConstItemNum(
+           5
+          ) [ConstItemNum]
+          ConstDeclListEmpty(
+          ) [ConstDeclListEmpty]
+        ) [ConstDecl]
+      ) [GlobalDeclConst]
+      GlobalDeclListYes(
+        GlobalDeclVar(
+          VarDeclOk(
+            TypeIdent(
+             int
+            ) [TypeIdent]
+           a
+            BracketsOptEmpty(
+            ) [BracketsOptEmpty]
+            VarDeclTailOk(
+              VarDeclListEmpty(
+              ) [VarDeclListEmpty]
+            ) [VarDeclTailOk]
+          ) [VarDeclOk]
+        ) [GlobalDeclVar]
+        GlobalDeclListEmpty(
+        ) [GlobalDeclListEmpty]
+      ) [GlobalDeclListYes]
+    ) [GlobalDeclListYes]
+  ) [GlobalDeclListYes]
+  MethodDeclListYes(
+    MethodDecl(
+      MethodTypeName(
+        ReturnTypeVoid(
+        ) [ReturnTypeVoid]
+       main
+      ) [MethodTypeName]
+      FormParsOptEmpty(
+      ) [FormParsOptEmpty]
+      VarDeclMultipleEmpty(
+      ) [VarDeclMultipleEmpty]
+      StatementMultipleYes(
+        StmtDesignator(
+          DesignatorStatement(
+            Designator(
+             niz
+              DesignatorRestMultipleEmpty(
+              ) [DesignatorRestMultipleEmpty]
+            ) [Designator]
+            DesignatorStmtAssign(
+              Assignop(
+              ) [Assignop]
+              ExprSimple(
+                SimpleExpr(
+                  MinusOptEmpty(
+                  ) [MinusOptEmpty]
+                  Term(
+                    FactorNewArray(
+                      TypeIdent(
+                       int
+                      ) [TypeIdent]
+                      ExprSimple(
+                        SimpleExpr(
+                          MinusOptEmpty(
+                          ) [MinusOptEmpty]
+                          Term(
+                            FactorNum(
+                             3
+                            ) [FactorNum]
+                            TermRestEmpty(
+                            ) [TermRestEmpty]
+                          ) [Term]
+                          ExprRestEmpty(
+                          ) [ExprRestEmpty]
+                        ) [SimpleExpr]
+                      ) [ExprSimple]
+                    ) [FactorNewArray]
+                    TermRestEmpty(
+                    ) [TermRestEmpty]
+                  ) [Term]
+                  ExprRestEmpty(
+                  ) [ExprRestEmpty]
+                ) [SimpleExpr]
+              ) [ExprSimple]
+            ) [DesignatorStmtAssign]
+          ) [DesignatorStatement]
+        ) [StmtDesignator]
+        StatementMultipleYes(
+          StmtPrint(
+            ExprSimple(
+              SimpleExpr(
+                MinusOptEmpty(
+                ) [MinusOptEmpty]
+                Term(
+                  FactorDesignator(
+                    Designator(
+                     niz
+                      DesignatorRestMultipleEmpty(
+                      ) [DesignatorRestMultipleEmpty]
+                    ) [Designator]
+                    FactorRestEmpty(
+                    ) [FactorRestEmpty]
+                  ) [FactorDesignator]
+                  TermRestEmpty(
+                  ) [TermRestEmpty]
+                ) [Term]
+                ExprRestEmpty(
+                ) [ExprRestEmpty]
+              ) [SimpleExpr]
+            ) [ExprSimple]
+            CommaNumConstOptEmpty(
+            ) [CommaNumConstOptEmpty]
+          ) [StmtPrint]
+          StatementMultipleYes(
+            StmtDesignator(
+              DesignatorStatement(
+                Designator(
+                 a
+                  DesignatorRestMultipleEmpty(
+                  ) [DesignatorRestMultipleEmpty]
+                ) [Designator]
+                DesignatorStmtAssign(
+                  Assignop(
+                  ) [Assignop]
+                  ExprSimple(
+                    SimpleExpr(
+                      MinusOptEmpty(
+                      ) [MinusOptEmpty]
+                      Term(
+                        FactorNum(
+                         1
+                        ) [FactorNum]
+                        TermRestEmpty(
+                        ) [TermRestEmpty]
+                      ) [Term]
+                      ExprRestEmpty(
+                      ) [ExprRestEmpty]
+                    ) [SimpleExpr]
+                  ) [ExprSimple]
+                ) [DesignatorStmtAssign]
+              ) [DesignatorStatement]
+            ) [StmtDesignator]
+            StatementMultipleYes(
+              StmtRead(
+                Designator(
+                 c
+                  DesignatorRestMultipleEmpty(
+                  ) [DesignatorRestMultipleEmpty]
+                ) [Designator]
+              ) [StmtRead]
+              StatementMultipleEmpty(
+              ) [StatementMultipleEmpty]
+            ) [StatementMultipleYes]
+          ) [StatementMultipleYes]
+        ) [StatementMultipleYes]
+      ) [StatementMultipleYes]
+    ) [MethodDecl]
+    MethodDeclListEmpty(
+    ) [MethodDeclListEmpty]
+  ) [MethodDeclListYes]
+) [ProgramDecl]
+INFO  16:01:28,910 - ===================================
+INFO  16:01:28,913 - Deklarisano: promenljiva 'niz' : int[] (niz) na liniji 3
+INFO  16:01:28,914 - Deklarisano: konstanta 'c' : int na liniji 4
+INFO  16:01:28,914 - Deklarisano: promenljiva 'a' : int na liniji 5
+INFO  16:01:28,914 - Koriscenje promenljive 'niz' na liniji 10
+INFO  16:01:28,915 - Koriscenje promenljive 'niz' na liniji 11
+ERROR 16:01:28,915 - PRINT: izraz mora biti tipa int, char ili bool. na liniji 10
+INFO  16:01:28,915 - Koriscenje promenljive 'a' na liniji 13
+INFO  16:01:28,915 - Koriscenje konstante 'c' na liniji 14
+ERROR 16:01:28,915 - READ: designator mora biti promenljiva, element niza ili polje objekta. na liniji 14
+INFO  16:01:28,915 -  Print count calls = 1
+INFO  16:01:28,915 -  Deklarisanih promenljivih ima = 2
+INFO  16:01:28,915 - ===================================
+ERROR 16:01:28,916 - Parsiranje NIJE uspesno zavrseno!
