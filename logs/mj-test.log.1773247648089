@@ -1,0 +1,494 @@
+INFO  17:45:48,508 - Compiling source file: C:\Users\Ivan\Desktop\MJCompiler\PP1_projekat\test\test_mod_A.mj
+INFO  17:45:48,529 - #2 program
+INFO  17:45:48,529 - #49 test_mod_A
+INFO  17:45:48,529 - #49 int
+INFO  17:45:48,530 - #49 a
+INFO  17:45:48,530 - #39 ;
+INFO  17:45:48,530 - #49 int
+INFO  17:45:48,530 - #49 b
+INFO  17:45:48,531 - #39 ;
+INFO  17:45:48,531 - #49 int
+INFO  17:45:48,531 - #49 c
+INFO  17:45:48,531 - #39 ;
+INFO  17:45:48,531 - #49 int
+INFO  17:45:48,531 - #49 niz
+INFO  17:45:48,531 - #44 [
+INFO  17:45:48,531 - #45 ]
+INFO  17:45:48,531 - #39 ;
+INFO  17:45:48,531 - #46 {
+INFO  17:45:48,531 - #14 void
+INFO  17:45:48,532 - #49 main
+INFO  17:45:48,532 - #42 (
+INFO  17:45:48,532 - #43 )
+INFO  17:45:48,532 - #46 {
+INFO  17:45:48,571 - #12 read
+INFO  17:45:48,571 - #42 (
+INFO  17:45:48,571 - #49 a
+INFO  17:45:48,571 - #43 )
+INFO  17:45:48,572 - #39 ;
+INFO  17:45:48,572 - #12 read
+INFO  17:45:48,572 - #42 (
+INFO  17:45:48,572 - #49 b
+INFO  17:45:48,572 - #43 )
+INFO  17:45:48,572 - #39 ;
+INFO  17:45:48,572 - #12 read
+INFO  17:45:48,572 - #42 (
+INFO  17:45:48,572 - #49 c
+INFO  17:45:48,572 - #43 )
+INFO  17:45:48,572 - #39 ;
+INFO  17:45:48,572 - #49 niz
+INFO  17:45:48,572 - #34 =
+INFO  17:45:48,572 - #10 new
+INFO  17:45:48,573 - #49 int
+INFO  17:45:48,573 - #44 [
+INFO  17:45:48,573 - #50 5
+INFO  17:45:48,573 - #45 ]
+INFO  17:45:48,574 - #39 ;
+INFO  17:45:48,574 - #49 niz
+INFO  17:45:48,574 - #44 [
+INFO  17:45:48,574 - #50 0
+INFO  17:45:48,574 - #45 ]
+INFO  17:45:48,575 - #34 =
+INFO  17:45:48,575 - #50 0
+INFO  17:45:48,575 - #39 ;
+INFO  17:45:48,575 - #49 niz
+INFO  17:45:48,575 - #44 [
+INFO  17:45:48,575 - #50 1
+INFO  17:45:48,575 - #45 ]
+INFO  17:45:48,575 - #34 =
+INFO  17:45:48,575 - #50 1
+INFO  17:45:48,575 - #39 ;
+INFO  17:45:48,575 - #49 niz
+INFO  17:45:48,575 - #44 [
+INFO  17:45:48,575 - #50 2
+INFO  17:45:48,575 - #45 ]
+INFO  17:45:48,575 - #34 =
+INFO  17:45:48,575 - #50 2
+INFO  17:45:48,575 - #39 ;
+INFO  17:45:48,575 - #49 niz
+INFO  17:45:48,575 - #44 [
+INFO  17:45:48,575 - #50 3
+INFO  17:45:48,575 - #45 ]
+INFO  17:45:48,575 - #34 =
+INFO  17:45:48,575 - #50 3
+INFO  17:45:48,575 - #39 ;
+INFO  17:45:48,576 - #49 niz
+INFO  17:45:48,576 - #44 [
+INFO  17:45:48,576 - #50 4
+INFO  17:45:48,576 - #45 ]
+INFO  17:45:48,576 - #34 =
+INFO  17:45:48,576 - #50 4
+INFO  17:45:48,576 - #39 ;
+INFO  17:45:48,576 - #47 }
+INFO  17:45:48,576 - #47 }
+INFO  17:45:48,579 - ProgramDecl(
+  ProgName(
+   test_mod_A
+  ) [ProgName]
+  GlobalDeclListYes(
+    GlobalDeclVar(
+      VarDeclOk(
+        TypeIdent(
+         int
+        ) [TypeIdent]
+       a
+        BracketsOptEmpty(
+        ) [BracketsOptEmpty]
+        VarDeclTailOk(
+          VarDeclListEmpty(
+          ) [VarDeclListEmpty]
+        ) [VarDeclTailOk]
+      ) [VarDeclOk]
+    ) [GlobalDeclVar]
+    GlobalDeclListYes(
+      GlobalDeclVar(
+        VarDeclOk(
+          TypeIdent(
+           int
+          ) [TypeIdent]
+         b
+          BracketsOptEmpty(
+          ) [BracketsOptEmpty]
+          VarDeclTailOk(
+            VarDeclListEmpty(
+            ) [VarDeclListEmpty]
+          ) [VarDeclTailOk]
+        ) [VarDeclOk]
+      ) [GlobalDeclVar]
+      GlobalDeclListYes(
+        GlobalDeclVar(
+          VarDeclOk(
+            TypeIdent(
+             int
+            ) [TypeIdent]
+           c
+            BracketsOptEmpty(
+            ) [BracketsOptEmpty]
+            VarDeclTailOk(
+              VarDeclListEmpty(
+              ) [VarDeclListEmpty]
+            ) [VarDeclTailOk]
+          ) [VarDeclOk]
+        ) [GlobalDeclVar]
+        GlobalDeclListYes(
+          GlobalDeclVar(
+            VarDeclOk(
+              TypeIdent(
+               int
+              ) [TypeIdent]
+             niz
+              BracketsOptYes(
+              ) [BracketsOptYes]
+              VarDeclTailOk(
+                VarDeclListEmpty(
+                ) [VarDeclListEmpty]
+              ) [VarDeclTailOk]
+            ) [VarDeclOk]
+          ) [GlobalDeclVar]
+          GlobalDeclListEmpty(
+          ) [GlobalDeclListEmpty]
+        ) [GlobalDeclListYes]
+      ) [GlobalDeclListYes]
+    ) [GlobalDeclListYes]
+  ) [GlobalDeclListYes]
+  MethodDeclListYes(
+    MethodDecl(
+      MethodTypeName(
+        ReturnTypeVoid(
+        ) [ReturnTypeVoid]
+       main
+      ) [MethodTypeName]
+      FormParsOptEmpty(
+      ) [FormParsOptEmpty]
+      VarDeclMultipleEmpty(
+      ) [VarDeclMultipleEmpty]
+      StatementMultipleYes(
+        StmtRead(
+          Designator(
+           a
+            DesignatorRestMultipleEmpty(
+            ) [DesignatorRestMultipleEmpty]
+          ) [Designator]
+        ) [StmtRead]
+        StatementMultipleYes(
+          StmtRead(
+            Designator(
+             b
+              DesignatorRestMultipleEmpty(
+              ) [DesignatorRestMultipleEmpty]
+            ) [Designator]
+          ) [StmtRead]
+          StatementMultipleYes(
+            StmtRead(
+              Designator(
+               c
+                DesignatorRestMultipleEmpty(
+                ) [DesignatorRestMultipleEmpty]
+              ) [Designator]
+            ) [StmtRead]
+            StatementMultipleYes(
+              StmtDesignator(
+                DesignatorStatement(
+                  Designator(
+                   niz
+                    DesignatorRestMultipleEmpty(
+                    ) [DesignatorRestMultipleEmpty]
+                  ) [Designator]
+                  DesignatorStmtAssign(
+                    Assignop(
+                    ) [Assignop]
+                    ExprSimple(
+                      SimpleExpr(
+                        MinusOptEmpty(
+                        ) [MinusOptEmpty]
+                        Term(
+                          FactorNewArray(
+                            TypeIdent(
+                             int
+                            ) [TypeIdent]
+                            ExprSimple(
+                              SimpleExpr(
+                                MinusOptEmpty(
+                                ) [MinusOptEmpty]
+                                Term(
+                                  FactorNum(
+                                   5
+                                  ) [FactorNum]
+                                  TermRestEmpty(
+                                  ) [TermRestEmpty]
+                                ) [Term]
+                                ExprRestEmpty(
+                                ) [ExprRestEmpty]
+                              ) [SimpleExpr]
+                            ) [ExprSimple]
+                          ) [FactorNewArray]
+                          TermRestEmpty(
+                          ) [TermRestEmpty]
+                        ) [Term]
+                        ExprRestEmpty(
+                        ) [ExprRestEmpty]
+                      ) [SimpleExpr]
+                    ) [ExprSimple]
+                  ) [DesignatorStmtAssign]
+                ) [DesignatorStatement]
+              ) [StmtDesignator]
+              StatementMultipleYes(
+                StmtDesignator(
+                  DesignatorStatement(
+                    Designator(
+                     niz
+                      DesignatorRestMultipleIndex(
+                        ExprSimple(
+                          SimpleExpr(
+                            MinusOptEmpty(
+                            ) [MinusOptEmpty]
+                            Term(
+                              FactorNum(
+                               0
+                              ) [FactorNum]
+                              TermRestEmpty(
+                              ) [TermRestEmpty]
+                            ) [Term]
+                            ExprRestEmpty(
+                            ) [ExprRestEmpty]
+                          ) [SimpleExpr]
+                        ) [ExprSimple]
+                        DesignatorRestMultipleEmpty(
+                        ) [DesignatorRestMultipleEmpty]
+                      ) [DesignatorRestMultipleIndex]
+                    ) [Designator]
+                    DesignatorStmtAssign(
+                      Assignop(
+                      ) [Assignop]
+                      ExprSimple(
+                        SimpleExpr(
+                          MinusOptEmpty(
+                          ) [MinusOptEmpty]
+                          Term(
+                            FactorNum(
+                             0
+                            ) [FactorNum]
+                            TermRestEmpty(
+                            ) [TermRestEmpty]
+                          ) [Term]
+                          ExprRestEmpty(
+                          ) [ExprRestEmpty]
+                        ) [SimpleExpr]
+                      ) [ExprSimple]
+                    ) [DesignatorStmtAssign]
+                  ) [DesignatorStatement]
+                ) [StmtDesignator]
+                StatementMultipleYes(
+                  StmtDesignator(
+                    DesignatorStatement(
+                      Designator(
+                       niz
+                        DesignatorRestMultipleIndex(
+                          ExprSimple(
+                            SimpleExpr(
+                              MinusOptEmpty(
+                              ) [MinusOptEmpty]
+                              Term(
+                                FactorNum(
+                                 1
+                                ) [FactorNum]
+                                TermRestEmpty(
+                                ) [TermRestEmpty]
+                              ) [Term]
+                              ExprRestEmpty(
+                              ) [ExprRestEmpty]
+                            ) [SimpleExpr]
+                          ) [ExprSimple]
+                          DesignatorRestMultipleEmpty(
+                          ) [DesignatorRestMultipleEmpty]
+                        ) [DesignatorRestMultipleIndex]
+                      ) [Designator]
+                      DesignatorStmtAssign(
+                        Assignop(
+                        ) [Assignop]
+                        ExprSimple(
+                          SimpleExpr(
+                            MinusOptEmpty(
+                            ) [MinusOptEmpty]
+                            Term(
+                              FactorNum(
+                               1
+                              ) [FactorNum]
+                              TermRestEmpty(
+                              ) [TermRestEmpty]
+                            ) [Term]
+                            ExprRestEmpty(
+                            ) [ExprRestEmpty]
+                          ) [SimpleExpr]
+                        ) [ExprSimple]
+                      ) [DesignatorStmtAssign]
+                    ) [DesignatorStatement]
+                  ) [StmtDesignator]
+                  StatementMultipleYes(
+                    StmtDesignator(
+                      DesignatorStatement(
+                        Designator(
+                         niz
+                          DesignatorRestMultipleIndex(
+                            ExprSimple(
+                              SimpleExpr(
+                                MinusOptEmpty(
+                                ) [MinusOptEmpty]
+                                Term(
+                                  FactorNum(
+                                   2
+                                  ) [FactorNum]
+                                  TermRestEmpty(
+                                  ) [TermRestEmpty]
+                                ) [Term]
+                                ExprRestEmpty(
+                                ) [ExprRestEmpty]
+                              ) [SimpleExpr]
+                            ) [ExprSimple]
+                            DesignatorRestMultipleEmpty(
+                            ) [DesignatorRestMultipleEmpty]
+                          ) [DesignatorRestMultipleIndex]
+                        ) [Designator]
+                        DesignatorStmtAssign(
+                          Assignop(
+                          ) [Assignop]
+                          ExprSimple(
+                            SimpleExpr(
+                              MinusOptEmpty(
+                              ) [MinusOptEmpty]
+                              Term(
+                                FactorNum(
+                                 2
+                                ) [FactorNum]
+                                TermRestEmpty(
+                                ) [TermRestEmpty]
+                              ) [Term]
+                              ExprRestEmpty(
+                              ) [ExprRestEmpty]
+                            ) [SimpleExpr]
+                          ) [ExprSimple]
+                        ) [DesignatorStmtAssign]
+                      ) [DesignatorStatement]
+                    ) [StmtDesignator]
+                    StatementMultipleYes(
+                      StmtDesignator(
+                        DesignatorStatement(
+                          Designator(
+                           niz
+                            DesignatorRestMultipleIndex(
+                              ExprSimple(
+                                SimpleExpr(
+                                  MinusOptEmpty(
+                                  ) [MinusOptEmpty]
+                                  Term(
+                                    FactorNum(
+                                     3
+                                    ) [FactorNum]
+                                    TermRestEmpty(
+                                    ) [TermRestEmpty]
+                                  ) [Term]
+                                  ExprRestEmpty(
+                                  ) [ExprRestEmpty]
+                                ) [SimpleExpr]
+                              ) [ExprSimple]
+                              DesignatorRestMultipleEmpty(
+                              ) [DesignatorRestMultipleEmpty]
+                            ) [DesignatorRestMultipleIndex]
+                          ) [Designator]
+                          DesignatorStmtAssign(
+                            Assignop(
+                            ) [Assignop]
+                            ExprSimple(
+                              SimpleExpr(
+                                MinusOptEmpty(
+                                ) [MinusOptEmpty]
+                                Term(
+                                  FactorNum(
+                                   3
+                                  ) [FactorNum]
+                                  TermRestEmpty(
+                                  ) [TermRestEmpty]
+                                ) [Term]
+                                ExprRestEmpty(
+                                ) [ExprRestEmpty]
+                              ) [SimpleExpr]
+                            ) [ExprSimple]
+                          ) [DesignatorStmtAssign]
+                        ) [DesignatorStatement]
+                      ) [StmtDesignator]
+                      StatementMultipleYes(
+                        StmtDesignator(
+                          DesignatorStatement(
+                            Designator(
+                             niz
+                              DesignatorRestMultipleIndex(
+                                ExprSimple(
+                                  SimpleExpr(
+                                    MinusOptEmpty(
+                                    ) [MinusOptEmpty]
+                                    Term(
+                                      FactorNum(
+                                       4
+                                      ) [FactorNum]
+                                      TermRestEmpty(
+                                      ) [TermRestEmpty]
+                                    ) [Term]
+                                    ExprRestEmpty(
+                                    ) [ExprRestEmpty]
+                                  ) [SimpleExpr]
+                                ) [ExprSimple]
+                                DesignatorRestMultipleEmpty(
+                                ) [DesignatorRestMultipleEmpty]
+                              ) [DesignatorRestMultipleIndex]
+                            ) [Designator]
+                            DesignatorStmtAssign(
+                              Assignop(
+                              ) [Assignop]
+                              ExprSimple(
+                                SimpleExpr(
+                                  MinusOptEmpty(
+                                  ) [MinusOptEmpty]
+                                  Term(
+                                    FactorNum(
+                                     4
+                                    ) [FactorNum]
+                                    TermRestEmpty(
+                                    ) [TermRestEmpty]
+                                  ) [Term]
+                                  ExprRestEmpty(
+                                  ) [ExprRestEmpty]
+                                ) [SimpleExpr]
+                              ) [ExprSimple]
+                            ) [DesignatorStmtAssign]
+                          ) [DesignatorStatement]
+                        ) [StmtDesignator]
+                        StatementMultipleEmpty(
+                        ) [StatementMultipleEmpty]
+                      ) [StatementMultipleYes]
+                    ) [StatementMultipleYes]
+                  ) [StatementMultipleYes]
+                ) [StatementMultipleYes]
+              ) [StatementMultipleYes]
+            ) [StatementMultipleYes]
+          ) [StatementMultipleYes]
+        ) [StatementMultipleYes]
+      ) [StatementMultipleYes]
+    ) [MethodDecl]
+    MethodDeclListEmpty(
+    ) [MethodDeclListEmpty]
+  ) [MethodDeclListYes]
+) [ProgramDecl]
+INFO  17:45:48,580 - ===================================
+INFO  17:45:48,581 - Deklarisano: promenljiva 'a' : int na liniji 3
+INFO  17:45:48,581 - Deklarisano: promenljiva 'b' : int na liniji 4
+INFO  17:45:48,581 - Deklarisano: promenljiva 'c' : int na liniji 5
+INFO  17:45:48,581 - Deklarisano: promenljiva 'niz' : int[] (niz) na liniji 6
+INFO  17:45:48,581 - Koriscenje promenljive 'a' na liniji 12
+INFO  17:45:48,581 - Koriscenje promenljive 'b' na liniji 13
+INFO  17:45:48,581 - Koriscenje promenljive 'c' na liniji 14
+INFO  17:45:48,581 - Koriscenje promenljive 'niz' na liniji 16
+INFO  17:45:48,582 -  Print count calls = 0
+INFO  17:45:48,582 -  Deklarisanih promenljivih ima = 4
+INFO  17:45:48,582 - ===================================
+INFO  17:45:48,582 - Generating bytecode file: C:\Users\Ivan\Desktop\MJCompiler\PP1_projekat\test\test_mod_A.obj
+INFO  17:45:48,584 - Parsiranje uspesno zavrseno!

@@ -1,0 +1,22 @@
+program test_mod_A
+
+	int a,b,c,d;
+	int niz[];
+
+{
+  void main()
+
+  {
+	read(a);
+	read(b);
+	read(c);
+	
+	niz=new int[5];
+	
+	niz[0] = 0; niz[1] = 1; niz[2] = 2; niz[3] = 3; niz[4] = 4;
+	
+	//modifikacija je bila niz[^a]=nesto, tj. Designator ::= Designator "[" ^ Expr "]" ;
+	
+	 
+  }
+}
