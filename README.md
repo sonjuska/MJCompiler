@@ -155,6 +155,7 @@ java -cp lib/mj-runtime-1.1.jar rs.etf.pp1.mj.runtime.Run test/test301.obj
 
 # Example MicroJava Program
 
+```java
 program Test
 
 int a;
@@ -169,6 +170,7 @@ int b;
         print(a + b);
     }
 }
+```
 
 ---
 
