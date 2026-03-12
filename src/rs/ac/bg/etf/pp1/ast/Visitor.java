@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 11/2/2026 17:40:25
+// 12/2/2026 19:16:31
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -8,7 +8,6 @@ package rs.ac.bg.etf.pp1.ast;
 public interface Visitor { 
 
     public void visit(ReturnType ReturnType);
-    public void visit(TermRest TermRest);
     public void visit(Mulop Mulop);
     public void visit(MOrAMDeclMultipleOpt MOrAMDeclMultipleOpt);
     public void visit(FormParsOpt FormParsOpt);
@@ -20,12 +19,12 @@ public interface Visitor {
     public void visit(Addop Addop);
     public void visit(CondFactRest CondFactRest);
     public void visit(AndCondFactMultiple AndCondFactMultiple);
-    public void visit(MinusOpt MinusOpt);
     public void visit(EnumDeclList EnumDeclList);
     public void visit(NumConstOpt NumConstOpt);
     public void visit(Factor Factor);
     public void visit(ExprOpt ExprOpt);
     public void visit(DesignatorRestMultiple DesignatorRestMultiple);
+    public void visit(Term Term);
     public void visit(IdentLength IdentLength);
     public void visit(FormParsList FormParsList);
     public void visit(DesignatorStatementRest DesignatorStatementRest);
@@ -34,8 +33,8 @@ public interface Visitor {
     public void visit(BracketsOpt BracketsOpt);
     public void visit(ConstDeclList ConstDeclList);
     public void visit(DesignatorStatementOpt DesignatorStatementOpt);
-    public void visit(ExprRest ExprRest);
     public void visit(ConstItem ConstItem);
+    public void visit(SimpleExpr SimpleExpr);
     public void visit(ConditionOpt ConditionOpt);
     public void visit(ExprList ExprList);
     public void visit(GlobalDeclList GlobalDeclList);
@@ -73,21 +72,18 @@ public interface Visitor {
     public void visit(Designator Designator);
     public void visit(FactorRestEmpty FactorRestEmpty);
     public void visit(FactorRestCall FactorRestCall);
+    public void visit(TernaryColon TernaryColon);
     public void visit(FactorParen FactorParen);
     public void visit(FactorNewArray FactorNewArray);
     public void visit(FactorBool FactorBool);
     public void visit(FactorChar FactorChar);
     public void visit(FactorNum FactorNum);
     public void visit(FactorDesignator FactorDesignator);
-    public void visit(TermRestEmpty TermRestEmpty);
-    public void visit(TermRestYes TermRestYes);
-    public void visit(Term Term);
-    public void visit(ExprRestEmpty ExprRestEmpty);
-    public void visit(ExprRestYes ExprRestYes);
-    public void visit(MinusOptEmpty MinusOptEmpty);
-    public void visit(MinusOptYes MinusOptYes);
-    public void visit(SimpleExpr SimpleExpr);
-    public void visit(TernaryColon TernaryColon);
+    public void visit(FactorMinus FactorMinus);
+    public void visit(TermMul TermMul);
+    public void visit(TermFactor TermFactor);
+    public void visit(SimpleExprAdd SimpleExprAdd);
+    public void visit(SimpleExprTerm SimpleExprTerm);
     public void visit(ExprTernary ExprTernary);
     public void visit(ExprSimple ExprSimple);
     public void visit(CondFactRestEmpty CondFactRestEmpty);

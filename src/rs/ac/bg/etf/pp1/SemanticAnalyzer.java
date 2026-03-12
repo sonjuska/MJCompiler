@@ -706,6 +706,14 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
 
     }
+    public void visit(FactorMinus f) {
+        if (f.getFactor().struct != Tab.intType) {
+            report_error("Unary minus je dozvoljen samo nad int.", f);
+            f.struct = Tab.noType;
+        } else {
+            f.struct = Tab.intType;
+        }
+    }
 
     public void visit(FactorNum f) {
         f.struct = Tab.intType;
@@ -766,69 +774,44 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
 
     }
-    
-    public void visit(TermRestEmpty tr) {
-        tr.struct = Tab.noType; // oznaka "nema nastavka"
+    //Term
+    //Term ::= (TermFactor) Factor
+    //       | (TermMul) Term Mulop Factor ;
+    public void visit(TermFactor t) {
+        t.struct = t.getFactor().struct;
     }
 
-    public void visit(TermRestYes tr) {
-        // Mulop Factor TermRest
-        if (tr.getFactor().struct != Tab.intType) {
-            report_error("Factor u mnozenju/deljenju/mod mora biti int.", tr);
-        }
-        if (tr.getTermRest().struct != Tab.noType && tr.getTermRest().struct != Tab.intType) {
-            report_error("TermRest u mnozenju/deljenju/mod mora biti int.", tr);
-        }
-        tr.struct = Tab.intType;
-    }
+    public void visit(TermMul t) {
+        Struct left = t.getTerm().struct;
+        Struct right = t.getFactor().struct;
 
-    public void visit(Term t) {
-        // Factor TermRest
-        if (t.getTermRest().struct == Tab.noType) {
-            t.struct = t.getFactor().struct;   // samo Factor
+        if (left != Tab.intType || right != Tab.intType) {
+            report_error("Operatori *, / i % rade samo nad int operandima.", t);
+            t.struct = Tab.noType;
         } else {
-            // ima * / % lanac - mora int
-            if (t.getFactor().struct != Tab.intType) {
-                report_error("Levi operand u * / % mora biti int.", t);
-            }
             t.struct = Tab.intType;
         }
     }
-    
-    public void visit(ExprRestEmpty er) {
-        er.struct = Tab.noType; // "nema nastavka"
+
+    //SimpleExpr ::= (SimpleExprTerm) Term
+    //             | (SimpleExprAdd) SimpleExpr Addop Term ;
+    public void visit(SimpleExprTerm s) {
+        s.struct = s.getTerm().struct;
     }
 
-    public void visit(ExprRestYes er) {
-        // Addop Term ExprRest
-        if (er.getTerm().struct != Tab.intType) {
-            report_error("Term u sabiranju/oduzimanju mora biti int.", er);
-        }
-        if (er.getExprRest().struct != Tab.noType && er.getExprRest().struct != Tab.intType) {
-            report_error("ExprRest u sabiranju/oduzimanju mora biti int.", er);
-        }
-        er.struct = Tab.intType;
-    }
+    public void visit(SimpleExprAdd s) {
+        Struct left = s.getSimpleExpr().struct;
+        Struct right = s.getTerm().struct;
 
-    //SimpleExpr ::= (SimpleExpr) MinusOpt Term ExprRest ;
-    public void visit(SimpleExpr se) {
-    	boolean hasMinus = se.getMinusOpt() instanceof MinusOptYes;
-
-        if (hasMinus && se.getTerm().struct != Tab.intType) {
-            report_error("Unary minus je dozvoljen samo nad int.", se);
-        }
-
-        if (se.getExprRest().struct == Tab.noType) {
-            // nema +/-
-            se.struct = se.getTerm().struct;
+        if (left != Tab.intType || right != Tab.intType) {
+            report_error("Operatori + i - rade samo nad int operandima.", s);
+            s.struct = Tab.noType;
         } else {
-            // ima +/-
-            if (se.getTerm().struct != Tab.intType) {
-                report_error("Levi operand u + ili - mora biti int.", se);
-            }
-            se.struct = Tab.intType;
+            s.struct = Tab.intType;
         }
     }
+    
+
 
     public void visit(CondFactRestEmpty cfr) {
         cfr.struct = Tab.noType; // nema relacije

@@ -129,7 +129,6 @@ nonterminal
 			ActParsOpt ActParsOpt;
 nonterminal ActPars ActPars;
 nonterminal ExprList ExprList;
-nonterminal MinusOpt MinusOpt;
 nonterminal
 			FactorRest FactorRest;
 nonterminal DesignatorRestMultiple DesignatorRestMultiple;
@@ -145,7 +144,7 @@ nonterminal TernaryColon TernaryColon;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, ReturnType, MethodTypeName; 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, ConstItem, SimpleExpr,
-    ExprRest, TermRest, Condition, CondTerm, CondFact, OrCondTermMultiple, AndCondFactMultiple, CondFactRest;
+    Condition, CondTerm, CondFact, OrCondTermMultiple, AndCondFactMultiple, CondFactRest;
 
 //start with Program ;
 precedence left ELSE ;
@@ -324,28 +323,22 @@ CondFactRest ::= (CondFactRestRel) Relop:R1 SimpleExpr:S2 {: RESULT=new CondFact
 
 Expr ::= (ExprSimple) SimpleExpr:S1 {: RESULT=new ExprSimple(S1); RESULT.setLine(S1left); :}
        | (ExprTernary) CondFact:C1 QUESTION Expr:E2 TernaryColon:T3 Expr:E4 {: RESULT=new ExprTernary(C1, E2, T3, E4); RESULT.setLine(C1left); :} ;
-       
-TernaryColon ::= (TernaryColon) COLON {: RESULT=new TernaryColon(); :} ;
 
-SimpleExpr ::= (SimpleExpr) MinusOpt:M1 Term:T2 ExprRest:E3 {: RESULT=new SimpleExpr(M1, T2, E3); RESULT.setLine(M1left); :} ;
+SimpleExpr ::= (SimpleExprTerm) Term:T1 {: RESULT=new SimpleExprTerm(T1); RESULT.setLine(T1left); :}
+             | (SimpleExprAdd) SimpleExpr:S1 Addop:A2 Term:T3 {: RESULT=new SimpleExprAdd(S1, A2, T3); RESULT.setLine(S1left); :} ;
 
-MinusOpt ::= (MinusOptYes) MINUS {: RESULT=new MinusOptYes(); :}
-           | (MinusOptEmpty) {: RESULT=new MinusOptEmpty(); :} /* empty */ ;
+Term ::= (TermFactor) Factor:F1 {: RESULT=new TermFactor(F1); RESULT.setLine(F1left); :}
+       | (TermMul) Term:T1 Mulop:M2 Factor:F3 {: RESULT=new TermMul(T1, M2, F3); RESULT.setLine(T1left); :} ;
 
-ExprRest ::= (ExprRestYes) Addop:A1 Term:T2 ExprRest:E3 {: RESULT=new ExprRestYes(A1, T2, E3); RESULT.setLine(A1left); :}
-           | (ExprRestEmpty) {: RESULT=new ExprRestEmpty(); :} /* empty */ ;
-
-Term ::= (Term) Factor:F1 TermRest:T2 {: RESULT=new Term(F1, T2); RESULT.setLine(F1left); :} ;
-
-TermRest ::= (TermRestYes) Mulop:M1 Factor:F2 TermRest:T3 {: RESULT=new TermRestYes(M1, F2, T3); RESULT.setLine(M1left); :}
-           | (TermRestEmpty) {: RESULT=new TermRestEmpty(); :} /* empty */ ;
-
-Factor ::= (FactorDesignator) Designator:D1 FactorRest:F2 {: RESULT=new FactorDesignator(D1, F2); RESULT.setLine(D1left); :}
+Factor ::= (FactorMinus) MINUS Factor:F1 {: RESULT=new FactorMinus(F1); RESULT.setLine(F1left); :}
+         | (FactorDesignator) Designator:D1 FactorRest:F2 {: RESULT=new FactorDesignator(D1, F2); RESULT.setLine(D1left); :}
          | (FactorNum) NUMCONST:value {: RESULT=new FactorNum(value); RESULT.setLine(valueleft); :}
          | (FactorChar) CHARCONST:value {: RESULT=new FactorChar(value); RESULT.setLine(valueleft); :}
          | (FactorBool) BOOLCONST:value {: RESULT=new FactorBool(value); RESULT.setLine(valueleft); :}
          | (FactorNewArray) NEW Type:T1 LBRACKET Expr:E2 RBRACKET {: RESULT=new FactorNewArray(T1, E2); RESULT.setLine(T1left); :}
          | (FactorParen) LPAREN Expr:E1 RPAREN {: RESULT=new FactorParen(E1); RESULT.setLine(E1left); :} ;
+       
+TernaryColon ::= (TernaryColon) COLON {: RESULT=new TernaryColon(); :} ;
 
 FactorRest ::= (FactorRestCall) LPAREN ActParsOpt:A1 RPAREN {: RESULT=new FactorRestCall(A1); RESULT.setLine(A1left); :}
              | (FactorRestEmpty) {: RESULT=new FactorRestEmpty(); :} /* empty */ ;

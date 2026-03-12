@@ -1,0 +1,23 @@
+program unaryMinus
+
+const int a=2;
+const int b=3;
+	
+{
+	void main()	
+
+	{
+		print(-5);
+		print(-a);
+		print(a + -b);
+		print(-a + b);
+		print(-a + -b);
+		print(-(-a));
+		print(-(a+b));
+		print(a * -b);
+		print((-a) * (-b));
+		
+	}
+}
+
+

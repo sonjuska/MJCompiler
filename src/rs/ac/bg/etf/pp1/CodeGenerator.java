@@ -218,24 +218,29 @@ public class CodeGenerator extends VisitorAdaptor {
 	}
 	
 	
-	//Term := Factor {Mulop Factor}
-	//Mulop := "*" | "/" | "%"
-	
-	//Term ::= (Term) Factor TermRest ;
-	//TermRest ::= (TermRestYes) Mulop Factor TermRest
-	
-	public void visit(TermRestYes tr) {
-	    Mulop op = tr.getMulop();
-	    if (op instanceof MulopMul){
-	    	Code.put(Code.mul);
-	    }else if (op instanceof MulopDiv){
-	    	Code.put(Code.div);
-	    }else{
-	    	Code.put(Code.rem);
+	// Term ::= Factor
+	public void visit(TermFactor t) {
+	    //vrednost faktora je vec na steku
+	}
+
+	// Term ::= Term Mulop Factor
+	public void visit(TermMul t) {
+	    Mulop op = t.getMulop();
+
+	    if (op instanceof MulopMul) {
+	        Code.put(Code.mul);
+	    } else if (op instanceof MulopDiv) {
+	        Code.put(Code.div);
+	    } else {
+	        Code.put(Code.rem);
 	    }
 	}
 	
-	//Factor := Factor := numConst | charConst | "(" Expr ")" | boolConst | Designator |"new" Type "[" Expr "]"
+	//Factor := -Factor |numConst | charConst | "(" Expr ")" | boolConst | Designator |"new" Type "[" Expr "]"
+	
+	public void visit(FactorMinus f) {
+	    Code.put(Code.neg);
+	}
 	public void visit(FactorNum fn) {
 		Code.loadConst(fn.getValue());
 	}
@@ -307,23 +312,20 @@ public class CodeGenerator extends VisitorAdaptor {
 	    }
 	}
 	
-	//Expr ::= [-] Term {Addop Term}
-	//Addop := "+" | "-"
+	// Expr ::= SimpleExpr | CondFact ? Expr : Expr
+	// SimpleExpr ::= Term | SimpleExpr Addop Term
+	// Term ::= Factor | Term Mulop Factor
+	// Factor ::= -Factor | Designator [ (ActParsOpt) ] | numConst | charConst | boolConst | new Type[Expr] | (Expr)
 	
-	//SimpleExpr ::= (SimpleExpr) MinusOpt Term ExprRest ;
-	//MinusOpt ::= (MinusOptYes) MINUS
-	//ExprRest ::= (ExprRestYes) Addop Term ExprRest
-	
-	public void visit(SimpleExpr se) {
-	    if (se.getMinusOpt() instanceof MinusOptYes) {
-	        Code.put(Code.neg);
-	    }
+	public void visit(SimpleExprTerm s) {
+	    //vrednost terma je vec na steku
 	}
-	
-	public void visit(ExprRestYes er) {
 
-	    Addop op = er.getAddop();
-	    if (op instanceof AddopPlus) {    
+	// SimpleExpr ::= SimpleExpr Addop Term
+	public void visit(SimpleExprAdd s) {
+	    Addop op = s.getAddop();
+
+	    if (op instanceof AddopPlus) {
 	        Code.put(Code.add);
 	    } else {
 	        Code.put(Code.sub);

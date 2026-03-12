@@ -1,0 +1,561 @@
+INFO  18:49:50,971 - Compiling source file: C:\Users\SBM\Desktop\FAKULTET\7. semestar\PP1\pp1lab.templateAST\workspace\MJCompiler\test\UnaryMinus.mj
+INFO  18:49:51,002 - #2 program
+INFO  18:49:51,002 - #49 unaryMinus
+INFO  18:49:51,002 - #8 const
+INFO  18:49:51,002 - #49 int
+INFO  18:49:51,002 - #49 a
+INFO  18:49:51,004 - #34 =
+INFO  18:49:51,004 - #50 2
+INFO  18:49:51,004 - #39 ;
+INFO  18:49:51,004 - #8 const
+INFO  18:49:51,005 - #49 int
+INFO  18:49:51,005 - #49 b
+INFO  18:49:51,005 - #34 =
+INFO  18:49:51,005 - #50 3
+INFO  18:49:51,005 - #39 ;
+INFO  18:49:51,005 - #46 {
+INFO  18:49:51,007 - #14 void
+INFO  18:49:51,007 - #49 main
+INFO  18:49:51,007 - #42 (
+INFO  18:49:51,007 - #43 )
+INFO  18:49:51,009 - #46 {
+INFO  18:49:51,010 - #11 print
+INFO  18:49:51,010 - #42 (
+INFO  18:49:51,010 - #22 -
+INFO  18:49:51,010 - #50 5
+INFO  18:49:51,011 - #43 )
+INFO  18:49:51,013 - #39 ;
+INFO  18:49:51,013 - #11 print
+INFO  18:49:51,013 - #42 (
+INFO  18:49:51,013 - #22 -
+INFO  18:49:51,013 - #49 a
+INFO  18:49:51,013 - #43 )
+INFO  18:49:51,015 - #39 ;
+INFO  18:49:51,015 - #11 print
+INFO  18:49:51,015 - #42 (
+INFO  18:49:51,015 - #49 a
+INFO  18:49:51,015 - #21 +
+INFO  18:49:51,015 - #22 -
+INFO  18:49:51,016 - #49 b
+INFO  18:49:51,016 - #43 )
+INFO  18:49:51,016 - #39 ;
+INFO  18:49:51,016 - #11 print
+INFO  18:49:51,016 - #42 (
+INFO  18:49:51,016 - #22 -
+INFO  18:49:51,016 - #49 a
+INFO  18:49:51,017 - #21 +
+INFO  18:49:51,017 - #49 b
+INFO  18:49:51,017 - #43 )
+INFO  18:49:51,017 - #39 ;
+INFO  18:49:51,017 - #11 print
+INFO  18:49:51,017 - #42 (
+INFO  18:49:51,017 - #22 -
+INFO  18:49:51,017 - #49 a
+INFO  18:49:51,017 - #21 +
+INFO  18:49:51,017 - #22 -
+INFO  18:49:51,017 - #49 b
+INFO  18:49:51,017 - #43 )
+INFO  18:49:51,017 - #39 ;
+INFO  18:49:51,017 - #11 print
+INFO  18:49:51,017 - #42 (
+INFO  18:49:51,017 - #22 -
+INFO  18:49:51,017 - #42 (
+INFO  18:49:51,017 - #22 -
+INFO  18:49:51,018 - #49 a
+INFO  18:49:51,018 - #43 )
+INFO  18:49:51,018 - #43 )
+INFO  18:49:51,018 - #39 ;
+INFO  18:49:51,018 - #11 print
+INFO  18:49:51,018 - #42 (
+INFO  18:49:51,018 - #22 -
+INFO  18:49:51,018 - #42 (
+INFO  18:49:51,020 - #49 a
+INFO  18:49:51,020 - #21 +
+INFO  18:49:51,020 - #49 b
+INFO  18:49:51,020 - #43 )
+INFO  18:49:51,020 - #43 )
+INFO  18:49:51,020 - #39 ;
+INFO  18:49:51,021 - #11 print
+INFO  18:49:51,021 - #42 (
+INFO  18:49:51,021 - #49 a
+INFO  18:49:51,021 - #23 *
+INFO  18:49:51,021 - #22 -
+INFO  18:49:51,022 - #49 b
+INFO  18:49:51,022 - #43 )
+INFO  18:49:51,022 - #39 ;
+INFO  18:49:51,023 - #11 print
+INFO  18:49:51,023 - #42 (
+INFO  18:49:51,023 - #42 (
+INFO  18:49:51,023 - #22 -
+INFO  18:49:51,023 - #49 a
+INFO  18:49:51,023 - #43 )
+INFO  18:49:51,023 - #23 *
+INFO  18:49:51,023 - #42 (
+INFO  18:49:51,023 - #22 -
+INFO  18:49:51,023 - #49 b
+INFO  18:49:51,023 - #43 )
+INFO  18:49:51,023 - #43 )
+INFO  18:49:51,023 - #39 ;
+INFO  18:49:51,023 - #47 }
+INFO  18:49:51,024 - #47 }
+INFO  18:49:51,032 - ProgramDecl(
+  ProgName(
+   unaryMinus
+  ) [ProgName]
+  GlobalDeclListYes(
+    GlobalDeclConst(
+      ConstDecl(
+        TypeIdent(
+         int
+        ) [TypeIdent]
+       a
+        ConstItemNum(
+         2
+        ) [ConstItemNum]
+        ConstDeclListEmpty(
+        ) [ConstDeclListEmpty]
+      ) [ConstDecl]
+    ) [GlobalDeclConst]
+    GlobalDeclListYes(
+      GlobalDeclConst(
+        ConstDecl(
+          TypeIdent(
+           int
+          ) [TypeIdent]
+         b
+          ConstItemNum(
+           3
+          ) [ConstItemNum]
+          ConstDeclListEmpty(
+          ) [ConstDeclListEmpty]
+        ) [ConstDecl]
+      ) [GlobalDeclConst]
+      GlobalDeclListEmpty(
+      ) [GlobalDeclListEmpty]
+    ) [GlobalDeclListYes]
+  ) [GlobalDeclListYes]
+  MethodDeclListYes(
+    MethodDecl(
+      MethodTypeName(
+        ReturnTypeVoid(
+        ) [ReturnTypeVoid]
+       main
+      ) [MethodTypeName]
+      FormParsOptEmpty(
+      ) [FormParsOptEmpty]
+      VarDeclMultipleEmpty(
+      ) [VarDeclMultipleEmpty]
+      StatementMultipleYes(
+        StmtPrint(
+          ExprSimple(
+            SimpleExpr(
+              Term(
+                FactorMinus(
+                  FactorNum(
+                   5
+                  ) [FactorNum]
+                ) [FactorMinus]
+                TermRestEmpty(
+                ) [TermRestEmpty]
+              ) [Term]
+              ExprRestEmpty(
+              ) [ExprRestEmpty]
+            ) [SimpleExpr]
+          ) [ExprSimple]
+          CommaNumConstOptEmpty(
+          ) [CommaNumConstOptEmpty]
+        ) [StmtPrint]
+        StatementMultipleYes(
+          StmtPrint(
+            ExprSimple(
+              SimpleExpr(
+                Term(
+                  FactorMinus(
+                    FactorDesignator(
+                      Designator(
+                       a
+                        DesignatorRestMultipleEmpty(
+                        ) [DesignatorRestMultipleEmpty]
+                      ) [Designator]
+                      FactorRestEmpty(
+                      ) [FactorRestEmpty]
+                    ) [FactorDesignator]
+                  ) [FactorMinus]
+                  TermRestEmpty(
+                  ) [TermRestEmpty]
+                ) [Term]
+                ExprRestEmpty(
+                ) [ExprRestEmpty]
+              ) [SimpleExpr]
+            ) [ExprSimple]
+            CommaNumConstOptEmpty(
+            ) [CommaNumConstOptEmpty]
+          ) [StmtPrint]
+          StatementMultipleYes(
+            StmtPrint(
+              ExprSimple(
+                SimpleExpr(
+                  Term(
+                    FactorDesignator(
+                      Designator(
+                       a
+                        DesignatorRestMultipleEmpty(
+                        ) [DesignatorRestMultipleEmpty]
+                      ) [Designator]
+                      FactorRestEmpty(
+                      ) [FactorRestEmpty]
+                    ) [FactorDesignator]
+                    TermRestEmpty(
+                    ) [TermRestEmpty]
+                  ) [Term]
+                  ExprRestYes(
+                    AddopPlus(
+                    ) [AddopPlus]
+                    Term(
+                      FactorMinus(
+                        FactorDesignator(
+                          Designator(
+                           b
+                            DesignatorRestMultipleEmpty(
+                            ) [DesignatorRestMultipleEmpty]
+                          ) [Designator]
+                          FactorRestEmpty(
+                          ) [FactorRestEmpty]
+                        ) [FactorDesignator]
+                      ) [FactorMinus]
+                      TermRestEmpty(
+                      ) [TermRestEmpty]
+                    ) [Term]
+                    ExprRestEmpty(
+                    ) [ExprRestEmpty]
+                  ) [ExprRestYes]
+                ) [SimpleExpr]
+              ) [ExprSimple]
+              CommaNumConstOptEmpty(
+              ) [CommaNumConstOptEmpty]
+            ) [StmtPrint]
+            StatementMultipleYes(
+              StmtPrint(
+                ExprSimple(
+                  SimpleExpr(
+                    Term(
+                      FactorMinus(
+                        FactorDesignator(
+                          Designator(
+                           a
+                            DesignatorRestMultipleEmpty(
+                            ) [DesignatorRestMultipleEmpty]
+                          ) [Designator]
+                          FactorRestEmpty(
+                          ) [FactorRestEmpty]
+                        ) [FactorDesignator]
+                      ) [FactorMinus]
+                      TermRestEmpty(
+                      ) [TermRestEmpty]
+                    ) [Term]
+                    ExprRestYes(
+                      AddopPlus(
+                      ) [AddopPlus]
+                      Term(
+                        FactorDesignator(
+                          Designator(
+                           b
+                            DesignatorRestMultipleEmpty(
+                            ) [DesignatorRestMultipleEmpty]
+                          ) [Designator]
+                          FactorRestEmpty(
+                          ) [FactorRestEmpty]
+                        ) [FactorDesignator]
+                        TermRestEmpty(
+                        ) [TermRestEmpty]
+                      ) [Term]
+                      ExprRestEmpty(
+                      ) [ExprRestEmpty]
+                    ) [ExprRestYes]
+                  ) [SimpleExpr]
+                ) [ExprSimple]
+                CommaNumConstOptEmpty(
+                ) [CommaNumConstOptEmpty]
+              ) [StmtPrint]
+              StatementMultipleYes(
+                StmtPrint(
+                  ExprSimple(
+                    SimpleExpr(
+                      Term(
+                        FactorMinus(
+                          FactorDesignator(
+                            Designator(
+                             a
+                              DesignatorRestMultipleEmpty(
+                              ) [DesignatorRestMultipleEmpty]
+                            ) [Designator]
+                            FactorRestEmpty(
+                            ) [FactorRestEmpty]
+                          ) [FactorDesignator]
+                        ) [FactorMinus]
+                        TermRestEmpty(
+                        ) [TermRestEmpty]
+                      ) [Term]
+                      ExprRestYes(
+                        AddopPlus(
+                        ) [AddopPlus]
+                        Term(
+                          FactorMinus(
+                            FactorDesignator(
+                              Designator(
+                               b
+                                DesignatorRestMultipleEmpty(
+                                ) [DesignatorRestMultipleEmpty]
+                              ) [Designator]
+                              FactorRestEmpty(
+                              ) [FactorRestEmpty]
+                            ) [FactorDesignator]
+                          ) [FactorMinus]
+                          TermRestEmpty(
+                          ) [TermRestEmpty]
+                        ) [Term]
+                        ExprRestEmpty(
+                        ) [ExprRestEmpty]
+                      ) [ExprRestYes]
+                    ) [SimpleExpr]
+                  ) [ExprSimple]
+                  CommaNumConstOptEmpty(
+                  ) [CommaNumConstOptEmpty]
+                ) [StmtPrint]
+                StatementMultipleYes(
+                  StmtPrint(
+                    ExprSimple(
+                      SimpleExpr(
+                        Term(
+                          FactorMinus(
+                            FactorParen(
+                              ExprSimple(
+                                SimpleExpr(
+                                  Term(
+                                    FactorMinus(
+                                      FactorDesignator(
+                                        Designator(
+                                         a
+                                          DesignatorRestMultipleEmpty(
+                                          ) [DesignatorRestMultipleEmpty]
+                                        ) [Designator]
+                                        FactorRestEmpty(
+                                        ) [FactorRestEmpty]
+                                      ) [FactorDesignator]
+                                    ) [FactorMinus]
+                                    TermRestEmpty(
+                                    ) [TermRestEmpty]
+                                  ) [Term]
+                                  ExprRestEmpty(
+                                  ) [ExprRestEmpty]
+                                ) [SimpleExpr]
+                              ) [ExprSimple]
+                            ) [FactorParen]
+                          ) [FactorMinus]
+                          TermRestEmpty(
+                          ) [TermRestEmpty]
+                        ) [Term]
+                        ExprRestEmpty(
+                        ) [ExprRestEmpty]
+                      ) [SimpleExpr]
+                    ) [ExprSimple]
+                    CommaNumConstOptEmpty(
+                    ) [CommaNumConstOptEmpty]
+                  ) [StmtPrint]
+                  StatementMultipleYes(
+                    StmtPrint(
+                      ExprSimple(
+                        SimpleExpr(
+                          Term(
+                            FactorMinus(
+                              FactorParen(
+                                ExprSimple(
+                                  SimpleExpr(
+                                    Term(
+                                      FactorDesignator(
+                                        Designator(
+                                         a
+                                          DesignatorRestMultipleEmpty(
+                                          ) [DesignatorRestMultipleEmpty]
+                                        ) [Designator]
+                                        FactorRestEmpty(
+                                        ) [FactorRestEmpty]
+                                      ) [FactorDesignator]
+                                      TermRestEmpty(
+                                      ) [TermRestEmpty]
+                                    ) [Term]
+                                    ExprRestYes(
+                                      AddopPlus(
+                                      ) [AddopPlus]
+                                      Term(
+                                        FactorDesignator(
+                                          Designator(
+                                           b
+                                            DesignatorRestMultipleEmpty(
+                                            ) [DesignatorRestMultipleEmpty]
+                                          ) [Designator]
+                                          FactorRestEmpty(
+                                          ) [FactorRestEmpty]
+                                        ) [FactorDesignator]
+                                        TermRestEmpty(
+                                        ) [TermRestEmpty]
+                                      ) [Term]
+                                      ExprRestEmpty(
+                                      ) [ExprRestEmpty]
+                                    ) [ExprRestYes]
+                                  ) [SimpleExpr]
+                                ) [ExprSimple]
+                              ) [FactorParen]
+                            ) [FactorMinus]
+                            TermRestEmpty(
+                            ) [TermRestEmpty]
+                          ) [Term]
+                          ExprRestEmpty(
+                          ) [ExprRestEmpty]
+                        ) [SimpleExpr]
+                      ) [ExprSimple]
+                      CommaNumConstOptEmpty(
+                      ) [CommaNumConstOptEmpty]
+                    ) [StmtPrint]
+                    StatementMultipleYes(
+                      StmtPrint(
+                        ExprSimple(
+                          SimpleExpr(
+                            Term(
+                              FactorDesignator(
+                                Designator(
+                                 a
+                                  DesignatorRestMultipleEmpty(
+                                  ) [DesignatorRestMultipleEmpty]
+                                ) [Designator]
+                                FactorRestEmpty(
+                                ) [FactorRestEmpty]
+                              ) [FactorDesignator]
+                              TermRestYes(
+                                MulopMul(
+                                ) [MulopMul]
+                                FactorMinus(
+                                  FactorDesignator(
+                                    Designator(
+                                     b
+                                      DesignatorRestMultipleEmpty(
+                                      ) [DesignatorRestMultipleEmpty]
+                                    ) [Designator]
+                                    FactorRestEmpty(
+                                    ) [FactorRestEmpty]
+                                  ) [FactorDesignator]
+                                ) [FactorMinus]
+                                TermRestEmpty(
+                                ) [TermRestEmpty]
+                              ) [TermRestYes]
+                            ) [Term]
+                            ExprRestEmpty(
+                            ) [ExprRestEmpty]
+                          ) [SimpleExpr]
+                        ) [ExprSimple]
+                        CommaNumConstOptEmpty(
+                        ) [CommaNumConstOptEmpty]
+                      ) [StmtPrint]
+                      StatementMultipleYes(
+                        StmtPrint(
+                          ExprSimple(
+                            SimpleExpr(
+                              Term(
+                                FactorParen(
+                                  ExprSimple(
+                                    SimpleExpr(
+                                      Term(
+                                        FactorMinus(
+                                          FactorDesignator(
+                                            Designator(
+                                             a
+                                              DesignatorRestMultipleEmpty(
+                                              ) [DesignatorRestMultipleEmpty]
+                                            ) [Designator]
+                                            FactorRestEmpty(
+                                            ) [FactorRestEmpty]
+                                          ) [FactorDesignator]
+                                        ) [FactorMinus]
+                                        TermRestEmpty(
+                                        ) [TermRestEmpty]
+                                      ) [Term]
+                                      ExprRestEmpty(
+                                      ) [ExprRestEmpty]
+                                    ) [SimpleExpr]
+                                  ) [ExprSimple]
+                                ) [FactorParen]
+                                TermRestYes(
+                                  MulopMul(
+                                  ) [MulopMul]
+                                  FactorParen(
+                                    ExprSimple(
+                                      SimpleExpr(
+                                        Term(
+                                          FactorMinus(
+                                            FactorDesignator(
+                                              Designator(
+                                               b
+                                                DesignatorRestMultipleEmpty(
+                                                ) [DesignatorRestMultipleEmpty]
+                                              ) [Designator]
+                                              FactorRestEmpty(
+                                              ) [FactorRestEmpty]
+                                            ) [FactorDesignator]
+                                          ) [FactorMinus]
+                                          TermRestEmpty(
+                                          ) [TermRestEmpty]
+                                        ) [Term]
+                                        ExprRestEmpty(
+                                        ) [ExprRestEmpty]
+                                      ) [SimpleExpr]
+                                    ) [ExprSimple]
+                                  ) [FactorParen]
+                                  TermRestEmpty(
+                                  ) [TermRestEmpty]
+                                ) [TermRestYes]
+                              ) [Term]
+                              ExprRestEmpty(
+                              ) [ExprRestEmpty]
+                            ) [SimpleExpr]
+                          ) [ExprSimple]
+                          CommaNumConstOptEmpty(
+                          ) [CommaNumConstOptEmpty]
+                        ) [StmtPrint]
+                        StatementMultipleEmpty(
+                        ) [StatementMultipleEmpty]
+                      ) [StatementMultipleYes]
+                    ) [StatementMultipleYes]
+                  ) [StatementMultipleYes]
+                ) [StatementMultipleYes]
+              ) [StatementMultipleYes]
+            ) [StatementMultipleYes]
+          ) [StatementMultipleYes]
+        ) [StatementMultipleYes]
+      ) [StatementMultipleYes]
+    ) [MethodDecl]
+    MethodDeclListEmpty(
+    ) [MethodDeclListEmpty]
+  ) [MethodDeclListYes]
+) [ProgramDecl]
+INFO  18:49:51,033 - ===================================
+INFO  18:49:51,036 - Deklarisano: konstanta 'a' : int na liniji 3
+INFO  18:49:51,036 - Deklarisano: konstanta 'b' : int na liniji 4
+INFO  18:49:51,036 - Koriscenje konstante 'a' na liniji 11
+INFO  18:49:51,036 - Koriscenje konstante 'a' na liniji 12
+INFO  18:49:51,036 - Koriscenje konstante 'b' na liniji 12
+INFO  18:49:51,036 - Koriscenje konstante 'a' na liniji 13
+INFO  18:49:51,036 - Koriscenje konstante 'b' na liniji 13
+INFO  18:49:51,036 - Koriscenje konstante 'a' na liniji 14
+INFO  18:49:51,036 - Koriscenje konstante 'b' na liniji 14
+INFO  18:49:51,036 - Koriscenje konstante 'a' na liniji 15
+INFO  18:49:51,036 - Koriscenje konstante 'a' na liniji 16
+INFO  18:49:51,036 - Koriscenje konstante 'b' na liniji 16
+INFO  18:49:51,037 - Koriscenje konstante 'a' na liniji 17
+INFO  18:49:51,037 - Koriscenje konstante 'b' na liniji 17
+INFO  18:49:51,037 - Koriscenje konstante 'a' na liniji 18
+INFO  18:49:51,037 - Koriscenje konstante 'b' na liniji 18
+INFO  18:49:51,037 -  Print count calls = 9
+INFO  18:49:51,037 -  Deklarisanih promenljivih ima = 0
+INFO  18:49:51,037 - ===================================
+INFO  18:49:51,038 - Generating bytecode file: C:\Users\SBM\Desktop\FAKULTET\7. semestar\PP1\pp1lab.templateAST\workspace\MJCompiler\test\UnaryMinus.obj
+INFO  18:49:51,040 - Parsiranje uspesno zavrseno!

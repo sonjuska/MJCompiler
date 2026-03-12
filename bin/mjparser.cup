@@ -95,13 +95,13 @@ nonterminal GlobalDeclList, GlobalDecl, MethodDeclList,
 			FormParsList, Statement, ElseStatementOpt, ExprOpt,
 			CommaNumConstOpt, CaseMultiple, DesignatorStatementOpt,
 			ConditionOpt, DesignatorStatement, DesignatorStatementRest,
-			ActParsOpt, ActPars, ExprList, MinusOpt,
+			ActParsOpt, ActPars, ExprList,
 			FactorRest, DesignatorRestMultiple, IdentLength,
 			Assignop, Relop, Addop, Mulop, VarDeclTail, EnumName, TernaryColon;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, ProgName, Designator, MethodDecl, ReturnType, MethodTypeName; 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Term, Expr, Factor, VarDeclList, ConstItem, SimpleExpr,
-    ExprRest, TermRest, Condition, CondTerm, CondFact, OrCondTermMultiple, AndCondFactMultiple, CondFactRest;
+    Condition, CondTerm, CondFact, OrCondTermMultiple, AndCondFactMultiple, CondFactRest;
 
 //start with Program ;
 precedence left ELSE ;
@@ -280,28 +280,22 @@ CondFactRest ::= (CondFactRestRel) Relop SimpleExpr
 
 Expr ::= (ExprSimple) SimpleExpr
        | (ExprTernary) CondFact QUESTION Expr TernaryColon Expr ;
-       
-TernaryColon ::= (TernaryColon) COLON ;
 
-SimpleExpr ::= (SimpleExpr) MinusOpt Term ExprRest ;
+SimpleExpr ::= (SimpleExprTerm) Term
+             | (SimpleExprAdd) SimpleExpr Addop Term ;
 
-MinusOpt ::= (MinusOptYes) MINUS
-           | (MinusOptEmpty) /* empty */ ;
+Term ::= (TermFactor) Factor
+       | (TermMul) Term Mulop Factor ;
 
-ExprRest ::= (ExprRestYes) Addop Term ExprRest
-           | (ExprRestEmpty) /* empty */ ;
-
-Term ::= (Term) Factor TermRest ;
-
-TermRest ::= (TermRestYes) Mulop Factor TermRest
-           | (TermRestEmpty) /* empty */ ;
-
-Factor ::= (FactorDesignator) Designator FactorRest
+Factor ::= (FactorMinus) MINUS Factor
+         | (FactorDesignator) Designator FactorRest
          | (FactorNum) NUMCONST:value
          | (FactorChar) CHARCONST:value
          | (FactorBool) BOOLCONST:value
          | (FactorNewArray) NEW Type LBRACKET Expr RBRACKET
          | (FactorParen) LPAREN Expr RPAREN ;
+       
+TernaryColon ::= (TernaryColon) COLON ;
 
 FactorRest ::= (FactorRestCall) LPAREN ActParsOpt RPAREN
              | (FactorRestEmpty) /* empty */ ;

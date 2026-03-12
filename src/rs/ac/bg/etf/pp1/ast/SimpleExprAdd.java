@@ -1,23 +1,31 @@
 // generated with ast extension for cup
 // version 0.8
-// 11/2/2026 17:40:25
+// 12/2/2026 19:16:31
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class ExprRestYes extends ExprRest {
+public class SimpleExprAdd extends SimpleExpr {
 
+    private SimpleExpr SimpleExpr;
     private Addop Addop;
     private Term Term;
-    private ExprRest ExprRest;
 
-    public ExprRestYes (Addop Addop, Term Term, ExprRest ExprRest) {
+    public SimpleExprAdd (SimpleExpr SimpleExpr, Addop Addop, Term Term) {
+        this.SimpleExpr=SimpleExpr;
+        if(SimpleExpr!=null) SimpleExpr.setParent(this);
         this.Addop=Addop;
         if(Addop!=null) Addop.setParent(this);
         this.Term=Term;
         if(Term!=null) Term.setParent(this);
-        this.ExprRest=ExprRest;
-        if(ExprRest!=null) ExprRest.setParent(this);
+    }
+
+    public SimpleExpr getSimpleExpr() {
+        return SimpleExpr;
+    }
+
+    public void setSimpleExpr(SimpleExpr SimpleExpr) {
+        this.SimpleExpr=SimpleExpr;
     }
 
     public Addop getAddop() {
@@ -36,42 +44,40 @@ public class ExprRestYes extends ExprRest {
         this.Term=Term;
     }
 
-    public ExprRest getExprRest() {
-        return ExprRest;
-    }
-
-    public void setExprRest(ExprRest ExprRest) {
-        this.ExprRest=ExprRest;
-    }
-
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
 
     public void childrenAccept(Visitor visitor) {
+        if(SimpleExpr!=null) SimpleExpr.accept(visitor);
         if(Addop!=null) Addop.accept(visitor);
         if(Term!=null) Term.accept(visitor);
-        if(ExprRest!=null) ExprRest.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
+        if(SimpleExpr!=null) SimpleExpr.traverseTopDown(visitor);
         if(Addop!=null) Addop.traverseTopDown(visitor);
         if(Term!=null) Term.traverseTopDown(visitor);
-        if(ExprRest!=null) ExprRest.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
+        if(SimpleExpr!=null) SimpleExpr.traverseBottomUp(visitor);
         if(Addop!=null) Addop.traverseBottomUp(visitor);
         if(Term!=null) Term.traverseBottomUp(visitor);
-        if(ExprRest!=null) ExprRest.traverseBottomUp(visitor);
         accept(visitor);
     }
 
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("ExprRestYes(\n");
+        buffer.append("SimpleExprAdd(\n");
+
+        if(SimpleExpr!=null)
+            buffer.append(SimpleExpr.toString("  "+tab));
+        else
+            buffer.append(tab+"  null");
+        buffer.append("\n");
 
         if(Addop!=null)
             buffer.append(Addop.toString("  "+tab));
@@ -85,14 +91,8 @@ public class ExprRestYes extends ExprRest {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(ExprRest!=null)
-            buffer.append(ExprRest.toString("  "+tab));
-        else
-            buffer.append(tab+"  null");
-        buffer.append("\n");
-
         buffer.append(tab);
-        buffer.append(") [ExprRestYes]");
+        buffer.append(") [SimpleExprAdd]");
         return buffer.toString();
     }
 }
